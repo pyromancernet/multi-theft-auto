@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+# Change to repository root directory
+cd "$(dirname "$0")/.."
+
 # Set variable defaults
 : ${BUILD_CONFIG:=release}
 : ${PREMAKE_FILE:=premake5.lua}
@@ -7,7 +10,7 @@
 if [ "$(uname)" == "Darwin" ]; then
     cores=$(sysctl -n hw.ncpu)
     : ${NUM_CORES:=$cores}
-    : ${PREMAKE5:=utils/premake5-macos}
+    : ${PREMAKE5:=Utils/premake5-macos}
     : ${BUILD_OS:=macosx}
     : ${BUILD_ARCHITECTURE:=arm64}
     : ${AR:=ar}
@@ -16,7 +19,7 @@ if [ "$(uname)" == "Darwin" ]; then
 else
     cores=$(grep -c ^processor /proc/cpuinfo)
     : ${NUM_CORES:=$cores}
-    : ${PREMAKE5:=utils/premake5}
+    : ${PREMAKE5:=Utils/premake5}
     : ${BUILD_OS:=linux}
     : ${BUILD_ARCHITECTURE:=x64}
     : ${AR:=ar}

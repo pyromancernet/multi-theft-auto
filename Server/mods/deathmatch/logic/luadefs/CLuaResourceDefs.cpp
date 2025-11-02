@@ -12,7 +12,7 @@
 #include "StdInc.h"
 #include "CLuaResourceDefs.h"
 #include "lua/CLuaShared.h"
-#include "../utils/CFunctionUseLogger.h"
+#include "../Utils/CFunctionUseLogger.h"
 #include "CAclRightName.h"
 #include "CStaticFunctionDefinitions.h"
 #include "CScriptArgReader.h"

@@ -5,7 +5,7 @@ project "Client Core"
 	targetdir(buildpath("mta"))
 
 	filter "system:windows"
-		includedirs { "../../vendor/sparsehash/src/windows" }
+		includedirs { "../../Vendor/sparsehash/src/windows" }
 		buildoptions { "-Zm130" }
 
 	filter {}
@@ -13,14 +13,14 @@ project "Client Core"
 			"../../Shared/sdk",
 			".",
 			"../sdk",
-			"../../vendor/cegui-0.4.0-custom/include",
-			"../../vendor/tinygettext",
-			"../../vendor/zlib",
-			"../../vendor/jpeg-9f",
-			"../../vendor/pthreads/include",
-			"../../vendor/sparsehash/src/",
-			"../../vendor/detours/4.0.1/src",
-			"../../vendor/discord-rpc/discord/include",
+			"../../Vendor/cegui-0.4.0-custom/include",
+			"../../Vendor/tinygettext",
+			"../../Vendor/zlib",
+			"../../Vendor/jpeg-9f",
+			"../../Vendor/pthreads/include",
+			"../../Vendor/sparsehash/src/",
+			"../../Vendor/detours/4.0.1/src",
+			"../../Vendor/discord-rpc/discord/include",
 		}
 
 	pchheader "StdInc.h"
@@ -56,7 +56,7 @@ project "Client Core"
 	}
 
 	prebuildcommands {
-		"%[%{!wks.location}/../utils/gen_language_list.exe] %[%{!wks.location}/../Shared/data/MTA San Andreas/MTA/locale] %[languages.generated.h]"
+		"%[%{!wks.location}/../Utils/gen_language_list.exe] %[%{!wks.location}/../Shared/data/MTA San Andreas/MTA/locale] %[languages.generated.h]"
 	}
 
 	filter "architecture:not x86"

@@ -71,6 +71,6 @@
 #define MBEDTLS_SSL_CIPHERSUITES MBEDTLS_TLS_ECJPAKE_WITH_AES_128_CCM_8
 
 /* These defines are present so that the config modifying scripts can enable
- * them during tests/scripts/test-ref-configs.pl */
+ * them during tests/Prompts/test-ref-configs.pl */
 //#define MBEDTLS_USE_PSA_CRYPTO
 //#define MBEDTLS_PSA_CRYPTO_C

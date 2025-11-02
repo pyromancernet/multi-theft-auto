@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Change to repository root directory
+cd "$(dirname "$0")/.."
+
 if [ -z "$MSBUILDPATH" ]; then
     echo "Could not find MSBuild. Make sure the MSBUILDPATH environment variable points"
     echo "to either MSBuild.exe or a script that handles the invocation of MSBuild.exe."
@@ -35,7 +38,7 @@ echo "  BUILD_CONFIGURATION = $BUILD_CONFIGURATION"
 echo "  BUILD_PLATFORM = $BUILD_PLATFORM"
 
 # Create solution (ignoring pause)
-wine win-create-projects.bat < /dev/null
+wine Prompts/win-create-projects.bat < /dev/null
 echo ""
 
 # Start compiling

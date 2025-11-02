@@ -41,10 +41,10 @@ Prerequisites
 - [Microsoft DirectX SDK](https://wiki.multitheftauto.com/wiki/Compiling_MTASA#Microsoft_DirectX_SDK)
 - [Git for Windows](https://git-scm.com/download/win) (Optional)
 
-1. Execute `win-create-projects.bat`
+1. Execute `Prompts/win-create-projects.bat`
 2. Open `MTASA.sln` in the `Build` directory
 3. Compile
-4. Execute: `win-install-data.bat`
+4. Execute: `Prompts/win-install-data.bat`
 
 Visit the wiki article ["Compiling MTASA"](https://wiki.multitheftauto.com/wiki/Compiling_MTASA) for additional information and error troubleshooting.
 
@@ -54,7 +54,7 @@ You can build the MTA:SA server on GNU/Linux distributions only for x86, x86_64,
 
 **Build dependencies**
 
-*Please always read the utils/docker/Dockerfile for up-to-date build dependencies.*
+*Please always read the Utils/docker/Dockerfile for up-to-date build dependencies.*
 
 - make
 - GNU GCC compiler (version 10 or newer)
@@ -66,8 +66,8 @@ You can build the MTA:SA server on GNU/Linux distributions only for x86, x86_64,
 **Note:** This script always deletes `Build/` and `Bin/` directories and does a clean build.
 
 ```sh
-$ ./linux-build.sh [--arch=x86|x64|arm|arm64] [--config=debug|release] [--cores=<n>]
-$ ./linux-install-data.sh  # optional step
+$ ./Prompts/linux-build.sh [--arch=x86|x64|arm|arm64] [--config=debug|release] [--cores=<n>]
+$ ./Prompts/linux-install-data.sh  # optional step
 ```
 
 If build architecture `--arch` is not provided, then it's taken from the environment variable `BUILD_ARCHITECTURE` (defaults to: x64).
@@ -76,14 +76,14 @@ If build configuration `--config` is not provided, then it's taken from the envi
 
 If the number of jobs `--cores` is not provided, then the build will default to the amount of CPU cores.
 
-If you are trying to **cross-compile** to another architecture, then set `AR`, `CC`, `CXX`, `GCC_PREFIX` environment variables accordingly (see `utils/docker/Dockerfile` for an example).
+If you are trying to **cross-compile** to another architecture, then set `AR`, `CC`, `CXX`, `GCC_PREFIX` environment variables accordingly (see `Utils/docker/Dockerfile` for an example).
 
 **Build instructions: Manual**
 
 ```sh
-$ ./utils/premake5 gmake
+$ ./Utils/premake5 gmake
 $ make -C Build/ config=release_x64 all
-$ ./linux-install-data.sh  # optional step
+$ ./Prompts/linux-install-data.sh  # optional step
 ```
 
 If you don't want to build the release configuration for the x86_64 architecture, you can instead pick another build configuration from: `{debug|release}_{x86|x64|arm|arm64}`.
@@ -120,7 +120,7 @@ docker run --rm -v `pwd`:/build ghcr.io/multitheftauto/mtasa-blue-build:latest -
 
 #### How to add new C++ source files?
 
-Execute `win-create-projects.bat`
+Execute `Prompts/win-create-projects.bat`
 
 ## License
 

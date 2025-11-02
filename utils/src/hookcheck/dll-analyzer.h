@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        utils/src/hookcheck/dll-analyzer.h
+ *  FILE:        Utils/src/hookcheck/dll-analyzer.h
  *  PURPOSE:     Header for a class that can extract both the PDB file path
  *               and the value of the __LOCAL_SIZE assignment from our special
  *               macro.

@@ -165,7 +165,7 @@ def main():
                         dest='presets',
                         help="""Presets to test (default: guessed from --help).""")
     parser.add_argument('-s', metavar='FILE',
-                        dest='script', default='scripts/config.py',
+                        dest='script', default='Prompts/config.py',
                         help="""Configuration script (default: %(default)s).""")
     options = parser.parse_args()
     prepare_directory(options.output_directory)

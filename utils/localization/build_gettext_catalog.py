@@ -2,7 +2,7 @@
 #
 #  PROJECT:     Multi Theft Auto
 #  LICENSE:     See LICENSE in the top level directory
-#  FILE:        utils/localization/build_gettext_catalog.py
+#  FILE:        Utils/localization/build_gettext_catalog.py
 #  PURPOSE:     Create a template .pot file from .cpp and .h project files for client and server
 #  DEVELOPERS:  Dan Chowdhury <>
 #
@@ -93,7 +93,7 @@ if __name__ == "__main__":
         "-e",
         "--exe",
         help="xgettext executable location",
-        default=("utils/xgettext.exe" if os.name == "nt" else "xgettext")
+        default=("Utils/xgettext.exe" if os.name == "nt" else "xgettext")
     )
     parser.add_argument(
         "-o",

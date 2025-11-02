@@ -38,7 +38,7 @@ OBJS = png.o pngerror.o pngget.o pngmem.o pngpread.o \
 
 all: $(LIBNAME).a pngtest
 
-include scripts/pnglibconf.mak
+include Prompts/pnglibconf.mak
 REMOVE = $(RM_F)
 DFNFLAGS = $(DEFS) $(CPPFLAGS)
 

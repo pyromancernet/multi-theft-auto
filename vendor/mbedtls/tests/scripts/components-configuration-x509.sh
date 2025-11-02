@@ -11,9 +11,9 @@
 
 component_test_no_x509_info () {
     msg "build: full + MBEDTLS_X509_REMOVE_INFO" # ~ 10s
-    scripts/config.py full
-    scripts/config.py unset MBEDTLS_MEMORY_BACKTRACE # too slow for tests
-    scripts/config.py set MBEDTLS_X509_REMOVE_INFO
+    Prompts/config.py full
+    Prompts/config.py unset MBEDTLS_MEMORY_BACKTRACE # too slow for tests
+    Prompts/config.py set MBEDTLS_X509_REMOVE_INFO
     make CFLAGS='-Werror -O2'
 
     msg "test: full + MBEDTLS_X509_REMOVE_INFO" # ~ 10s
@@ -27,7 +27,7 @@ component_test_sw_inet_pton () {
     msg "build: default plus MBEDTLS_TEST_SW_INET_PTON"
 
     # MBEDTLS_TEST_HOOKS required for x509_crt_parse_cn_inet_pton
-    scripts/config.py set MBEDTLS_TEST_HOOKS
+    Prompts/config.py set MBEDTLS_TEST_HOOKS
     make CFLAGS="-DMBEDTLS_TEST_SW_INET_PTON"
 
     msg "test: default plus MBEDTLS_TEST_SW_INET_PTON"

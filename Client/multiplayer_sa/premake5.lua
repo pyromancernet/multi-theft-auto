@@ -9,13 +9,13 @@ project "Multiplayer SA"
 	editandcontinue "Off"
 
 	filter "system:windows"
-		includedirs { "../../vendor/sparsehash/src/windows" }
+		includedirs { "../../Vendor/sparsehash/src/windows" }
 
 	filter {}
 		includedirs {
 			"../../Shared/sdk",
 			"../sdk",
-			"../../vendor/sparsehash/src/",
+			"../../Vendor/sparsehash/src/",
 		}
 
 	pchheader "StdInc.h"
@@ -34,7 +34,7 @@ project "Multiplayer SA"
 	}
 
 	postbuildcommands {
-		"%[%{!wks.location}/../utils/hookcheck.exe] -dll:%[$(TargetPath)] -ignore:\\vendor\\"
+		"%[%{!wks.location}/../Utils/hookcheck.exe] -dll:%[$(TargetPath)] -ignore:\\vendor\\"
 	}
 
 	filter "architecture:not x86"

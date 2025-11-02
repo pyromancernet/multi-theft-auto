@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        utils/src/hookcheck/utility.cpp
+ *  FILE:        Utils/src/hookcheck/utility.cpp
  *  PURPOSE:     Implementation for utility functions, for example for formatted output.
  *
  *  Multi Theft Auto is available from https://multitheftauto.com/

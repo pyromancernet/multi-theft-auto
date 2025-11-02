@@ -26,7 +26,7 @@ AC_PREREQ([2.68])
 dnl Version number stuff here:
 
 AC_INIT([libpng],[1.6.50],[png-mng-implement@lists.sourceforge.net])
-AC_CONFIG_MACRO_DIR([scripts/autoconf])
+AC_CONFIG_MACRO_DIR([Prompts/autoconf])
 
 # libpng does not follow GNU file name conventions (hence 'foreign')
 # color-tests requires automake 1.11 or later
@@ -78,8 +78,8 @@ AC_ARG_VAR(AWK, [AWK language processor])
 # Some awk implementations crash when confronted with pnglibconf.dfa.
 # Run a test now, to make sure this doesn't happen.
 AC_MSG_CHECKING([if awk ($AWK) works])
-if ${AWK} -f ${srcdir}/scripts/options.awk out="/dev/null" version=search\
-   ${srcdir}/pngconf.h ${srcdir}/scripts/pnglibconf.dfa\
+if ${AWK} -f ${srcdir}/Prompts/options.awk out="/dev/null" version=search\
+   ${srcdir}/pngconf.h ${srcdir}/Prompts/pnglibconf.dfa\
    ${srcdir}/pngusr.dfa 1>&2
 then
    AC_MSG_RESULT([yes])

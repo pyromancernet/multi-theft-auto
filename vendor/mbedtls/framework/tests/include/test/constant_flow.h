@@ -39,7 +39,7 @@
  *       not indirectly via a macro defined under tests/include or a function
  *       under tests/src. This is because we only run Valgrind for constant
  *       flow on test suites that have greppable annotations inside them (see
- *       `skip_suites_without_constant_flow` in `tests/scripts/all.sh`).
+ *       `skip_suites_without_constant_flow` in `tests/Prompts/all.sh`).
  */
 
 #if defined(MBEDTLS_TEST_CONSTANT_FLOW_MEMSAN)

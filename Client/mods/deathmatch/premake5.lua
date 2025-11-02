@@ -10,20 +10,20 @@ project "Client Deathmatch"
 	defines { "LUNASVG_BUILD", "LUA_USE_APICHECK", "SDK_WITH_BCRYPT" }
 	links {
 		"Lua_Client", "pcre", "json-c", "ws2_32", "portaudio", "zlib", "cryptopp", "libspeex", "blowfish_bcrypt", "lunasvg",
-		"../../../vendor/bass/lib/bass",
-		"../../../vendor/bass/lib/bass_fx",
-		"../../../vendor/bass/lib/bassmix",
-		"../../../vendor/bass/lib/tags"
+		"../../../Vendor/bass/lib/bass",
+		"../../../Vendor/bass/lib/bass_fx",
+		"../../../Vendor/bass/lib/bassmix",
+		"../../../Vendor/bass/lib/tags"
 	}
 
 	vpaths {
 		["Headers/*"] = {"**.h", "../../../Shared/mods/deathmatch/**.h", "../../**.h"},
-		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", "../../../vendor/**.cpp"},
+		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", "../../../Vendor/**.cpp"},
 		["*"] = "premake5.lua"
 	}
 
 	filter "system:windows"
-		includedirs { "../../../vendor/sparsehash/src/windows" }
+		includedirs { "../../../Vendor/sparsehash/src/windows" }
 		linkoptions { "/SAFESEH:NO" }
 
 	filter {}
@@ -32,18 +32,18 @@ project "Client Deathmatch"
 			".",
 			"./logic",
 			"../../sdk/",
-			"../../../vendor/pthreads/include",
-			"../../../vendor/bochs",
-			"../../../vendor/bass",
-			"../../../vendor/libspeex",
-			"../../../vendor/zlib",
-			"../../../vendor/pcre",
-			"../../../vendor/json-c",
-			"../../../vendor/lua/src",
+			"../../../Vendor/pthreads/include",
+			"../../../Vendor/bochs",
+			"../../../Vendor/bass",
+			"../../../Vendor/libspeex",
+			"../../../Vendor/zlib",
+			"../../../Vendor/pcre",
+			"../../../Vendor/json-c",
+			"../../../Vendor/lua/src",
 			"../../../Shared/mods/deathmatch/logic",
 			"../../../Shared/animation",
-			"../../../vendor/sparsehash/src/",
-			"../../../vendor/lunasvg/include"
+			"../../../Vendor/sparsehash/src/",
+			"../../../Vendor/lunasvg/include"
 	}
 
 	files {
@@ -55,7 +55,7 @@ project "Client Deathmatch"
 		"../../../Shared/animation/CEasingCurve.cpp",
 		"../../../Shared/animation/CPositionRotationAnimation.cpp",
 		-- Todo: Replace these two by using the CryptoPP functions instead
-		"../../../vendor/bochs/bochs_internal/bochs_crc32.cpp"
+		"../../../Vendor/bochs/bochs_internal/bochs_crc32.cpp"
 	}
 
 	filter "system:windows"

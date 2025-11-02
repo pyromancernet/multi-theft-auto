@@ -4,7 +4,7 @@ Contents
 
        I. Simple installation
       II. Rebuilding the configure scripts
-     III. Using scripts/makefile*
+     III. Using Prompts/makefile*
       IV. Using cmake
        V. Directory structure
       VI. Building with project files
@@ -61,18 +61,18 @@ do this:
     make install
     make check
 
-III. Using scripts/makefile*
+III. Using Prompts/makefile*
 
 Instead, you can use one of the custom-built makefiles in the
 "scripts" directory
 
-    cp scripts/pnglibconf.h.prebuilt pnglibconf.h
-    cp scripts/makefile.system makefile
+    cp Prompts/pnglibconf.h.prebuilt pnglibconf.h
+    cp Prompts/makefile.system makefile
     make test
     make install
 
 The files that are presently available in the scripts directory
-are listed and described in scripts/README.txt.
+are listed and described in Prompts/README.txt.
 
 Or you can use one of the "projects" in the "projects" directory.
 
@@ -169,12 +169,12 @@ scripts directory into this directory, for example
 
 UNIX example:
 
-    cp scripts/makefile.std Makefile
+    cp Prompts/makefile.std Makefile
     make
 
 Windows example:
 
-    nmake -f scripts\makefile.vcwin32
+    nmake -f Prompts\makefile.vcwin32
 
 Read the makefile to see if you need to change any source or
 target directories to match your preferences.
@@ -304,7 +304,7 @@ or more of
    CPPFLAGS += "-DPNG_POWERPC_VSX"
    CPPFLAGS += "-DPNG_RISCV_RVV"
 
-See for example scripts/makefile.linux-opt
+See for example Prompts/makefile.linux-opt
 
 If you wish to avoid using them,
 you can disable them via the configure option
@@ -400,7 +400,7 @@ copied to pnglibconf.h and this may produce macro redefinition warnings
 when the individual C files are compiled.
 
 All configuration now only works if pnglibconf.h is built from
-scripts/pnglibconf.dfa.  This requires the program awk.  Brian Kernighan
+Prompts/pnglibconf.dfa.  This requires the program awk.  Brian Kernighan
 (the original author of awk) maintains C source code of that awk and this
 and all known later implementations (often called by subtly different
 names - nawk and gawk for example) are adequate to build pnglibconf.h.
@@ -408,7 +408,7 @@ The Sun Microsystems (now Oracle) program 'awk' is an earlier version
 and does not work; this may also apply to other systems that have a
 functioning awk called 'nawk'.
 
-Configuration options are now documented in scripts/pnglibconf.dfa.  This
+Configuration options are now documented in Prompts/pnglibconf.dfa.  This
 file also includes dependency information that ensures a configuration is
 consistent; that is, if a feature is switched off, dependent features are
 also switched off.  As a recommended alternative to using feature macros in

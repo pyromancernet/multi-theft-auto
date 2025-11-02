@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto v1.0
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        utils/gentable/gentable_vehattr.cpp
+ *  FILE:        Utils/gentable/gentable_vehattr.cpp
  *  PURPOSE:     Vehicle attribute table generator
  *
  *  Multi Theft Auto is available from https://www.multitheftauto.com/

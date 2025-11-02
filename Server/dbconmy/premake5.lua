@@ -6,16 +6,16 @@ project "Dbconmy"
 
 	filter "system:windows"
 		includedirs {
-			"../../vendor/mysql/include",
-			"../../vendor/sparsehash/src/windows"
+			"../../Vendor/mysql/include",
+			"../../Vendor/sparsehash/src/windows"
 		}
 
 	filter {}
 		includedirs {
 			"../../Shared/sdk",
 			"../sdk",
-			"../../vendor/google-breakpad/src",
-			"../../vendor/sparsehash/src/"
+			"../../Vendor/google-breakpad/src",
+			"../../Vendor/sparsehash/src/"
 		}
 
 	pchheader "StdInc.h"
@@ -65,11 +65,11 @@ project "Dbconmy"
 	end
 
 	filter { "system:windows", "platforms:x64" }
-		links { "../../vendor/mysql/lib/x64/libmysql.lib" }
+		links { "../../Vendor/mysql/lib/x64/libmysql.lib" }
 	filter { "system:windows", "platforms:x86" }
-		links { "../../vendor/mysql/lib/x86/libmysql.lib" }
+		links { "../../Vendor/mysql/lib/x86/libmysql.lib" }
 	filter { "system:windows", "platforms:arm64" }
-		links { "../../vendor/mysql/lib/arm64/libmysql.lib" }
+		links { "../../Vendor/mysql/lib/arm64/libmysql.lib" }
 
 	filter "platforms:x64"
 		targetdir(buildpath("server/x64"))

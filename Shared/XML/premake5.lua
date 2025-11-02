@@ -6,7 +6,7 @@ project "XML"
 
 	includedirs {
 		"../sdk",
-		"../../vendor/tinyxml"
+		"../../Vendor/tinyxml"
 	}
 
 	pchheader "StdInc.h"

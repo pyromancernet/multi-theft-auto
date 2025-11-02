@@ -52,7 +52,7 @@ A failure is a symbol that is no longer exported by the same library or that
 now has a different type.
 
   * All ABI changes are acceptable if the library version is bumped
-    (see `scripts/bump_version.sh`).
+    (see `Prompts/bump_version.sh`).
   * ABI changes that concern functions which are declared only inside the
     library directory, and not in `include/*/*.h`, are acceptable only if
     the function was only ever used inside the same library (libmbedcrypto,
@@ -326,11 +326,11 @@ class AbiChecker:
     @staticmethod
     def _list_generated_test_data_files(git_worktree_path):
         """List the generated test data files."""
-        generate_psa_tests = 'framework/scripts/generate_psa_tests.py'
+        generate_psa_tests = 'framework/Prompts/generate_psa_tests.py'
         if not os.path.isfile(git_worktree_path + '/' + generate_psa_tests):
             # The checked-out revision is from before generate_psa_tests.py
             # was moved to the framework submodule. Use the old location.
-            generate_psa_tests = 'tests/scripts/generate_psa_tests.py'
+            generate_psa_tests = 'tests/Prompts/generate_psa_tests.py'
 
         output = subprocess.check_output(
             [generate_psa_tests, '--list'],
@@ -360,11 +360,11 @@ class AbiChecker:
                 storage_data_files.add(filename)
                 to_be_generated.add(filename)
 
-        generate_psa_tests = 'framework/scripts/generate_psa_tests.py'
+        generate_psa_tests = 'framework/Prompts/generate_psa_tests.py'
         if not os.path.isfile(git_worktree_path + '/' + generate_psa_tests):
             # The checked-out revision is from before generate_psa_tests.py
             # was moved to the framework submodule. Use the old location.
-            generate_psa_tests = 'tests/scripts/generate_psa_tests.py'
+            generate_psa_tests = 'tests/Prompts/generate_psa_tests.py'
         subprocess.check_call(
             [generate_psa_tests] + sorted(to_be_generated),
             cwd=git_worktree_path,
@@ -597,7 +597,7 @@ def run_main():
             "-s", "--skip-file", type=str,
             help=("path to file containing symbols and types to skip "
                   "(typically \"-s identifiers\" after running "
-                  "\"tests/scripts/list-identifiers.sh --internal\")")
+                  "\"tests/Prompts/list-identifiers.sh --internal\")")
         )
         parser.add_argument(
             "--check-abi",

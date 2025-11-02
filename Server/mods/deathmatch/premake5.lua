@@ -8,25 +8,25 @@ project "Deathmatch"
 	pchsource "StdInc.cpp"
 
 	filter "system:windows"
-		includedirs { "../../../vendor/sparsehash/src/windows" }
+		includedirs { "../../../Vendor/sparsehash/src/windows" }
 
 	filter {}
 		includedirs {
 			"../../../Shared/sdk",
 			"../../sdk",
-			"../../../vendor/bochs",
-			"../../../vendor/pme",
-			"../../../vendor/zip",
-			"../../../vendor/glob/include",
-			"../../../vendor/zlib",
-			"../../../vendor/pcre",
-			"../../../vendor/json-c",
-			"../../../vendor/lua/src",
+			"../../../Vendor/bochs",
+			"../../../Vendor/pme",
+			"../../../Vendor/zip",
+			"../../../Vendor/glob/include",
+			"../../../Vendor/zlib",
+			"../../../Vendor/pcre",
+			"../../../Vendor/json-c",
+			"../../../Vendor/lua/src",
 			"../../../Shared/gta",
 			"../../../Shared/mods/deathmatch/logic",
 			"../../../Shared/animation",
 			"../../../Shared/publicsdk/include",
-			"../../../vendor/sparsehash/src/",
+			"../../../Vendor/sparsehash/src/",
 			"logic",
 			"utils",
 			"."
@@ -39,7 +39,7 @@ project "Deathmatch"
 
 	vpaths {
 		["Headers/*"] = {"**.h", "../../../Shared/mods/deathmatch/**.h", "../../**.h"},
-		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", "../../../vendor/**.cpp", "../../**.cpp"},
+		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", "../../../Vendor/**.cpp", "../../**.cpp"},
 		["*"] = "premake5.lua"
 	}
 
@@ -52,11 +52,11 @@ project "Deathmatch"
 		"../../../Shared/animation/CEasingCurve.cpp",
 		"../../../Shared/animation/CPositionRotationAnimation.cpp",
 		-- Todo: Replace these two by using the CryptoPP functions instead
-		"../../../vendor/bochs/bochs_internal/bochs_crc32.cpp",
+		"../../../Vendor/bochs/bochs_internal/bochs_crc32.cpp",
 	}
 
 	filter "system:windows"
-		includedirs { "../../../vendor/pthreads/include" }
+		includedirs { "../../../Vendor/pthreads/include" }
 		buildoptions { "-Zm130" }
 		links { "ws2_32", "pthread" }
 

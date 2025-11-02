@@ -1,5 +1,9 @@
 @echo off
-set VSWHERE=utils\vswhere.exe
+
+rem Change to repository root directory
+cd /d "%~dp0\.."
+
+set VSWHERE=Utils\vswhere.exe
 
 rem Download vswhere (command line utility to find MSBuild path)
 if not exist %VSWHERE% (
@@ -20,7 +24,7 @@ if not exist %MSBUILDPATH% (
 )
 echo Found MSBuild at: %MSBUILDPATH%
 
-set BUILD_CONFIGURATION=Debug
+set BUILD_CONFIGURATION=Release
 set BUILD_PLATFORM=Win32
 
 rem Read configuration (1st parameter)
@@ -54,7 +58,7 @@ echo   BUILD_CONFIGURATION = %BUILD_CONFIGURATION%
 echo   BUILD_PLATFORM = %BUILD_PLATFORM%
 
 rem Create solution (ignoring pause)
-call win-create-projects.bat < nul
+call Prompts\win-create-projects.bat < nul
 echo.
 
 rem Start compiling

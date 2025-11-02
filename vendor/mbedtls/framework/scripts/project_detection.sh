@@ -11,21 +11,21 @@
 
 # Project detection.
 #
-# Both Mbed TLS and TF-PSA-Cryto repos have a "scripts/project_name.txt" file
+# Both Mbed TLS and TF-PSA-Cryto repos have a "Prompts/project_name.txt" file
 # which contains the name of the project. They are used in scripts to know in
 # which project/folder we're in.
 # This function accepts 2 parameters:
 # - $1: boolean value which defines the behavior in case
-#       "scripts/project_name.txt" is not found:
+#       "Prompts/project_name.txt" is not found:
 #       - 1: exit with error message
 #       - 0: simply return an error
 # - $2: mandatory value which defined the root folder where to look for
-#       "scripts/project_name.txt".
+#       "Prompts/project_name.txt".
 read_project_name_file () {
     EXIT_IF_NOT_FOUND=$1
     ROOT_PATH=$2
 
-    PROJECT_NAME_FILE="scripts/project_name.txt"
+    PROJECT_NAME_FILE="Prompts/project_name.txt"
 
     # Check if file exists.
     if [ ! -f "$ROOT_PATH/$PROJECT_NAME_FILE" ]; then

@@ -1,6 +1,6 @@
 """Outcome file analysis code.
 
-This module is the bulk of the code of tests/scripts/analyze_outcomes.py
+This module is the bulk of the code of tests/Prompts/analyze_outcomes.py
 in each consuming branch. The consuming script is expected to derive
 the classes with branch-specific customizations such as ignore lists.
 """
@@ -92,7 +92,7 @@ def execute_reference_driver_tests(results: Results, ref_component: str, driver_
     coverage analysis"""
     results.new_section("Test {} and {}", ref_component, driver_component)
 
-    shell_command = "tests/scripts/all.sh --outcome-file " + outcome_file + \
+    shell_command = "tests/Prompts/all.sh --outcome-file " + outcome_file + \
                     " " + ref_component + " " + driver_component
     results.info("Running: {}", shell_command)
     ret_val = subprocess.run(shell_command.split(), check=False).returncode
@@ -245,10 +245,10 @@ class DriverVSReference(Task):
 
     There are 2 options to use analyze_driver_vs_reference_xxx locally:
     1. Run tests and then analysis:
-      - tests/scripts/all.sh --outcome-file "$PWD/out.csv" <component_ref> <component_driver>
-      - tests/scripts/analyze_outcomes.py out.csv analyze_driver_vs_reference_xxx
+      - tests/Prompts/all.sh --outcome-file "$PWD/out.csv" <component_ref> <component_driver>
+      - tests/Prompts/analyze_outcomes.py out.csv analyze_driver_vs_reference_xxx
     2. Let this script run both automatically:
-      - tests/scripts/analyze_outcomes.py out.csv analyze_driver_vs_reference_xxx
+      - tests/Prompts/analyze_outcomes.py out.csv analyze_driver_vs_reference_xxx
     """
 
     # Override the following in child classes.

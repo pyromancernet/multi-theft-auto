@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        utils/src/gen_language_list/gen_language_list.cpp
+ *  FILE:        Utils/src/gen_language_list/gen_language_list.cpp
  *  PURPOSE:     Tool to generate an include file with the list of all available
  *               languages in the locale directory. The Client Core project is
  *               going to use that include file to lookup the native name of a

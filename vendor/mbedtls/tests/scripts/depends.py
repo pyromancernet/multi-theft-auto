@@ -502,9 +502,9 @@ def main():
             description=
             "Test Mbed TLS with a subset of algorithms.\n\n"
             "Example usage:\n"
-            r"./tests/scripts/depends.py \!MBEDTLS_SHA1_C MBEDTLS_SHA256_C""\n"
-            "./tests/scripts/depends.py MBEDTLS_AES_C hashes\n"
-            "./tests/scripts/depends.py cipher_id cipher_chaining\n")
+            r"./tests/Prompts/depends.py \!MBEDTLS_SHA1_C MBEDTLS_SHA256_C""\n"
+            "./tests/Prompts/depends.py MBEDTLS_AES_C hashes\n"
+            "./tests/Prompts/depends.py cipher_id cipher_chaining\n")
         parser.add_argument('--color', metavar='WHEN',
                             help='Colorize the output (always/auto/never)',
                             choices=['always', 'auto', 'never'], default='auto')

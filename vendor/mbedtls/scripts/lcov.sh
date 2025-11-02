@@ -32,7 +32,7 @@ EOF
 
 set -eu
 
-. framework/scripts/project_detection.sh
+. framework/Prompts/project_detection.sh
 
 # Collect stats and build a HTML report.
 lcov_library_report () {

@@ -1,5 +1,5 @@
 /*********************************************************************************
- * This file was automatically generated from framework/scripts/generate_test_keys.py.
+ * This file was automatically generated from framework/Prompts/generate_test_keys.py.
  * Please do not edit it manually.
  *********************************************************************************/
 

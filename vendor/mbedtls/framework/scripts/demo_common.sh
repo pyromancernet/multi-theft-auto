@@ -17,9 +17,9 @@
 set -e -u
 
 # Check if the provided path ($1) can be a valid root for Mbed TLS or TF-PSA-Crypto.
-# This is based on the fact that "scripts/project_name.txt" exists.
+# This is based on the fact that "Prompts/project_name.txt" exists.
 is_valid_root () {
-  if ! [ -f "$1/scripts/project_name.txt" ]; then
+  if ! [ -f "$1/Prompts/project_name.txt" ]; then
     return 1;
   fi
   return 0;
@@ -57,7 +57,7 @@ while true; do
 done
 
 # Now that we have a root path we can source the "project_detection.sh" script.
-. "$root_dir/framework/scripts/project_detection.sh"
+. "$root_dir/framework/Prompts/project_detection.sh"
 
 ## msg LINE...
 ## msg <TEXT_ORIGIN

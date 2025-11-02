@@ -18,13 +18,13 @@
 # for the installations inside the container.
 #
 # See also:
-# - scripts/docker_env.sh for general Docker prerequisites and other information.
+# - Prompts/docker_env.sh for general Docker prerequisites and other information.
 # - compat.sh for notes about invocation of that script.
 
 # Copyright The Mbed TLS Contributors
 # SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
-source tests/scripts/docker_env.sh
+source tests/Prompts/docker_env.sh
 
 case "${OPENSSL:-default}" in
     "legacy")  export OPENSSL="/usr/local/openssl-1.0.1j/bin/openssl";;

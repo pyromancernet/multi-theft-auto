@@ -57,15 +57,15 @@ instructions consult and edit projects/openwatcom/pngconfig.dfa
 <<
  $(DELETE) dfn.c dfn1.out dfn2.out
 
-pnglibconf.dfn: ..\..\scripts\pnglibconf.dfa ..\..\scripts\options.awk pngconfig.dfa ..\..\pngconf.h
+pnglibconf.dfn: ..\..\Prompts\pnglibconf.dfa ..\..\Prompts\options.awk pngconfig.dfa ..\..\pngconf.h
  $(DELETE) $@ dfn1.out dfn2.out
- $(AWK) -f ..\..\scripts\options.awk out=dfn1.out version=search ..\..\pngconf.h ..\..\scripts\pnglibconf.dfa pngconfig.dfa $(DFA_XTRA) 1>&2
- $(AWK) -f ..\..\scripts\options.awk out=dfn2.out dfn1.out 1>&2
+ $(AWK) -f ..\..\Prompts\options.awk out=dfn1.out version=search ..\..\pngconf.h ..\..\Prompts\pnglibconf.dfa pngconfig.dfa $(DFA_XTRA) 1>&2
+ $(AWK) -f ..\..\Prompts\options.awk out=dfn2.out dfn1.out 1>&2
  $(COPY) dfn2.out $@
  $(DELETE) dfn1.out dfn2.out
 
 !else
-# The following lines are used to copy scripts\pnglibconf.h.prebuilt and make
+# The following lines are used to copy Prompts\pnglibconf.h.prebuilt and make
 # the required change to the calling convention.
 #
 # By default libpng is built to use the __cdecl calling convention on
@@ -78,13 +78,13 @@ pnglibconf.dfn: ..\..\scripts\pnglibconf.dfa ..\..\scripts\options.awk pngconfig
 # the result will not be compatible with applications built using other
 # compilers (in fact attempts to build will fail at compile time.)
 #
-pnglibconf.h: ..\..\scripts\pnglibconf.h.prebuilt .existsonly
+pnglibconf.h: ..\..\Prompts\pnglibconf.h.prebuilt .existsonly
  @$(ECHO) .
  @$(ECHO) .
- @$(ECHO) $$(AWK) NOT AVAILABLE: COPYING scripts\pnglibconf.h.prebuilt
+ @$(ECHO) $$(AWK) NOT AVAILABLE: COPYING Prompts\pnglibconf.h.prebuilt
  @$(ECHO) .
  @$(ECHO) .
- vi -q -k ":1,$$s/PNG_API_RULE 0$$/PNG_API_RULE 2/\n:w! $@\n:q!\n" ..\..\scripts\pnglibconf.h.prebuilt
+ vi -q -k ":1,$$s/PNG_API_RULE 0$$/PNG_API_RULE 2/\n:w! $@\n:q!\n" ..\..\Prompts\pnglibconf.h.prebuilt
  @$(ECHO) .
  @$(ECHO) .
  @$(ECHO) YOU HAVE A DEFAULT CONFIGURATION BECAUSE YOU DO NOT HAVE AWK!
@@ -144,7 +144,7 @@ $# dependency on pnglibconf.h correctly.
 $#
 $# If awk isn't set then this file is bypassed.  If you just want the standard
 $# configuration it is automatically produced from the distributed version
-$# (scripts\pnglibconf.h.prebuilt) by editing PNG_API_RULE to 2 (to force use
+$# (Prompts\pnglibconf.h.prebuilt) by editing PNG_API_RULE to 2 (to force use
 $# of the OpenWatcom library calling convention.)
 $#
 <<

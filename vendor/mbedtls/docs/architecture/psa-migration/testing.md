@@ -10,7 +10,7 @@ General considerations
 
 There needs to be at least one build in `all.sh` that enables
 `MBEDTLS_USE_PSA_CRYPTO` and runs the full battery of tests; currently that's
-ensured by the fact that `scripts/config.py full` enables
+ensured by the fact that `Prompts/config.py full` enables
 `MBEDTLS_USE_PSA_CRYPTO`. There needs to be at least one build with
 `MBEDTLS_USE_PSA_CRYPTO` disabled (as long as it's optional); currently that's
 ensured by the fact that it's disabled in the default config.

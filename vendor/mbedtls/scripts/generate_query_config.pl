@@ -13,9 +13,9 @@
 # compile time configurations available in Mbed TLS (commented or uncommented).
 # This script extracts the configuration macros from the two files and this
 # information is used to automatically generate the body of the query_config()
-# function by using the template in scripts/data_files/query_config.fmt.
+# function by using the template in Prompts/data_files/query_config.fmt.
 #
-# Usage: scripts/generate_query_config.pl without arguments, or
+# Usage: Prompts/generate_query_config.pl without arguments, or
 # generate_query_config.pl mbedtls_config_file psa_crypto_config_file template_file output_file
 #
 # Copyright The Mbed TLS Contributors
@@ -27,7 +27,7 @@ my ($mbedtls_config_file, $psa_crypto_config_file, $query_config_format_file, $q
 
 my $default_mbedtls_config_file = "./include/mbedtls/mbedtls_config.h";
 my $default_psa_crypto_config_file = "./include/psa/crypto_config.h";
-my $default_query_config_format_file = "./scripts/data_files/query_config.fmt";
+my $default_query_config_format_file = "./Prompts/data_files/query_config.fmt";
 my $default_query_config_file = "./programs/test/query_config.c";
 
 if( @ARGV ) {

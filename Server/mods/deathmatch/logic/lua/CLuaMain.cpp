@@ -61,6 +61,16 @@ extern CNetServer* g_pRealNetServer;
 #include "luascripts/coroutine_debug.lua.h"
 #include "luascripts/exports.lua.h"
 #include "luascripts/inspect.lua.h"
+#include "luascripts/classic.lua.h"
+#include "luascripts/enum.lua.h"
+
+const char* definedLuaScripts[] = {
+    EmbeddedLuaCode::coroutine_debug,
+    EmbeddedLuaCode::exports,
+    EmbeddedLuaCode::inspect,
+    EmbeddedLuaCode::enum_h,
+    EmbeddedLuaCode::classic_h
+};
 
 CLuaMain::CLuaMain(CLuaManager* pLuaManager, CObjectManager* pObjectManager, CPlayerManager* pPlayerManager, CVehicleManager* pVehicleManager,
                    CBlipManager* pBlipManager, CRadarAreaManager* pRadarAreaManager, CMapManager* pMapManager, CResource* pResourceOwner, bool bEnableOOP)
@@ -243,9 +253,10 @@ void CLuaMain::Initialize()
 
 void CLuaMain::LoadEmbeddedScripts()
 {
-    LoadScript(EmbeddedLuaCode::exports);
-    LoadScript(EmbeddedLuaCode::coroutine_debug);
-    LoadScript(EmbeddedLuaCode::inspect);
+    for (const char* script : definedLuaScripts)
+    {
+        LoadScript(script);
+    }
 }
 
 void CLuaMain::RegisterModuleFunctions()

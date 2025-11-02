@@ -4,8 +4,17 @@
         <object name="resource.*" />
         <object name="user.*" />
     </group>
+
     <acl name="MapEditor">
         <right name="general.ModifyOtherObjects" access="true" />
+
+        <right name="general.adminpanel" access="true" />
+        <right name="general.tab_players" access="true" />
+        <right name="general.tab_resources" access="true" />
+        <right name="general.tab_server" access="true" />
+        <right name="general.tab_bans" access="true" />
+        <right name="general.tab_adminchat" access="true" />
+
         <right name="function.startResource" access="true" />
         <right name="function.stopResource" access="true" />
         <right name="function.restartResource" access="true" />
@@ -21,12 +30,7 @@
         <right name="function.xmlLoadFile" access="true" />
         <right name="function.refreshResources" access="true" />
         <right name="function.loadstring" access="true" />
-        <right name="general.adminpanel" access="true" />
-        <right name="general.tab_players" access="true" />
-        <right name="general.tab_resources" access="true" />
-        <right name="general.tab_server" access="true" />
-        <right name="general.tab_bans" access="true" />
-        <right name="general.tab_adminchat" access="true" />
+
         <right name="command.kick" access="true" />
         <right name="command.freeze" access="true" />
         <right name="command.mute" access="true" />

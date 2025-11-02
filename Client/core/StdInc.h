@@ -34,7 +34,7 @@
 #include <functional>
 
 // Localization
-#include "../../vendor/tinygettext/tinygettext.hpp"
+#include "../../Vendor/tinygettext/tinygettext.hpp"
 #include "CLocalization.h"
 
 // SDK includes

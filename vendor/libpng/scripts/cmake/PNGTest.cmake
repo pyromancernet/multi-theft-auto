@@ -31,7 +31,7 @@ function(png_add_test)
   set(TEST_FILES "${_PAT_FILES}")
 
   # Generate and run the "${_PAT_NAME}.cmake" script.
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/test.cmake.in"
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/cmake/test.cmake.in"
                  "${CMAKE_CURRENT_BINARY_DIR}/tests/${_PAT_NAME}.cmake"
                  @ONLY)
   add_test(NAME "${_PAT_NAME}"

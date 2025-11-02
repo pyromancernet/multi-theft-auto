@@ -8,7 +8,7 @@ Mbed TLS includes a reference implementation of the [PSA Cryptography API](#psa-
 Configuration
 -------------
 
-Mbed TLS should build out of the box on most systems. Some platform specific options are available in the fully documented configuration file `include/mbedtls/mbedtls_config.h`, which is also the place where features can be selected. This file can be edited manually, or in a more programmatic way using the Python 3 script `scripts/config.py` (use `--help` for usage instructions).
+Mbed TLS should build out of the box on most systems. Some platform specific options are available in the fully documented configuration file `include/mbedtls/mbedtls_config.h`, which is also the place where features can be selected. This file can be edited manually, or in a more programmatic way using the Python 3 script `Prompts/config.py` (use `--help` for usage instructions).
 
 Compiler options can be set using conventional environment variables such as `CC` and `CFLAGS` when using the Make and CMake build system (see below).
 
@@ -67,7 +67,7 @@ The following tools are required:
 * Perl, for some library source files and for Visual Studio build files.
 * Python 3.8 and some Python packages, for some library source files, sample programs and test data. To install the necessary packages, run:
     ```
-    python3 -m pip install --user -r scripts/basic.requirements.txt
+    python3 -m pip install --user -r Prompts/basic.requirements.txt
     ```
     Depending on your Python installation, you may need to invoke `python` instead of `python3`. To install the packages system-wide, omit the `--user` option.
 * A C compiler for the host platform, for some test data.
@@ -79,8 +79,8 @@ Any of the following methods are available to generate the configuration-indepen
 * If not cross-compiling, running `make` with any target, or just `make`, will automatically generate required files.
 * On non-Windows systems, when not cross-compiling, CMake will generate the required files automatically.
 * Run `make generated_files` to generate all the configuration-independent files.
-* On Unix/POSIX systems, run `tests/scripts/check-generated-files.sh -u` to generate all the configuration-independent files.
-* On Windows, run `scripts\make_generated_files.bat` to generate all the configuration-independent files.
+* On Unix/POSIX systems, run `tests/Prompts/check-generated-files.sh -u` to generate all the configuration-independent files.
+* On Windows, run `Prompts\make_generated_files.bat` to generate all the configuration-independent files.
 
 ### Make
 
@@ -169,7 +169,7 @@ If you already invoked cmake and want to change those settings, you need to
 remove the build directory and create it again.
 
 Note that it is possible to build in-place; this will however overwrite the
-provided Makefiles (see `scripts/tmp_ignore_makefiles.sh` if you want to
+provided Makefiles (see `Prompts/tmp_ignore_makefiles.sh` if you want to
 prevent `git status` from showing them as modified). In order to do so, from
 the Mbed TLS source directory, use:
 
@@ -246,9 +246,9 @@ For machines with a Unix shell and OpenSSL (and optionally GnuTLS) installed, ad
 
 -   `tests/ssl-opt.sh` runs integration tests for various TLS options (renegotiation, resumption, etc.) and tests interoperability of these options with other implementations.
 -   `tests/compat.sh` tests interoperability of every ciphersuite with other implementations.
--   `tests/scripts/test-ref-configs.pl` test builds in various reduced configurations.
--   `tests/scripts/depends.py` test builds in configurations with a single curve, key exchange, hash, cipher, or pkalg on.
--   `tests/scripts/all.sh` runs a combination of the above tests, plus some more, with various build options (such as ASan, full `mbedtls_config.h`, etc).
+-   `tests/Prompts/test-ref-configs.pl` test builds in various reduced configurations.
+-   `tests/Prompts/depends.py` test builds in configurations with a single curve, key exchange, hash, cipher, or pkalg on.
+-   `tests/Prompts/all.sh` runs a combination of the above tests, plus some more, with various build options (such as ASan, full `mbedtls_config.h`, etc).
 
 Instead of manually installing the required versions of all tools required for testing, it is possible to use the Docker images from our CI systems, as explained in [our testing infrastructure repository](https://github.com/Mbed-TLS/mbedtls-test/blob/main/README.md#quick-start).
 

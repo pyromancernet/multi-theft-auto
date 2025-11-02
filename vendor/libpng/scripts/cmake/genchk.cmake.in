@@ -28,8 +28,8 @@ get_filename_component(OUTPUTDIR "${OUTPUT}" PATH)
 if(INPUTEXT STREQUAL ".out" AND OUTPUTEXT STREQUAL ".chk")
   # Generate .chk from .out with awk (generic)
   file(REMOVE "${OUTPUT}" "${OUTPUTDIR}/${OUTPUTBASE}.new")
-  execute_process(COMMAND "${AWK}" -f "${BINDIR}/scripts/checksym.awk"
-                          "${SRCDIR}/scripts/${INPUTBASE}.def"
+  execute_process(COMMAND "${AWK}" -f "${BINDIR}/Prompts/checksym.awk"
+                          "${SRCDIR}/Prompts/${INPUTBASE}.def"
                           "of=${OUTPUTDIR}/${OUTPUTBASE}.new"
                           "${INPUT}"
                   RESULT_VARIABLE AWK_FAIL)

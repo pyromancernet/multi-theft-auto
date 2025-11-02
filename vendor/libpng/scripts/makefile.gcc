@@ -41,8 +41,8 @@ LIBS = -lz -lm
 EXEEXT =
 
 # Pre-built configuration
-# See scripts/pnglibconf.mak for more options
-PNGLIBCONF_H_PREBUILT = scripts/pnglibconf.h.prebuilt
+# See Prompts/pnglibconf.mak for more options
+PNGLIBCONF_H_PREBUILT = Prompts/pnglibconf.h.prebuilt
 
 # File lists
 OBJS = png.o pngerror.o pngget.o pngmem.o pngpread.o \

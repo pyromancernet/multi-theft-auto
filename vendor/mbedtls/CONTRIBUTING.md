@@ -61,7 +61,7 @@ Mbed TLS includes a comprehensive set of test suites in the `tests/` directory t
 
 [A Knowledge Base article describing how to add additional tests is available on the Mbed TLS website](https://mbed-tls.readthedocs.io/en/latest/kb/development/test_suites/).
 
-A test script `tests/scripts/basic-build-test.sh` is available to show test coverage of the library. New code contributions should provide a similar level of code coverage to that which already exists for the library.
+A test script `tests/Prompts/basic-build-test.sh` is available to show test coverage of the library. New code contributions should provide a similar level of code coverage to that which already exists for the library.
 
 Sample applications, if needed, should be modified as well.
 

@@ -9,7 +9,7 @@
 # For conditions of distribution and use, see the disclaimer
 # and license in png.h
 #
-# To use, do "nmake /f scripts\makefile.intel"
+# To use, do "nmake /f Prompts\makefile.intel"
 #
 # ------------------- Intel C/C++ Compiler 4.0 and later -------------------
 
@@ -39,8 +39,8 @@ LDFLAGS=/SUBSYSTEM:CONSOLE /NOLOGO
 CP=cp
 
 # Pre-built configuration
-# See scripts\pnglibconf.mak for more options
-PNGLIBCONF_H_PREBUILT = scripts\pnglibconf.h.prebuilt
+# See Prompts\pnglibconf.mak for more options
+PNGLIBCONF_H_PREBUILT = Prompts\pnglibconf.h.prebuilt
 
 # File extensions
 O=.obj

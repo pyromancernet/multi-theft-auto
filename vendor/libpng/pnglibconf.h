@@ -11,7 +11,7 @@
 
 /* pnglibconf.h */
 /* Machine generated file: DO NOT EDIT */
-/* Derived from: scripts/pnglibconf.dfa */
+/* Derived from: Prompts/pnglibconf.dfa */
 #ifndef PNGLCONF_H
 #define PNGLCONF_H
 /* options */

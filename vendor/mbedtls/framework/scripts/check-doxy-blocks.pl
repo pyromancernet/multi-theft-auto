@@ -57,7 +57,7 @@ sub check_dir {
     }
 }
 
-open my $project_file, "scripts/project_name.txt" or die "This script must be run from Mbed TLS or TF-PSA-Crypto root directory";
+open my $project_file, "Prompts/project_name.txt" or die "This script must be run from Mbed TLS or TF-PSA-Crypto root directory";
 my $project = <$project_file>;
 chomp($project);
 my @directories;

@@ -96,7 +96,7 @@ function os.sha256_file(path)
 	local windows = os.host() == "windows"
 	local s, errc
 	if windows then
-		s, errc = os.outputof(string.format("call \"utils\\7z\\7za.exe\" h -scrcSHA256 \"%s\"", path))
+		s, errc = os.outputof(string.format("call \"Utils\\7z\\7za.exe\" h -scrcSHA256 \"%s\"", path))
 	else
 		s, errc = os.outputof(string.format("sha256sum \"%s\" | awk '{ print $1 }'", path))
 	end
@@ -119,7 +119,7 @@ function os.extract_archive(archive_path, target_path, override)
 	local flags = override and "-aoa" or "-aos"
 
 	if os.host() == "windows" then
-		return os.executef("call \"utils\\7z\\7za.exe\" x \"%s\" %s -o\"%s\"", archive_path, flags, target_path)
+		return os.executef("call \"Utils\\7z\\7za.exe\" x \"%s\" %s -o\"%s\"", archive_path, flags, target_path)
 	else
 		if not os.executef("7z x \"%s\" %s -o\"%s\"", archive_path, flags, target_path) then
 			return os.executef("unzip \"%s\" -d \"%s\"", archive_path, target_path)

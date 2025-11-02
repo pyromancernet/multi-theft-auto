@@ -49,10 +49,10 @@ do_config()
     echo ""
     echo "config-$NAME:"
     cp configs/config-$NAME.h $CONFIG_H
-    scripts/config.py unset MBEDTLS_SSL_SRV_C
+    Prompts/config.py unset MBEDTLS_SSL_SRV_C
 
     for FLAG in $UNSET_LIST; do
-        scripts/config.py unset $FLAG
+        Prompts/config.py unset $FLAG
     done
 
     grep -F SSL_MAX_CONTENT_LEN $CONFIG_H || echo 'SSL_MAX_CONTENT_LEN=16384'
@@ -90,7 +90,7 @@ do_config()
     kill $SRV_PID
     wait $SRV_PID
 
-    scripts/massif_max.pl massif.out.*
+    Prompts/massif_max.pl massif.out.*
     mv massif.out.* massif-$NAME.$$
 }
 

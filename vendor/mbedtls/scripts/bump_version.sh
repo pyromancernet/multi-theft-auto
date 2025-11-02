@@ -135,14 +135,14 @@ do
 done
 
 [ $VERBOSE ] && echo "Re-generating library/error.c"
-scripts/generate_errors.pl
+Prompts/generate_errors.pl
 
 [ $VERBOSE ] && echo "Re-generating programs/test/query_config.c"
-scripts/generate_query_config.pl
+Prompts/generate_query_config.pl
 
 [ $VERBOSE ] && echo "Re-generating library/version_features.c"
-scripts/generate_features.pl
+Prompts/generate_features.pl
 
 [ $VERBOSE ] && echo "Re-generating visualc files"
-scripts/generate_visualc_files.pl
+Prompts/generate_visualc_files.pl
 

@@ -10,7 +10,7 @@
 # http://libpng.org/pub/png/src/libpng-LICENSE.txt
 #
 # For copyright and licensing purposes, please see
-# the accompanying file scripts/cmake/AUTHORS.md
+# the accompanying file Prompts/cmake/AUTHORS.md
 #
 # SPDX-License-Identifier: libpng-2.0
 
@@ -50,7 +50,7 @@ set(PNG_DEBUG_POSTFIX
 # Allow the users to import their own extra configuration settings.
 # Those settings can be either passed via DFA_XTRA if they are in DFA form
 # (such as "pngusr.dfa"), or via PNG_LIBCONF_HEADER if they are in prebuilt
-# header file form (such as "scripts/pnglibconf.h.prebuilt"), but not both.
+# header file form (such as "Prompts/pnglibconf.h.prebuilt"), but not both.
 # For platforms such as Android or iOS, or in certain cross-platform build
 # scenarios, having a valid PNG_LIBCONF_HEADER is mandatory.
 set(DFA_XTRA
@@ -59,7 +59,7 @@ set(DFA_XTRA
 set(PNG_LIBCONF_HEADER
     ""
     CACHE FILEPATH "C header file containing customized build configuration settings for libpng")
-set(PNG_LIBCONF_HEADER_PREBUILT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.h.prebuilt")
+set(PNG_LIBCONF_HEADER_PREBUILT "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/pnglibconf.h.prebuilt")
 if(ANDROID OR IOS)
   set(PNG_LIBCONF_HEADER "${PNG_LIBCONF_HEADER_PREBUILT}")
 endif()
@@ -446,7 +446,7 @@ if(PNG_LIBCONF_HEADER STREQUAL "")
 endif()
 
 # Include the internal module PNGCheckLibconf.cmake
-include("${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/PNGCheckLibconf.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/cmake/PNGCheckLibconf.cmake")
 
 if(NOT PNG_LIBCONF_HEADER STREQUAL "")
   # Configure libpng with the user-defined pnglibconf.h file.
@@ -467,43 +467,43 @@ else()
   png_check_libconf(DFA_XTRA "${DFA_XTRA}")
 
   # Include the internal module PNGGenConfig.cmake
-  include("${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/PNGGenConfig.cmake")
+  include("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/cmake/PNGGenConfig.cmake")
 
   # Work around a limitation of various Windows AWK programs that are
   # unable to process CRLF-terminated AWK scripts.
   # Copy these AWK scripts to a temporary location, converting their
   # line endings from Windows (CRLF) to Unix (LF) at the destination.
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/scripts/checksym.awk"
-                 "${CMAKE_CURRENT_BINARY_DIR}/scripts/checksym.awk"
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/checksym.awk"
+                 "${CMAKE_CURRENT_BINARY_DIR}/Prompts/checksym.awk"
                  @ONLY
                  NEWLINE_STYLE LF)
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/scripts/options.awk"
-                 "${CMAKE_CURRENT_BINARY_DIR}/scripts/options.awk"
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/options.awk"
+                 "${CMAKE_CURRENT_BINARY_DIR}/Prompts/options.awk"
                  @ONLY
                  NEWLINE_STYLE LF)
-  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/scripts/dfn.awk"
-                 "${CMAKE_CURRENT_BINARY_DIR}/scripts/dfn.awk"
+  configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/dfn.awk"
+                 "${CMAKE_CURRENT_BINARY_DIR}/Prompts/dfn.awk"
                  @ONLY
                  NEWLINE_STYLE LF)
 
-  # Generate scripts/pnglibconf.h
-  generate_source(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/pnglibconf.c"
-                  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.dfa"
-                          "${CMAKE_CURRENT_BINARY_DIR}/scripts/options.awk"
+  # Generate Prompts/pnglibconf.h
+  generate_source(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/pnglibconf.c"
+                  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/pnglibconf.dfa"
+                          "${CMAKE_CURRENT_BINARY_DIR}/Prompts/options.awk"
                           "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h")
 
   # Generate pnglibconf.c
   generate_source(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.c"
-                  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.dfa"
-                          "${CMAKE_CURRENT_BINARY_DIR}/scripts/options.awk"
+                  DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/pnglibconf.dfa"
+                          "${CMAKE_CURRENT_BINARY_DIR}/Prompts/options.awk"
                           "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h")
 
   if(PNG_PREFIX)
     set(PNGLIBCONF_H_EXTRA_DEPENDS
-        "${CMAKE_CURRENT_BINARY_DIR}/scripts/prefix.out"
-        "${CMAKE_CURRENT_SOURCE_DIR}/scripts/macro.lst")
+        "${CMAKE_CURRENT_BINARY_DIR}/Prompts/prefix.out"
+        "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/macro.lst")
     set(PNGPREFIX_H_EXTRA_DEPENDS
-        "${CMAKE_CURRENT_BINARY_DIR}/scripts/intprefix.out")
+        "${CMAKE_CURRENT_BINARY_DIR}/Prompts/intprefix.out")
   endif()
 
   generate_out(INPUT "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.c"
@@ -514,12 +514,12 @@ else()
                   DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out"
                           ${PNGLIBCONF_H_EXTRA_DEPENDS})
 
-  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/intprefix.c"
-               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/intprefix.out"
+  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/intprefix.c"
+               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/intprefix.out"
                DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h")
 
-  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/prefix.c"
-               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/prefix.out"
+  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/prefix.c"
+               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/prefix.out"
                DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
                        "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
                        "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out")
@@ -528,37 +528,37 @@ else()
   generate_source(OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/pngprefix.h"
                   DEPENDS ${PNGPREFIX_H_EXTRA_DEPENDS})
 
-  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/sym.c"
-               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/sym.out"
+  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/sym.c"
+               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/sym.out"
                DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h")
 
-  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/symbols.c"
-               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.out"
+  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/symbols.c"
+               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/symbols.out"
                DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
                        "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
-                       "${CMAKE_CURRENT_SOURCE_DIR}/scripts/pnglibconf.h.prebuilt")
+                       "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/pnglibconf.h.prebuilt")
 
-  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/scripts/vers.c"
-               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/vers.out"
+  generate_out(INPUT "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/vers.c"
+               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/vers.out"
                DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/png.h"
                        "${CMAKE_CURRENT_SOURCE_DIR}/pngconf.h"
                        "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h")
 
-  generate_chk(INPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.out"
-               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.chk"
-               DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/scripts/checksym.awk"
-                       "${CMAKE_CURRENT_SOURCE_DIR}/scripts/symbols.def")
+  generate_chk(INPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/symbols.out"
+               OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/symbols.chk"
+               DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/Prompts/checksym.awk"
+                       "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/symbols.def")
 
-  generate_copy(INPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/sym.out"
+  generate_copy(INPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/sym.out"
                 OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/libpng.sym")
 
-  generate_copy(INPUT "${CMAKE_CURRENT_BINARY_DIR}/scripts/vers.out"
+  generate_copy(INPUT "${CMAKE_CURRENT_BINARY_DIR}/Prompts/vers.out"
                 OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/libpng.vers")
 
   add_custom_target(png_genprebuilt
                     COMMAND "${CMAKE_COMMAND}"
-                            "-DOUTPUT=scripts/pnglibconf.h.prebuilt"
-                            -P "${CMAKE_CURRENT_BINARY_DIR}/scripts/cmake/gensrc.cmake"
+                            "-DOUTPUT=Prompts/pnglibconf.h.prebuilt"
+                            -P "${CMAKE_CURRENT_BINARY_DIR}/Prompts/cmake/gensrc.cmake"
                     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 
   # A single target handles generation of all generated files.
@@ -569,13 +569,13 @@ else()
                             "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.h"
                             "${CMAKE_CURRENT_BINARY_DIR}/pnglibconf.out"
                             "${CMAKE_CURRENT_BINARY_DIR}/pngprefix.h"
-                            "${CMAKE_CURRENT_BINARY_DIR}/scripts/intprefix.out"
-                            "${CMAKE_CURRENT_BINARY_DIR}/scripts/pnglibconf.c"
-                            "${CMAKE_CURRENT_BINARY_DIR}/scripts/prefix.out"
-                            "${CMAKE_CURRENT_BINARY_DIR}/scripts/sym.out"
-                            "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.chk"
-                            "${CMAKE_CURRENT_BINARY_DIR}/scripts/symbols.out"
-                            "${CMAKE_CURRENT_BINARY_DIR}/scripts/vers.out")
+                            "${CMAKE_CURRENT_BINARY_DIR}/Prompts/intprefix.out"
+                            "${CMAKE_CURRENT_BINARY_DIR}/Prompts/pnglibconf.c"
+                            "${CMAKE_CURRENT_BINARY_DIR}/Prompts/prefix.out"
+                            "${CMAKE_CURRENT_BINARY_DIR}/Prompts/sym.out"
+                            "${CMAKE_CURRENT_BINARY_DIR}/Prompts/symbols.chk"
+                            "${CMAKE_CURRENT_BINARY_DIR}/Prompts/symbols.out"
+                            "${CMAKE_CURRENT_BINARY_DIR}/Prompts/vers.out")
 endif()
 
 # List the source code files.
@@ -763,7 +763,7 @@ if(PNG_TESTS AND PNG_SHARED)
   enable_testing()
 
   # Include the internal module PNGTest.cmake
-  include("${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/PNGTest.cmake")
+  include("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/cmake/PNGTest.cmake")
 
   # Find test PNG files by globbing, but sort lists to ensure
   # consistency between different filesystems.
@@ -1009,14 +1009,14 @@ function(create_symlink DEST_FILE)
 endfunction()
 
 # Create source generation scripts.
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/genchk.cmake.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/scripts/cmake/genchk.cmake"
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/cmake/genchk.cmake.in"
+               "${CMAKE_CURRENT_BINARY_DIR}/Prompts/cmake/genchk.cmake"
                @ONLY)
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/genout.cmake.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/scripts/cmake/genout.cmake"
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/cmake/genout.cmake.in"
+               "${CMAKE_CURRENT_BINARY_DIR}/Prompts/cmake/genout.cmake"
                @ONLY)
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/gensrc.cmake.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/scripts/cmake/gensrc.cmake"
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/Prompts/cmake/gensrc.cmake.in"
+               "${CMAKE_CURRENT_BINARY_DIR}/Prompts/cmake/gensrc.cmake"
                @ONLY)
 
 # libpng is a library so default to 'lib'
@@ -1136,7 +1136,7 @@ if(NOT SKIP_INSTALL_CONFIG_FILE AND NOT SKIP_INSTALL_ALL)
           NAMESPACE PNG::
           DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/PNG")
 
-  install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/scripts/cmake/PNGConfig.cmake"
+  install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/Prompts/cmake/PNGConfig.cmake"
                 "${CMAKE_CURRENT_BINARY_DIR}/PNGConfigVersion.cmake"
           DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/PNG")
 endif()

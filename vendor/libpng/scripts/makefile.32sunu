@@ -57,7 +57,7 @@ OBJSDLL = $(OBJS:.o=.pic.o)
 
 all: libpng.a $(LIBSO) pngtest
 
-include scripts/pnglibconf.mak
+include Prompts/pnglibconf.mak
 DELETE = $(RM_F)
 DFNFLAGS = $(DEFS) $(CPPFLAGS)
 

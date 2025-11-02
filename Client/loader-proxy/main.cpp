@@ -286,7 +286,7 @@ VOID OnGameLaunch()
             L"Loading debug core has failed."
             L"\n\n"
             L"Please ensure that your MTA:SA build was successful and that "
-            L"you executed win-install-data.bat to copy dependencies to the output directory.",
+            L"you executed Prompts/win-install-data.bat to copy dependencies to the output directory.",
             L"CL24");
 #else
         DisplayErrorMessageBox(

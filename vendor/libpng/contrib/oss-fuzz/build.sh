@@ -23,12 +23,12 @@
 ################################################################################
 
 # Disable logging via library build configuration control.
-cat scripts/pnglibconf.dfa | \
+cat Prompts/pnglibconf.dfa | \
   sed -e "s/option STDIO/option STDIO disabled/" \
       -e "s/option WARNING /option WARNING disabled/" \
       -e "s/option WRITE enables WRITE_INT_FUNCTIONS/option WRITE disabled/" \
-> scripts/pnglibconf.dfa.temp
-mv scripts/pnglibconf.dfa.temp scripts/pnglibconf.dfa
+> Prompts/pnglibconf.dfa.temp
+mv Prompts/pnglibconf.dfa.temp Prompts/pnglibconf.dfa
 
 # build the libpng library.
 autoreconf -f -i

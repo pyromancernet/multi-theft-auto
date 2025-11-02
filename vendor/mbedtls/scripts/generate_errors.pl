@@ -2,7 +2,7 @@
 
 # Generate error.c
 #
-# Usage: ./generate_errors.pl or scripts/generate_errors.pl without arguments,
+# Usage: ./generate_errors.pl or Prompts/generate_errors.pl without arguments,
 # or generate_errors.pl include_dir data_dir error_file
 #
 # Copyright The Mbed TLS Contributors
@@ -21,13 +21,13 @@ if( @ARGV ) {
     -d $data_dir or die "No such directory: $data_dir\n";
 } else {
     $include_dir = 'include/mbedtls';
-    $data_dir = 'scripts/data_files';
+    $data_dir = 'Prompts/data_files';
     $error_file = 'library/error.c';
 
     unless( -d $include_dir && -d $data_dir ) {
         chdir '..' or die;
         -d $include_dir && -d $data_dir
-            or die "Without arguments, must be run from root or scripts\n"
+            or die "Without arguments, must be run from root or Prompts\n"
     }
 }
 

@@ -410,10 +410,10 @@ __pycache__/
 Bin/
 Build/
 InstallFiles/
-utils/DXFiles.zip
-utils/DXFiles/
+Utils/DXFiles.zip
+Utils/DXFiles/
 !*.so
 !*.dll
 !*.exe
-utils/vswhere.exe
+Utils/vswhere.exe
 *.generated.h

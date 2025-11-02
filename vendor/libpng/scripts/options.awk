@@ -1,6 +1,6 @@
 #!/bin/awk -f
 
-# scripts/options.awk - library build configuration control
+# Prompts/options.awk - library build configuration control
 #
 # Copyright (c) 1998-2014 Glenn Randers-Pehrson
 #
@@ -13,8 +13,8 @@
 # an intermediate output file, 'options.tmp' then again on
 # that file to produce the final output:
 #
-#  awk -f scripts/options.awk out=options.tmp scripts/options.dfa 1>&2
-#  awk -f scripts/options.awk out=options.dfn options.tmp 1>&2
+#  awk -f Prompts/options.awk out=options.tmp Prompts/options.dfa 1>&2
+#  awk -f Prompts/options.awk out=options.dfn options.tmp 1>&2
 #
 # Some options may be specified on the command line:
 #
@@ -419,7 +419,7 @@ pre != 0 && $1 == "chunk" && NF >= 2{
 #   macro is not defined.  The default value will be re-tokenised.
 #   (BTW: this is somewhat restrictive, it mainly exists for the
 #   support of non-standard configurations and numeric parameters,
-#   see the uses in scripts/options.dat
+#   see the uses in Prompts/options.dat
 
 $1 == "setting" && (NF == 2 || NF >= 3 && ($3 == "requires" || $3 == "default")){
    reqs = ""

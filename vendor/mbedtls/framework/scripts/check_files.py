@@ -174,7 +174,7 @@ class ShebangIssueTracker(FileIssueTracker):
         b'sh': 'sh',
     }
 
-    path_exemptions = re.compile(r'framework/scripts/quiet/.*')
+    path_exemptions = re.compile(r'framework/Prompts/quiet/.*')
 
     def is_valid_shebang(self, first_line, filepath):
         m = re.match(self._shebang_re, first_line)

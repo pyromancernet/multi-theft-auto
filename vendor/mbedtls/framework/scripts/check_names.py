@@ -786,7 +786,7 @@ class TFPSACryptoCodeParser(CodeParser):
             # Use check=True in all subprocess calls so that failures are raised
             # as exceptions and logged.
             subprocess.run(
-                ["python3", "scripts/config.py", "full"],
+                ["python3", "Prompts/config.py", "full"],
                 universal_newlines=True,
                 check=True
             )
@@ -956,7 +956,7 @@ class MBEDTLSCodeParser(CodeParser):
             # Use check=True in all subprocess calls so that failures are raised
             # as exceptions and logged.
             subprocess.run(
-                ["python3", "scripts/config.py", "full"],
+                ["python3", "Prompts/config.py", "full"],
                 universal_newlines=True,
                 check=True
             )

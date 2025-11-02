@@ -38,7 +38,7 @@ can_pylint () {
 
 can_mypy () {
     # mypy 0.770 is too old:
-    #     framework/scripts/test_psa_constant_names.py:34: error: Cannot find implementation or library stub for module named 'mbedtls_framework'
+    #     framework/Prompts/test_psa_constant_names.py:34: error: Cannot find implementation or library stub for module named 'mbedtls_framework'
     # mypy 0.780 from pip passed on the first commit containing this line.
     check_version mypy.version 0.780
 }
@@ -55,14 +55,14 @@ elif [ "$1" = "--can-mypy" ]; then
 fi
 
 echo 'Running pylint ...'
-$PYTHON -m pylint framework/scripts/*.py framework/scripts/mbedtls_framework/*.py scripts/*.py tests/scripts/*.py || {
+$PYTHON -m pylint framework/Prompts/*.py framework/Prompts/mbedtls_framework/*.py Prompts/*.py tests/Prompts/*.py || {
     echo >&2 "pylint reported errors"
     ret=1
 }
 
 echo
 echo 'Running mypy ...'
-$PYTHON -m mypy framework/scripts/*.py framework/scripts/mbedtls_framework/*.py scripts/*.py tests/scripts/*.py ||
+$PYTHON -m mypy framework/Prompts/*.py framework/Prompts/mbedtls_framework/*.py Prompts/*.py tests/Prompts/*.py ||
   ret=1
 
 exit $ret

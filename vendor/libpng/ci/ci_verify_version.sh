@@ -16,7 +16,7 @@ cd "$CI_TOPLEVEL_DIR"
 declare CI_ENV_LIBPNG_VER        # collected from png.h
 declare CI_ENV_AUTOCONF_VER      # collected from configure.ac
 declare CI_ENV_CMAKE_VER         # collected from CMakeLists.txt
-declare CI_ENV_LIBPNGCONFIG_VER  # collected from scripts/libpng-config-head.in
+declare CI_ENV_LIBPNGCONFIG_VER  # collected from Prompts/libpng-config-head.in
 
 function ci_run_shellify {
     local my_script my_result
@@ -39,7 +39,7 @@ function ci_init_version_verification {
     echo "$CI_ENV_AUTOCONF_VER"
     CI_ENV_CMAKE_VER="$(ci_run_shellify --cmake CMakeLists.txt)"
     echo "$CI_ENV_CMAKE_VER"
-    CI_ENV_LIBPNGCONFIG_VER="$(ci_run_shellify --shell scripts/libpng-config-head.in)"
+    CI_ENV_LIBPNGCONFIG_VER="$(ci_run_shellify --shell Prompts/libpng-config-head.in)"
     echo "$CI_ENV_LIBPNGCONFIG_VER"
 }
 
@@ -143,7 +143,7 @@ function ci_do_version_verification {
     else
         ci_err "mismatched: \$PNGLIB_VERSION != \$PNG_LIBPNG_VER_STRING"
     fi
-    ci_info "## VERIFYING: version definitions in 'scripts/libpng-config-head.in' ##"
+    ci_info "## VERIFYING: version definitions in 'Prompts/libpng-config-head.in' ##"
     eval "$CI_ENV_LIBPNGCONFIG_VER"
     if [[ "$version" == "$PNG_LIBPNG_VER_STRING" ]]
     then

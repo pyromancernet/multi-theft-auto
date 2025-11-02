@@ -22,7 +22,7 @@ component_test_default_out_of_box () {
     programs/test/selftest
 
     msg "program demos: make, default config (out-of-box)" # ~10s
-    tests/scripts/run_demos.py
+    tests/Prompts/run_demos.py
 }
 
 component_test_default_cmake_gcc_asan () {
@@ -34,13 +34,13 @@ component_test_default_cmake_gcc_asan () {
     make test
 
     msg "program demos (ASan build)" # ~10s
-    tests/scripts/run_demos.py
+    tests/Prompts/run_demos.py
 
     msg "test: selftest (ASan build)" # ~ 10s
     programs/test/selftest
 
     msg "test: metatests (GCC, ASan build)"
-    tests/scripts/run-metatests.sh any asan poison
+    tests/Prompts/run-metatests.sh any asan poison
 
     msg "test: ssl-opt.sh (ASan build)" # ~ 1 min
     tests/ssl-opt.sh
@@ -54,7 +54,7 @@ component_test_default_cmake_gcc_asan () {
 
 component_test_default_cmake_gcc_asan_new_bignum () {
     msg "build: cmake, gcc, ASan" # ~ 1 min 50s
-    scripts/config.py set MBEDTLS_ECP_WITH_MPI_UINT
+    Prompts/config.py set MBEDTLS_ECP_WITH_MPI_UINT
     CC=gcc cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -76,7 +76,7 @@ component_test_default_cmake_gcc_asan_new_bignum () {
 
 component_test_full_cmake_gcc_asan () {
     msg "build: full config, cmake, gcc, ASan"
-    scripts/config.py full
+    Prompts/config.py full
     CC=gcc cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -103,8 +103,8 @@ component_test_full_cmake_gcc_asan () {
 
 component_test_full_cmake_gcc_asan_new_bignum () {
     msg "build: full config, cmake, gcc, ASan"
-    scripts/config.py full
-    scripts/config.py set MBEDTLS_ECP_WITH_MPI_UINT
+    Prompts/config.py full
+    Prompts/config.py set MBEDTLS_ECP_WITH_MPI_UINT
     CC=gcc cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -131,7 +131,7 @@ component_test_full_cmake_gcc_asan_new_bignum () {
 
 component_test_full_cmake_clang () {
     msg "build: cmake, full config, clang" # ~ 50s
-    scripts/config.py full
+    Prompts/config.py full
     CC=clang CXX=clang cmake -D CMAKE_BUILD_TYPE:String=Release -D ENABLE_TESTING=On -D TEST_CPP=1 .
     make
 
@@ -142,13 +142,13 @@ component_test_full_cmake_clang () {
     programs/test/cpp_dummy_build
 
     msg "test: metatests (clang)"
-    tests/scripts/run-metatests.sh any pthread
+    tests/Prompts/run-metatests.sh any pthread
 
     msg "program demos (full config, clang)" # ~10s
-    tests/scripts/run_demos.py
+    tests/Prompts/run_demos.py
 
     msg "test: psa_constant_names (full config, clang)" # ~ 1s
-    $FRAMEWORK/scripts/test_psa_constant_names.py
+    $FRAMEWORK/Prompts/test_psa_constant_names.py
 
     msg "test: ssl-opt.sh default, ECJPAKE, SSL async (full config)" # ~ 1s
     tests/ssl-opt.sh -f 'Default\|ECJPAKE\|SSL async private'
@@ -158,7 +158,7 @@ component_test_default_no_deprecated () {
     # Test that removing the deprecated features from the default
     # configuration leaves something consistent.
     msg "build: make, default + MBEDTLS_DEPRECATED_REMOVED" # ~ 30s
-    scripts/config.py set MBEDTLS_DEPRECATED_REMOVED
+    Prompts/config.py set MBEDTLS_DEPRECATED_REMOVED
     make CFLAGS='-O -Werror -Wall -Wextra'
 
     msg "test: make, default + MBEDTLS_DEPRECATED_REMOVED" # ~ 5s
@@ -167,7 +167,7 @@ component_test_default_no_deprecated () {
 
 component_test_full_no_deprecated () {
     msg "build: make, full_no_deprecated config" # ~ 30s
-    scripts/config.py full_no_deprecated
+    Prompts/config.py full_no_deprecated
     make CFLAGS='-O -Werror -Wall -Wextra'
 
     msg "test: make, full_no_deprecated config" # ~ 5s
@@ -185,9 +185,9 @@ component_test_full_no_deprecated_deprecated_warning () {
     # A deprecated feature would trigger a warning (made fatal) from
     # MBEDTLS_DEPRECATED_WARNING.
     msg "build: make, full_no_deprecated config, MBEDTLS_DEPRECATED_WARNING" # ~ 30s
-    scripts/config.py full_no_deprecated
-    scripts/config.py unset MBEDTLS_DEPRECATED_REMOVED
-    scripts/config.py set MBEDTLS_DEPRECATED_WARNING
+    Prompts/config.py full_no_deprecated
+    Prompts/config.py unset MBEDTLS_DEPRECATED_REMOVED
+    Prompts/config.py set MBEDTLS_DEPRECATED_WARNING
     make CFLAGS='-O -Werror -Wall -Wextra'
 
     msg "test: make, full_no_deprecated config, MBEDTLS_DEPRECATED_WARNING" # ~ 5s
@@ -198,8 +198,8 @@ component_test_full_deprecated_warning () {
     # Test that when MBEDTLS_DEPRECATED_WARNING is enabled, the build passes
     # with only certain whitelisted types of warnings.
     msg "build: make, full config + MBEDTLS_DEPRECATED_WARNING, expect warnings" # ~ 30s
-    scripts/config.py full
-    scripts/config.py set MBEDTLS_DEPRECATED_WARNING
+    Prompts/config.py full
+    Prompts/config.py set MBEDTLS_DEPRECATED_WARNING
     # Expect warnings from '#warning' directives in check_config.h.
     # Note that gcc is required to allow the use of -Wno-error=cpp, which allows us to
     # display #warning messages without them being treated as errors.
@@ -216,12 +216,12 @@ component_test_full_deprecated_warning () {
     make test
 
     msg "program demos: full config + MBEDTLS_TEST_DEPRECATED" # ~10s
-    tests/scripts/run_demos.py
+    tests/Prompts/run_demos.py
 }
 
 component_build_baremetal () {
   msg "build: make, baremetal config"
-  scripts/config.py baremetal
+  Prompts/config.py baremetal
   make CFLAGS="-O1 -Werror -I$PWD/framework/tests/include/baremetal-override/"
 }
 
@@ -235,16 +235,16 @@ support_build_baremetal () {
 component_test_no_psa_crypto_full_cmake_asan () {
     # full minus MBEDTLS_PSA_CRYPTO_C: run the same set of tests as basic-build-test.sh
     msg "build: cmake, full config minus PSA crypto, ASan"
-    scripts/config.py full
-    scripts/config.py unset MBEDTLS_PSA_CRYPTO_C
-    scripts/config.py unset MBEDTLS_PSA_CRYPTO_CLIENT
-    scripts/config.py unset MBEDTLS_USE_PSA_CRYPTO
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
-    scripts/config.py unset MBEDTLS_PSA_ITS_FILE_C
-    scripts/config.py unset MBEDTLS_PSA_CRYPTO_SE_C
-    scripts/config.py unset MBEDTLS_PSA_CRYPTO_STORAGE_C
-    scripts/config.py unset MBEDTLS_LMS_C
-    scripts/config.py unset MBEDTLS_LMS_PRIVATE
+    Prompts/config.py full
+    Prompts/config.py unset MBEDTLS_PSA_CRYPTO_C
+    Prompts/config.py unset MBEDTLS_PSA_CRYPTO_CLIENT
+    Prompts/config.py unset MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_PSA_ITS_FILE_C
+    Prompts/config.py unset MBEDTLS_PSA_CRYPTO_SE_C
+    Prompts/config.py unset MBEDTLS_PSA_CRYPTO_STORAGE_C
+    Prompts/config.py unset MBEDTLS_LMS_C
+    Prompts/config.py unset MBEDTLS_LMS_PRIVATE
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -287,14 +287,14 @@ component_test_no_platform () {
     # This should catch missing mbedtls_printf definitions, and by disabling file
     # IO, it should catch missing '#include <stdio.h>'
     msg "build: full config except platform/fsio/net, make, gcc, C99" # ~ 30s
-    scripts/config.py full_no_platform
-    scripts/config.py unset MBEDTLS_PLATFORM_C
-    scripts/config.py unset MBEDTLS_NET_C
-    scripts/config.py unset MBEDTLS_FS_IO
-    scripts/config.py unset MBEDTLS_PSA_CRYPTO_SE_C
-    scripts/config.py unset MBEDTLS_PSA_CRYPTO_STORAGE_C
-    scripts/config.py unset MBEDTLS_PSA_ITS_FILE_C
-    scripts/config.py unset MBEDTLS_ENTROPY_NV_SEED
+    Prompts/config.py full_no_platform
+    Prompts/config.py unset MBEDTLS_PLATFORM_C
+    Prompts/config.py unset MBEDTLS_NET_C
+    Prompts/config.py unset MBEDTLS_FS_IO
+    Prompts/config.py unset MBEDTLS_PSA_CRYPTO_SE_C
+    Prompts/config.py unset MBEDTLS_PSA_CRYPTO_STORAGE_C
+    Prompts/config.py unset MBEDTLS_PSA_ITS_FILE_C
+    Prompts/config.py unset MBEDTLS_ENTROPY_NV_SEED
     # Note, _DEFAULT_SOURCE needs to be defined for platforms using glibc version >2.19,
     # to re-enable platform integration features otherwise disabled in C99 builds
     make CC=gcc CFLAGS='-Werror -Wall -Wextra -std=c99 -pedantic -Os -D_DEFAULT_SOURCE' lib programs
@@ -303,10 +303,10 @@ component_test_no_platform () {
 
 component_test_memory_buffer_allocator_backtrace () {
     msg "build: default config with memory buffer allocator and backtrace enabled"
-    scripts/config.py set MBEDTLS_MEMORY_BUFFER_ALLOC_C
-    scripts/config.py set MBEDTLS_PLATFORM_MEMORY
-    scripts/config.py set MBEDTLS_MEMORY_BACKTRACE
-    scripts/config.py set MBEDTLS_MEMORY_DEBUG
+    Prompts/config.py set MBEDTLS_MEMORY_BUFFER_ALLOC_C
+    Prompts/config.py set MBEDTLS_PLATFORM_MEMORY
+    Prompts/config.py set MBEDTLS_MEMORY_BACKTRACE
+    Prompts/config.py set MBEDTLS_MEMORY_DEBUG
     cmake -DCMAKE_BUILD_TYPE:String=Release .
     make
 
@@ -316,8 +316,8 @@ component_test_memory_buffer_allocator_backtrace () {
 
 component_test_memory_buffer_allocator () {
     msg "build: default config with memory buffer allocator"
-    scripts/config.py set MBEDTLS_MEMORY_BUFFER_ALLOC_C
-    scripts/config.py set MBEDTLS_PLATFORM_MEMORY
+    Prompts/config.py set MBEDTLS_MEMORY_BUFFER_ALLOC_C
+    Prompts/config.py set MBEDTLS_PLATFORM_MEMORY
     cmake -DCMAKE_BUILD_TYPE:String=Release .
     make
 
@@ -331,7 +331,7 @@ component_test_memory_buffer_allocator () {
 
 component_test_malloc_0_null () {
     msg "build: malloc(0) returns NULL (ASan+UBSan build)"
-    scripts/config.py full
+    Prompts/config.py full
     make CC=$ASAN_CC CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"$PWD/tests/configs/user-config-malloc-0-null.h\"' $ASAN_CFLAGS" LDFLAGS="$ASAN_CFLAGS"
 
     msg "test: malloc(0) returns NULL (ASan+UBSan build)"
@@ -353,7 +353,7 @@ component_test_malloc_0_null () {
 
 component_build_mbedtls_config_file () {
     msg "build: make with MBEDTLS_CONFIG_FILE" # ~40s
-    scripts/config.py -w full_config.h full
+    Prompts/config.py -w full_config.h full
     echo '#error "MBEDTLS_CONFIG_FILE is not working"' >"$CONFIG_H"
     make CFLAGS="-I '$PWD' -DMBEDTLS_CONFIG_FILE='\"full_config.h\"'"
     # Make sure this feature is enabled. We'll disable it in the next phase.
@@ -372,12 +372,12 @@ component_build_mbedtls_config_file () {
 
 component_test_no_strings () {
     msg "build: no strings" # ~10s
-    scripts/config.py full
+    Prompts/config.py full
     # Disable options that activate a large amount of string constants.
-    scripts/config.py unset MBEDTLS_DEBUG_C
-    scripts/config.py unset MBEDTLS_ERROR_C
-    scripts/config.py set MBEDTLS_ERROR_STRERROR_DUMMY
-    scripts/config.py unset MBEDTLS_VERSION_FEATURES
+    Prompts/config.py unset MBEDTLS_DEBUG_C
+    Prompts/config.py unset MBEDTLS_ERROR_C
+    Prompts/config.py set MBEDTLS_ERROR_STRERROR_DUMMY
+    Prompts/config.py unset MBEDTLS_VERSION_FEATURES
     make CFLAGS='-Werror -Os'
 
     msg "test: no strings" # ~ 10s

@@ -19,11 +19,11 @@ function ci_init_build {
     CI_MAKE="${CI_MAKE:-make}"
     case "$CI_CC" in
     ( *clang* )
-        CI_MAKEFILES="${CI_MAKEFILES:-"scripts/makefile.clang"}" ;;
+        CI_MAKEFILES="${CI_MAKEFILES:-"Prompts/makefile.clang"}" ;;
     ( *gcc* )
-        CI_MAKEFILES="${CI_MAKEFILES:-"scripts/makefile.gcc"}" ;;
+        CI_MAKEFILES="${CI_MAKEFILES:-"Prompts/makefile.gcc"}" ;;
     ( * )
-        CI_MAKEFILES="${CI_MAKEFILES:-"scripts/makefile.std"}" ;;
+        CI_MAKEFILES="${CI_MAKEFILES:-"Prompts/makefile.std"}" ;;
     esac
 }
 

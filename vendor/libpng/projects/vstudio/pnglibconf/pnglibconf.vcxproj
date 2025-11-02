@@ -59,7 +59,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <CustomBuildStep>
-      <Command>copy ..\..\..\scripts\pnglibconf.h.prebuilt ..\..\..\pnglibconf.h</Command>
+      <Command>copy ..\..\..\Prompts\pnglibconf.h.prebuilt ..\..\..\pnglibconf.h</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Message>Generating pnglibconf.h</Message>
@@ -68,7 +68,7 @@
       <Outputs>..\..\..\pnglibconf.h</Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>..\..\..\scripts\pnglibconf.h.prebuilt</Inputs>
+      <Inputs>..\..\..\Prompts\pnglibconf.h.prebuilt</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">
@@ -84,7 +84,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <CustomBuildStep>
-      <Command>copy ..\..\..\scripts\pnglibconf.h.prebuilt ..\..\..\pnglibconf.h</Command>
+      <Command>copy ..\..\..\Prompts\pnglibconf.h.prebuilt ..\..\..\pnglibconf.h</Command>
     </CustomBuildStep>
     <CustomBuildStep>
       <Message>Generating pnglibconf.h</Message>
@@ -93,7 +93,7 @@
       <Outputs>..\..\..\pnglibconf.h</Outputs>
     </CustomBuildStep>
     <CustomBuildStep>
-      <Inputs>..\..\..\scripts\pnglibconf.h.prebuilt</Inputs>
+      <Inputs>..\..\..\Prompts\pnglibconf.h.prebuilt</Inputs>
     </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>

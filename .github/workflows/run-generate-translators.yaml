@@ -22,14 +22,14 @@ jobs:
         with:
           node-version: latest
           cache: 'npm'
-          cache-dependency-path: ./utils/localization/generate-translators/package-lock.json
+          cache-dependency-path: ./Utils/localization/generate-translators/package-lock.json
       
       - name: Install dependencies
-        working-directory: ./utils/localization/generate-translators
+        working-directory: ./Utils/localization/generate-translators
         run: npm clean-install
       
       - name: Generate translators
-        working-directory: ./utils/localization/generate-translators
+        working-directory: ./Utils/localization/generate-translators
         env:
           CROWDIN_TOKEN: "${{ secrets.CROWDIN_TOKEN }}"
           CROWDIN_ORGANIZATION: "multitheftauto"
@@ -44,7 +44,7 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-          git add ./utils/localization/generate-translators/crowdin-translators.json
+          git add ./Utils/localization/generate-translators/crowdin-translators.json
 
           if ! git diff-index --quiet HEAD; then
             git commit -m "Update crowdin-translators.json" -m "[ci skip]"

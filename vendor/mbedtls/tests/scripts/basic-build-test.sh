@@ -11,7 +11,7 @@
 # test report and code coverage report.
 #
 # The tests include:
-#   * Unit tests                - executed using tests/scripts/run-test-suite.pl
+#   * Unit tests                - executed using tests/Prompts/run-test-suite.pl
 #   * Self-tests                - executed using the test suites above
 #   * System tests              - executed using tests/ssl-opt.sh
 #   * Interoperability tests    - executed using tests/compat.sh
@@ -65,7 +65,7 @@ CONFIG_BAK="$CONFIG_H.bak"
 OPENSSL="$OPENSSL"                           \
     GNUTLS_CLI="$GNUTLS_CLI"                 \
     GNUTLS_SERV="$GNUTLS_SERV"               \
-    framework/scripts/output_env.sh
+    framework/Prompts/output_env.sh
 echo
 
 # Step 1 - Make and instrumented build for code coverage
@@ -73,7 +73,7 @@ export CFLAGS=' --coverage -g3 -O0 '
 export LDFLAGS=' --coverage'
 make clean
 cp "$CONFIG_H" "$CONFIG_BAK"
-scripts/config.py full
+Prompts/config.py full
 make
 
 
@@ -87,7 +87,7 @@ echo
 
 # Step 2a - Unit Tests (keep going even if some tests fail)
 echo '################ Unit tests ################'
-perl scripts/run-test-suites.pl -v 2 |tee unit-test-$TEST_OUTPUT
+perl Prompts/run-test-suites.pl -v 2 |tee unit-test-$TEST_OUTPUT
 echo '^^^^^^^^^^^^^^^^ Unit tests ^^^^^^^^^^^^^^^^'
 echo
 
@@ -142,7 +142,7 @@ rm -f "tests/basic-build-test-$$.ok"
     cd tests
 
     # Step 4a - Unit tests
-    echo "Unit tests - tests/scripts/run-test-suites.pl"
+    echo "Unit tests - tests/Prompts/run-test-suites.pl"
 
     PASSED_TESTS=$(tail -n6 unit-test-$TEST_OUTPUT|sed -n -e 's/test cases passed :[\t]*\([0-9]*\)/\1/p'| tr -d ' ')
     SKIPPED_TESTS=$(tail -n6 unit-test-$TEST_OUTPUT|sed -n -e 's/skipped :[ \t]*\([0-9]*\)/\1/p'| tr -d ' ')

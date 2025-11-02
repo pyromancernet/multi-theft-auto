@@ -48,16 +48,16 @@ if(GEN_FILES)
             ${CMAKE_CURRENT_BINARY_DIR}/query_config.c
         COMMAND
             ${PERL}
-                ${CMAKE_CURRENT_SOURCE_DIR}/../../scripts/generate_query_config.pl
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../Prompts/generate_query_config.pl
                 ${CMAKE_CURRENT_SOURCE_DIR}/../../include/mbedtls/mbedtls_config.h
                 ${CMAKE_CURRENT_SOURCE_DIR}/../../include/psa/crypto_config.h
-                ${CMAKE_CURRENT_SOURCE_DIR}/../../scripts/data_files/query_config.fmt
+                ${CMAKE_CURRENT_SOURCE_DIR}/../../Prompts/data_files/query_config.fmt
                 ${CMAKE_CURRENT_BINARY_DIR}/query_config.c
         DEPENDS
-            ${CMAKE_CURRENT_SOURCE_DIR}/../../scripts/generate_query_config.pl
+            ${CMAKE_CURRENT_SOURCE_DIR}/../../Prompts/generate_query_config.pl
             ${CMAKE_CURRENT_SOURCE_DIR}/../../include/mbedtls/mbedtls_config.h
             ${CMAKE_CURRENT_SOURCE_DIR}/../../include/psa/crypto_config.h
-            ${CMAKE_CURRENT_SOURCE_DIR}/../../scripts/data_files/query_config.fmt
+            ${CMAKE_CURRENT_SOURCE_DIR}/../../Prompts/data_files/query_config.fmt
     )
     # this file will also be used in another directory, so create a target, see
     # https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#how-can-i-add-a-dependency-to-a-source-file-which-is-generated-in-a-subdirectory

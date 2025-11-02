@@ -15,13 +15,13 @@ if( @ARGV ) {
     -d $data_dir or die "No such directory: $data_dir\n";
 } else {
     $include_dir = 'include/mbedtls';
-    $data_dir = 'scripts/data_files';
+    $data_dir = 'Prompts/data_files';
     $feature_file = 'library/version_features.c';
 
     unless( -d $include_dir && -d $data_dir ) {
         chdir '..' or die;
         -d $include_dir && -d $data_dir
-            or die "Without arguments, must be run from root or scripts\n"
+            or die "Without arguments, must be run from root or Prompts\n"
     }
 }
 

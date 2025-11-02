@@ -31,4 +31,4 @@ echo "URL is $URL"
 
 set -eu
 
-tests/scripts/all.sh -q -k 'check_*'
+tests/Prompts/all.sh -q -k 'check_*'

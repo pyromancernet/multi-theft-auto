@@ -11,24 +11,24 @@
 
 component_check_recursion () {
     msg "Check: recursion.pl" # < 1s
-    ./framework/scripts/recursion.pl library/*.c
+    ./framework/Prompts/recursion.pl library/*.c
 }
 
 component_check_generated_files () {
     msg "Check: check-generated-files, files generated with make" # 2s
     make generated_files
-    tests/scripts/check-generated-files.sh
+    tests/Prompts/check-generated-files.sh
 
     msg "Check: check-generated-files -u, files present" # 2s
-    tests/scripts/check-generated-files.sh -u
+    tests/Prompts/check-generated-files.sh -u
     # Check that the generated files are considered up to date.
-    tests/scripts/check-generated-files.sh
+    tests/Prompts/check-generated-files.sh
 
     msg "Check: check-generated-files -u, files absent" # 2s
     command make neat
-    tests/scripts/check-generated-files.sh -u
+    tests/Prompts/check-generated-files.sh -u
     # Check that the generated files are considered up to date.
-    tests/scripts/check-generated-files.sh
+    tests/Prompts/check-generated-files.sh
 
     # This component ends with the generated files present in the source tree.
     # This is necessary for subsequent components!
@@ -36,18 +36,18 @@ component_check_generated_files () {
 
 component_check_doxy_blocks () {
     msg "Check: doxygen markup outside doxygen blocks" # < 1s
-    ./framework/scripts/check-doxy-blocks.pl
+    ./framework/Prompts/check-doxy-blocks.pl
 }
 
 component_check_files () {
     msg "Check: file sanity checks (permissions, encodings)" # < 1s
-    framework/scripts/check_files.py
+    framework/Prompts/check_files.py
 }
 
 component_check_changelog () {
     msg "Check: changelog entries" # < 1s
     rm -f ChangeLog.new
-    ./framework/scripts/assemble_changelog.py -o ChangeLog.new
+    ./framework/Prompts/assemble_changelog.py -o ChangeLog.new
     if [ -e ChangeLog.new ]; then
         # Show the diff for information. It isn't an error if the diff is
         # non-empty.
@@ -58,7 +58,7 @@ component_check_changelog () {
 
 component_check_names () {
     msg "Check: declared and exported names (builds the library)" # < 3s
-    framework/scripts/check_names.py -v
+    framework/Prompts/check_names.py -v
 }
 
 component_check_test_cases () {
@@ -68,7 +68,7 @@ component_check_test_cases () {
     else
         opt=''
     fi
-    framework/scripts/check_test_cases.py -q $opt
+    framework/Prompts/check_test_cases.py -q $opt
     unset opt
 }
 
@@ -132,12 +132,12 @@ component_check_test_dependencies () {
 
 component_check_doxygen_warnings () {
     msg "Check: doxygen warnings (builds the documentation)" # ~ 3s
-    ./framework/scripts/doxygen.sh
+    ./framework/Prompts/doxygen.sh
 }
 
 component_check_code_style () {
     msg "Check C code style"
-    ./framework/scripts/code_style.py
+    ./framework/Prompts/code_style.py
 }
 
 support_check_code_style () {
@@ -149,7 +149,7 @@ support_check_code_style () {
 
 component_check_python_files () {
     msg "Lint: Python scripts"
-    ./framework/scripts/check-python-files.sh
+    ./framework/Prompts/check-python-files.sh
 }
 
 component_check_test_helpers () {
@@ -157,8 +157,8 @@ component_check_test_helpers () {
     # unittest writes out mundane stuff like number or tests run on stderr.
     # Our convention is to reserve stderr for actual errors, and write
     # harmless info on stdout so it can be suppress with --quiet.
-    ./framework/scripts/test_generate_test_code.py 2>&1
+    ./framework/Prompts/test_generate_test_code.py 2>&1
 
     msg "unit test: translate_ciphers.py"
-    python3 -m unittest framework/scripts/translate_ciphers.py 2>&1
+    python3 -m unittest framework/Prompts/translate_ciphers.py 2>&1
 }

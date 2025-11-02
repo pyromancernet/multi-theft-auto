@@ -27,8 +27,8 @@ LDFLAGS+=	-L. -L${ZLIBLIB}
 CLEANFILES+=	pngtest pngtest.o pngout.png
 
 # Pre-built configuration
-# See scripts/pnglibconf.mak for more options
-PNGLIBCONF_H_PREBUILT= scripts/pnglibconf.h.prebuilt
+# See Prompts/pnglibconf.mak for more options
+PNGLIBCONF_H_PREBUILT= Prompts/pnglibconf.h.prebuilt
 
 SRCS=	png.c pngerror.c pngget.c pngmem.c pngpread.c \
 	pngread.c pngrio.c pngrtran.c pngrutil.c pngset.c \

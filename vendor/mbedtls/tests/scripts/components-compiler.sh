@@ -40,13 +40,13 @@ test_build_opt () {
 # to disable the existing test_clang_opt function for linux.
 if [[ $(uname) != "Linux" ]]; then
     component_test_clang_opt () {
-        scripts/config.py full
+        Prompts/config.py full
         test_build_opt 'full config' clang -O0 -Os -O2
     }
 fi
 
 component_test_clang_latest_opt () {
-    scripts/config.py full
+    Prompts/config.py full
     test_build_opt 'full config' "$CLANG_LATEST" -O0 -Os -O2
 }
 
@@ -55,7 +55,7 @@ support_test_clang_latest_opt () {
 }
 
 component_test_clang_earliest_opt () {
-    scripts/config.py full
+    Prompts/config.py full
     test_build_opt 'full config' "$CLANG_EARLIEST" -O2
 }
 
@@ -64,7 +64,7 @@ support_test_clang_earliest_opt () {
 }
 
 component_test_gcc_latest_opt () {
-    scripts/config.py full
+    Prompts/config.py full
     test_build_opt 'full config' "$GCC_LATEST" -O0 -Os -O2
 }
 
@@ -89,8 +89,8 @@ support_test_gcc15_drivers_opt () {
 }
 component_test_gcc15_drivers_opt () {
     msg "build: GCC 15: full + test drivers dispatching to builtins"
-    scripts/config.py full
-    scripts/config.py unset MBEDTLS_PSA_CRYPTO_CONFIG
+    Prompts/config.py full
+    Prompts/config.py unset MBEDTLS_PSA_CRYPTO_CONFIG
     loc_cflags="$ASAN_CFLAGS -DPSA_CRYPTO_DRIVER_TEST_ALL"
     loc_cflags="${loc_cflags} '-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/user-config-for-test.h\"'"
     loc_cflags="${loc_cflags} -I../framework/tests/include -O2"
@@ -105,7 +105,7 @@ component_test_gcc15_drivers_opt () {
 }
 
 component_test_gcc_earliest_opt () {
-    scripts/config.py full
+    Prompts/config.py full
     test_build_opt 'full config' "$GCC_EARLIEST" -O2
 }
 
@@ -127,7 +127,7 @@ component_build_mingw () {
     make WINDOWS_BUILD=1 clean
 
     msg "build: Windows cross build - mingw64, make (Library only, default config without MBEDTLS_AESNI_C)" # ~ 30s
-    ./scripts/config.py unset MBEDTLS_AESNI_C #
+    ./Prompts/config.py unset MBEDTLS_AESNI_C #
     make CC=i686-w64-mingw32-gcc AR=i686-w64-mingw32-ar CFLAGS='-Werror -Wall -Wextra' WINDOWS_BUILD=1 lib
     make WINDOWS_BUILD=1 clean
 }
@@ -142,7 +142,7 @@ support_build_mingw () {
 component_build_zeroize_checks () {
     msg "build: check for obviously wrong calls to mbedtls_platform_zeroize()"
 
-    scripts/config.py full
+    Prompts/config.py full
 
     # Only compile - we're looking for sizeof-pointer-memaccess warnings
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/user-config-zeroize-memset.h\"' -DMBEDTLS_TEST_DEFINES_ZEROIZE -Werror -Wsizeof-pointer-memaccess"

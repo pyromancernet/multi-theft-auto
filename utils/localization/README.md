@@ -19,7 +19,7 @@ Then `cd` into your `mtasa-blue` git directory
 
 In the shell, type
 
-`conda env create -f utils/localization/environment.yml`
+`conda env create -f Utils/localization/environment.yml`
 
 # Running scripts
 
@@ -31,11 +31,11 @@ In shell
 
 ## Step 2: Run scripts
 
-`python utils/localization/build_gettext_catalog.py --help`
+`python Utils/localization/build_gettext_catalog.py --help`
 
 # Running tests
 
 ```shell
 conda activate mtasa
-pytest utils/localization/tests
+pytest Utils/localization/tests
 ```

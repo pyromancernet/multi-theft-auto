@@ -31,7 +31,7 @@ function(generate_chk)
                      COMMAND "${CMAKE_COMMAND}"
                              "-DINPUT=${_GENCHK_INPUT}"
                              "-DOUTPUT=${_GENCHK_OUTPUT}"
-                             -P "${CMAKE_CURRENT_BINARY_DIR}/scripts/cmake/genchk.cmake"
+                             -P "${CMAKE_CURRENT_BINARY_DIR}/Prompts/cmake/genchk.cmake"
                      DEPENDS "${_GENCHK_INPUT}" ${_GENCHK_DEPENDS}
                      WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 endfunction()
@@ -55,7 +55,7 @@ function(generate_out)
                      COMMAND "${CMAKE_COMMAND}"
                              "-DINPUT=${_GENOUT_INPUT}"
                              "-DOUTPUT=${_GENOUT_OUTPUT}"
-                             -P "${CMAKE_CURRENT_BINARY_DIR}/scripts/cmake/genout.cmake"
+                             -P "${CMAKE_CURRENT_BINARY_DIR}/Prompts/cmake/genout.cmake"
                      DEPENDS "${_GENOUT_INPUT}" ${_GENOUT_DEPENDS}
                      WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 endfunction()
@@ -75,7 +75,7 @@ function(generate_source)
   add_custom_command(OUTPUT "${_GENSRC_OUTPUT}"
                      COMMAND "${CMAKE_COMMAND}"
                              "-DOUTPUT=${_GENSRC_OUTPUT}"
-                             -P "${CMAKE_CURRENT_BINARY_DIR}/scripts/cmake/gensrc.cmake"
+                             -P "${CMAKE_CURRENT_BINARY_DIR}/Prompts/cmake/gensrc.cmake"
                      DEPENDS ${_GENSRC_DEPENDS}
                      WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}")
 endfunction()

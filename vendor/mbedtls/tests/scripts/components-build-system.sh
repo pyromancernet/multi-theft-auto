@@ -116,7 +116,7 @@ component_test_cmake_as_package () {
     ./cmake_package
     if [[ "$OSTYPE" == linux* ]]; then
         PKG_CONFIG_PATH="${build_variant_dir}/mbedtls/pkgconfig" \
-        ${root_dir}/framework/scripts/pkgconfig.sh \
+        ${root_dir}/framework/Prompts/pkgconfig.sh \
         mbedtls mbedx509 mbedcrypto
         # These are the EXPECTED package names. Renaming these could break
         # consumers of pkg-config, consider carefully.
@@ -156,7 +156,7 @@ component_build_cmake_custom_config_file () {
     make
 
     msg "build: cmake with -DMBEDTLS_CONFIG_FILE"
-    scripts/config.py -w full_config.h full
+    Prompts/config.py -w full_config.h full
     echo '#error "cmake -DMBEDTLS_CONFIG_FILE is not working."' > "$MBEDTLS_ROOT_DIR/$CONFIG_H"
     cmake -DGEN_FILES=OFF -DMBEDTLS_CONFIG_FILE=full_config.h "$MBEDTLS_ROOT_DIR"
     make
@@ -185,7 +185,7 @@ component_build_cmake_custom_config_file () {
     make
 
     msg "build: cmake (in-tree) with -DMBEDTLS_CONFIG_FILE"
-    scripts/config.py -w full_config.h full
+    Prompts/config.py -w full_config.h full
     echo '#error "cmake -DMBEDTLS_CONFIG_FILE is not working."' > "$MBEDTLS_ROOT_DIR/$CONFIG_H"
     cmake -DGEN_FILES=OFF -DMBEDTLS_CONFIG_FILE=full_config.h .
     make

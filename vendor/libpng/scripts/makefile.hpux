@@ -43,8 +43,8 @@ ARFLAGS=rc
 LDFLAGS=-L. -L$(ZLIBLIB) -lpng -lz -lm
 
 # Pre-built configuration
-# See scripts/pnglibconf.mak for more options
-PNGLIBCONF_H_PREBUILT = scripts/pnglibconf.h.prebuilt
+# See Prompts/pnglibconf.mak for more options
+PNGLIBCONF_H_PREBUILT = Prompts/pnglibconf.h.prebuilt
 
 OBJS = png.o pngerror.o pngget.o pngmem.o pngpread.o \
        pngread.o pngrio.o pngrtran.o pngrutil.o pngset.o \

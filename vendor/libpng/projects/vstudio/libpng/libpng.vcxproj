@@ -445,7 +445,7 @@
     <ClCompile Include="..\..\..\pngwutil.c" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\..\..\scripts\pngwin.rc">
+    <ResourceCompile Include="..\..\..\Prompts\pngwin.rc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Library|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug Library|ARM64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release Library|Win32'">true</ExcludedFromBuild>

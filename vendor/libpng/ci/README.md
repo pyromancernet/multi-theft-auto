@@ -19,7 +19,7 @@ File List
     ci_shellify.sh          ==>  Convert select definitions to shell syntax
     ci_verify_cmake.sh      ==>  Verify the build driven by CMakeLists.txt
     ci_verify_configure.sh  ==>  Verify the build driven by configure
-    ci_verify_makefiles.sh  ==>  Verify the build driven by scripts/makefile.*
+    ci_verify_makefiles.sh  ==>  Verify the build driven by Prompts/makefile.*
     ci_verify_version.sh    ==>  Verify the consistency of version definitions
     lib/ci.lib.sh           ==>  Shell utilities for the main ci_*.sh scripts
     targets/*/ci_env.*.sh   ==>  Shell environments for cross-platform testing

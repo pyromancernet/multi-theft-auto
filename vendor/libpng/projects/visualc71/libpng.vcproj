@@ -38,7 +38,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="copy ..\..\scripts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
+				CommandLine="copy ..\..\Prompts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -86,7 +86,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="copy ..\..\scripts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
+				CommandLine="copy ..\..\Prompts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -134,7 +134,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="copy ..\..\scripts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
+				CommandLine="copy ..\..\Prompts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -182,7 +182,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="copy ..\..\scripts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
+				CommandLine="copy ..\..\Prompts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -224,7 +224,7 @@
 				Name="VCPostBuildEventTool"/>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="copy ..\..\scripts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
+				CommandLine="copy ..\..\Prompts\pnglibconf.h.prebuilt ..\..\pnglibconf.h"/>
 			<Tool
 				Name="VCPreLinkEventTool"/>
 			<Tool
@@ -368,7 +368,7 @@
 			Name="Resource Files"
 			Filter="ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 			<File
-				RelativePath="..\..\scripts\pngwin.rc">
+				RelativePath="..\..\Prompts\pngwin.rc">
 				<FileConfiguration
 					Name="LIB Release|Win32"
 					ExcludedFromBuild="TRUE">

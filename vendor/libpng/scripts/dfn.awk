@@ -1,6 +1,6 @@
 #!/bin/awk -f
 
-# scripts/dfn.awk - process a .dfn file
+# Prompts/dfn.awk - process a .dfn file
 #
 # Copyright (c) 2013-2014 Glenn Randers-Pehrson
 #
@@ -172,7 +172,8 @@ $1 ~ /^PNG_DFN_END_SORT/{
    sub(/ *$/, "", line)
 
    # Remove trailing CR
-   sub(/$/, "", line)
+   sub(/
+$/, "", line)
 
    if (sort) {
       if (split(line, parts) < sort) {

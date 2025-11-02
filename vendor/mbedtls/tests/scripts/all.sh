@@ -11,6 +11,6 @@
 # This script must be invoked from the project's root.
 
 FRAMEWORK="$PWD/framework"
-source $FRAMEWORK/scripts/all-core.sh
+source $FRAMEWORK/Prompts/all-core.sh
 
 main "$@"

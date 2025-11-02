@@ -9141,6 +9141,10 @@ bool CStaticFunctionDefinitions::ResetVehicleHandling(CClientVehicle* pVehicle)
             pEntry->SetSuspensionUpperLimit(pEntry->GetSuspensionLowerLimit() - 0.1f);
     }
 
+    CModelInfo* pModelInfo = g_pGame->GetModelInfo(pVehicle->GetModel());
+    if (!pModelInfo || !pModelInfo->IsLoaded())
+        return false;
+
     pVehicle->ApplyHandling();
 
     return true;
@@ -9189,6 +9193,10 @@ bool CStaticFunctionDefinitions::ResetVehicleHandlingProperty(CClientVehicle* pV
         {
             return false;
         }
+
+        CModelInfo* pModelInfo = g_pGame->GetModelInfo(pVehicle->GetModel());
+        if (!pModelInfo || !pModelInfo->IsLoaded())
+            return false;
 
         pVehicle->ApplyHandling();
 

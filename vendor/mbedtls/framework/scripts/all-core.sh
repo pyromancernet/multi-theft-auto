@@ -15,7 +15,7 @@
 # Files structure
 # ---------------
 #
-# The executable entry point for users and the CI is tests/scripts/all.sh.
+# The executable entry point for users and the CI is tests/Prompts/all.sh.
 #
 # The actual content is in the following files:
 # - all-core.sh contains the core logic for running test components,
@@ -74,9 +74,9 @@
 #    up on exit.
 #
 # Note that the output is not saved. You may want to run
-#   script -c tests/scripts/all.sh
+#   script -c tests/Prompts/all.sh
 # or
-#   tests/scripts/all.sh >all.log 2>&1
+#   tests/Prompts/all.sh >all.log 2>&1
 #
 # Notes for maintainers
 # ---------------------
@@ -133,7 +133,7 @@ pre_set_shell_options () {
 
 pre_check_environment () {
 
-    source $FRAMEWORK/scripts/project_detection.sh
+    source $FRAMEWORK/Prompts/project_detection.sh
 
     if in_mbedtls_repo || in_tf_psa_crypto_repo; then :; else
         echo "Must be run from Mbed TLS / TF-PSA-Crypto root" >&2
@@ -145,7 +145,7 @@ pre_check_environment () {
 pre_load_components () {
     # Include the components from components.sh
     # Use a path relative to the current directory, aka project's root.
-    for file in tests/scripts/components-*.sh; do
+    for file in tests/Prompts/components-*.sh; do
         source $file
     done
 }
@@ -270,8 +270,8 @@ setup_quiet_wrappers()
     # unless there is an error. This reduces logging overhead in the CI.
     #
     # Note that the cmake wrapper breaks unless we use an absolute path here.
-    if [[ -e ${PWD}/framework/scripts/quiet ]]; then
-        export PATH=${PWD}/framework/scripts/quiet:$PATH
+    if [[ -e ${PWD}/framework/Prompts/quiet ]]; then
+        export PATH=${PWD}/framework/Prompts/quiet:$PATH
     fi
 }
 
@@ -917,7 +917,7 @@ pseudo_component_error_test () {
     error_test_i=this_should_not_be_used_since_the_component_runs_in_a_subshell
     # Expected error: 'grep non_existent /dev/null -> 1'
     grep non_existent /dev/null
-    # Expected error: '! grep -q . tests/scripts/all.sh -> 1'
+    # Expected error: '! grep -q . tests/Prompts/all.sh -> 1'
     not grep -q . "$0"
     # Expected error: 'make unknown_target -> 2'
     make unknown_target

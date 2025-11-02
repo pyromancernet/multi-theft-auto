@@ -40,11 +40,11 @@ fi
 if in_mbedtls_repo; then
     CONFIG_BAK=${CONFIG_H}.bak
     cp -p $CONFIG_H $CONFIG_BAK
-    scripts/config.py realfull
+    Prompts/config.py realfull
     make apidoc
     mv $CONFIG_BAK $CONFIG_H
 elif in_tf_psa_crypto_repo; then
-    scripts/config.py realfull
+    Prompts/config.py realfull
     TF_PSA_CRYPTO_ROOT_DIR=$PWD
     rm -rf doxygen/build-apidoc-full
     mkdir doxygen/build-apidoc-full

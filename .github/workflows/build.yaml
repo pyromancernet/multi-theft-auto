@@ -16,34 +16,34 @@ jobs:
       - uses: actions/cache@v4
         id: cache-dxfiles
         with:
-          path: utils/DXFiles
+          path: Utils/DXFiles
           key: dxfiles-0001
 
       - name: Download DirectX
         if: steps.cache-dxfiles.outputs.cache-hit != 'true'
-        run: Invoke-WebRequest https://mirror-cdn.multitheftauto.com/bdata/DXFiles.zip -OutFile utils/DXFiles.zip
+        run: Invoke-WebRequest https://mirror-cdn.multitheftauto.com/bdata/DXFiles.zip -OutFile Utils/DXFiles.zip
         shell: powershell
 
       - name: Extract DirectX
         if: steps.cache-dxfiles.outputs.cache-hit != 'true'
-        run: Expand-Archive -Path utils/DXFiles.zip -DestinationPath utils/DXFiles
+        run: Expand-Archive -Path Utils/DXFiles.zip -DestinationPath Utils/DXFiles
         shell: powershell
 
       - name: Install CEF
-        run: utils\premake5 install_cef
+        run: Utils\premake5 install_cef
 
       - name: Install data files
-        run: utils\premake5 install_data
+        run: Utils\premake5 install_data
 
       - name: Run Build
-        run: win-build.bat release ${{ matrix.platform }}
+        run: Prompts/win-build.bat release ${{ matrix.platform }}
         shell: cmd
         env:
-          DXSDK_DIR: './utils/DXFiles/'
+          DXSDK_DIR: './Utils/DXFiles/'
           CI: 'true'
 
       - name: Create build artifacts
-        run: utils\premake5 compose_files
+        run: Utils\premake5 compose_files
 
       - uses: actions/upload-artifact@v4
         with:
@@ -64,7 +64,7 @@ jobs:
         run: brew link --overwrite mysql
 
       - name: Run Build
-        run: ./linux-build.sh
+        run: ./Prompts/linux-build.sh
 
   linux:
     strategy:

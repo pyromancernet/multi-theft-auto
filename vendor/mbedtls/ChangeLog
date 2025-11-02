@@ -1200,7 +1200,7 @@ Requirement changes
      when building the library from the development branch rather than
      from a release, the Python module jsonschema is now necessary, in
      addition to jinja2. The official list of required Python modules is
-     maintained in scripts/basic.requirements.txt and may change again
+     maintained in Prompts/basic.requirements.txt and may change again
      in the future.
 
 New deprecations
@@ -4766,8 +4766,8 @@ API Changes
      You now need to link to all of them if you use TLS for example.
    * All public identifiers moved to the mbedtls_* or MBEDTLS_* namespace.
      Some names have been further changed to make them more consistent.
-     Migration helpers scripts/rename.pl and include/mbedtls/compat-1.3.h are
-     provided. Full list of renamings in scripts/data_files/rename-1.3-2.0.txt
+     Migration helpers Prompts/rename.pl and include/mbedtls/compat-1.3.h are
+     provided. Full list of renamings in Prompts/data_files/rename-1.3-2.0.txt
    * Renamings of fields inside structures, not covered by the previous list:
      mbedtls_cipher_info_t.key_length -> key_bitlen
      mbedtls_cipher_context_t.key_length -> key_bitlen

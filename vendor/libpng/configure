@@ -14578,8 +14578,8 @@ CC=$lt_save_CC
 # Run a test now, to make sure this doesn't happen.
 { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking if awk ($AWK) works" >&5
 printf %s "checking if awk ($AWK) works... " >&6; }
-if ${AWK} -f ${srcdir}/scripts/options.awk out="/dev/null" version=search\
-   ${srcdir}/pngconf.h ${srcdir}/scripts/pnglibconf.dfa\
+if ${AWK} -f ${srcdir}/Prompts/options.awk out="/dev/null" version=search\
+   ${srcdir}/pngconf.h ${srcdir}/Prompts/pnglibconf.dfa\
    ${srcdir}/pngusr.dfa 1>&2
 then
    { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5

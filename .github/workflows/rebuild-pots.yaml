@@ -13,7 +13,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: mtasa
-          environment-file: utils/localization/environment.yml
+          environment-file: Utils/localization/environment.yml
           python-version: 3
           auto-activate-base: false
       - name: Install gettext
@@ -21,7 +21,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends gettext
       - name: Run tests
-        run: pytest "utils/localization/tests"
+        run: pytest "Utils/localization/tests"
         shell: bash -l {0}
   rebuild-pots:
     if: github.event.repository.fork == false
@@ -35,16 +35,16 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: mtasa
-          environment-file: utils/localization/environment.yml
+          environment-file: Utils/localization/environment.yml
           python-version: 3
           auto-activate-base: false
       - name: Install gettext
         run: |
           sudo apt-get update
           sudo apt-get install --yes --no-install-recommends gettext
-      - run: python "utils/localization/build_gettext_catalog.py"
+      - run: python "Utils/localization/build_gettext_catalog.py"
         shell: bash -l {0}
-      - run: python "utils/localization/build_gettext_catalog_nsi.py"
+      - run: python "Utils/localization/build_gettext_catalog_nsi.py"
         shell: bash -l {0}
       - id: stage_changes
         name: Commit changes

@@ -18,18 +18,18 @@ File List
 ---------
 
     CMakeLists.txt                 ==>  The main CMake lists file
-    scripts/cmake/AUTHORS.md       ==>  The Authors file
-    scripts/cmake/README.md        ==>  This file
-    scripts/cmake/PNGConfig.cmake  ==>  Config file for FindPNG
-    scripts/cmake/genchk.cmake.in  ==>  Template for genchk.cmake
-    scripts/cmake/genout.cmake.in  ==>  Template for genout.cmake
-    scripts/cmake/gensrc.cmake.in  ==>  Template for gensrc.cmake
-    scripts/cmake/test.cmake.in    ==>  Template for test.cmake
+    Prompts/cmake/AUTHORS.md       ==>  The Authors file
+    Prompts/cmake/README.md        ==>  This file
+    Prompts/cmake/PNGConfig.cmake  ==>  Config file for FindPNG
+    Prompts/cmake/genchk.cmake.in  ==>  Template for genchk.cmake
+    Prompts/cmake/genout.cmake.in  ==>  Template for genout.cmake
+    Prompts/cmake/gensrc.cmake.in  ==>  Template for gensrc.cmake
+    Prompts/cmake/test.cmake.in    ==>  Template for test.cmake
 
 Acknowledgements
 ----------------
 
-See the accompanying file `scripts/cmake/AUTHORS.md`
+See the accompanying file `Prompts/cmake/AUTHORS.md`
 for the list of Contributing Authors.
 
 If you are a Contributing Author, please make sure

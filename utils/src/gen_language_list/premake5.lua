@@ -22,7 +22,7 @@ workspace "utility"
         defines { "WIN32", "_WIN32", "_WIN32_WINNT=0x601", "TGT_STANDALONE" }
         buildoptions { "/Zc:__cplusplus" }
 
-    include "../../../vendor/tinygettext"
+    include "../../../Vendor/tinygettext"
 
 project "gen_language_list"
     kind "ConsoleApp"
@@ -34,4 +34,4 @@ project "gen_language_list"
     }
 
     links { "tinygettext" }
-    includedirs { "../../../vendor/tinygettext" }
+    includedirs { "../../../Vendor/tinygettext" }

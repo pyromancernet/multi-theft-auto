@@ -323,7 +323,7 @@
  */
 #ifndef PNGLCONF_H
 /* If pnglibconf.h is missing, you can
- * copy scripts/pnglibconf.h.prebuilt to pnglibconf.h
+ * copy Prompts/pnglibconf.h.prebuilt to pnglibconf.h
  */
 #   include "pnglibconf.h"
 #endif
@@ -3358,7 +3358,7 @@ PNG_EXPORT(244, int, png_set_option, (png_structrp png_ptr, int option,
  ******************************************************************************/
 
 /* Maintainer: Put new public prototypes here ^, in libpng.3, in project
- * defs, and in scripts/symbols.def.
+ * defs, and in Prompts/symbols.def.
  */
 
 /* The last ordinal number (this is the *last* one already used; the next

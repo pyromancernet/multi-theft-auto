@@ -16,8 +16,8 @@ addons:
 # matrix.
 env:
   - USE_CC=gcc-4.8 USE_CXX=g++-4.8
-before_install: ./scripts/travis-checkout.sh
-script: ./scripts/travis-build.sh
+before_install: ./Prompts/travis-checkout.sh
+script: ./Prompts/travis-build.sh
 # TODO: add mac support
 os:
   - linux

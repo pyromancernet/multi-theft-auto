@@ -33,8 +33,8 @@ component_test_config_suite_b_legacy () {
     msg "build: configs/config-suite-b.h + DEBUG"
     MBEDTLS_TEST_CONFIGURATION="$MBEDTLS_TEST_CONFIGURATION+DEBUG"
     make clean
-    scripts/config.py set MBEDTLS_DEBUG_C
-    scripts/config.py set MBEDTLS_ERROR_C
+    Prompts/config.py set MBEDTLS_DEBUG_C
+    Prompts/config.py set MBEDTLS_ERROR_C
     make ssl-opt
 
     msg "test: configs/config-suite-b.h + DEBUG - ssl-opt.sh"
@@ -44,8 +44,8 @@ component_test_config_suite_b_legacy () {
 component_test_config_suite_b_psa () {
     msg "build: configs/config-suite-b.h + USE_PSA_CRYPTO"
     cp configs/config-suite-b.h "$CONFIG_H"
-    scripts/config.py set MBEDTLS_PSA_CRYPTO_C
-    scripts/config.py set MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py set MBEDTLS_PSA_CRYPTO_C
+    Prompts/config.py set MBEDTLS_USE_PSA_CRYPTO
     # test-ref-configs works by overwriting mbedtls_config.h; this makes cmake
     # want to re-generate generated files that depend on it, quite correctly.
     # However this doesn't work as the generation script expects a specific
@@ -67,8 +67,8 @@ component_test_config_suite_b_psa () {
     msg "build: configs/config-suite-b.h + USE_PSA_CRYPTO + DEBUG"
     MBEDTLS_TEST_CONFIGURATION="$MBEDTLS_TEST_CONFIGURATION+DEBUG"
     make clean
-    scripts/config.py set MBEDTLS_DEBUG_C
-    scripts/config.py set MBEDTLS_ERROR_C
+    Prompts/config.py set MBEDTLS_DEBUG_C
+    Prompts/config.py set MBEDTLS_ERROR_C
     make ssl-opt
 
     msg "test: configs/config-suite-b.h + USE_PSA_CRYPTO + DEBUG - ssl-opt.sh"
@@ -77,7 +77,7 @@ component_test_config_suite_b_psa () {
 
 component_test_no_renegotiation () {
     msg "build: Default + !MBEDTLS_SSL_RENEGOTIATION (ASan build)" # ~ 6 min
-    scripts/config.py unset MBEDTLS_SSL_RENEGOTIATION
+    Prompts/config.py unset MBEDTLS_SSL_RENEGOTIATION
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -92,20 +92,20 @@ component_test_tls1_2_default_stream_cipher_only () {
     msg "build: default with only stream cipher"
 
     # Disable AEAD (controlled by the presence of one of GCM_C, CCM_C, CHACHAPOLY_C
-    scripts/config.py unset MBEDTLS_GCM_C
-    scripts/config.py unset MBEDTLS_CCM_C
-    scripts/config.py unset MBEDTLS_CHACHAPOLY_C
+    Prompts/config.py unset MBEDTLS_GCM_C
+    Prompts/config.py unset MBEDTLS_CCM_C
+    Prompts/config.py unset MBEDTLS_CHACHAPOLY_C
     #Disable TLS 1.3 (as no AEAD)
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
     # Disable CBC-legacy (controlled by MBEDTLS_CIPHER_MODE_CBC plus at least one block cipher (AES, ARIA, Camellia, DES))
-    scripts/config.py unset MBEDTLS_CIPHER_MODE_CBC
+    Prompts/config.py unset MBEDTLS_CIPHER_MODE_CBC
     # Disable CBC-EtM (controlled by the same as CBC-legacy plus MBEDTLS_SSL_ENCRYPT_THEN_MAC)
-    scripts/config.py unset MBEDTLS_SSL_ENCRYPT_THEN_MAC
+    Prompts/config.py unset MBEDTLS_SSL_ENCRYPT_THEN_MAC
     # Enable stream (currently that's just the NULL pseudo-cipher (controlled by MBEDTLS_CIPHER_NULL_CIPHER))
-    scripts/config.py set MBEDTLS_CIPHER_NULL_CIPHER
+    Prompts/config.py set MBEDTLS_CIPHER_NULL_CIPHER
     # Modules that depend on AEAD
-    scripts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
-    scripts/config.py unset MBEDTLS_SSL_TICKET_C
+    Prompts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
+    Prompts/config.py unset MBEDTLS_SSL_TICKET_C
 
     make
 
@@ -118,22 +118,22 @@ component_test_tls1_2_default_stream_cipher_only () {
 component_test_tls1_2_default_stream_cipher_only_use_psa () {
     msg "build: default with only stream cipher use psa"
 
-    scripts/config.py set MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py set MBEDTLS_USE_PSA_CRYPTO
     # Disable AEAD (controlled by the presence of one of GCM_C, CCM_C, CHACHAPOLY_C)
-    scripts/config.py unset MBEDTLS_GCM_C
-    scripts/config.py unset MBEDTLS_CCM_C
-    scripts/config.py unset MBEDTLS_CHACHAPOLY_C
+    Prompts/config.py unset MBEDTLS_GCM_C
+    Prompts/config.py unset MBEDTLS_CCM_C
+    Prompts/config.py unset MBEDTLS_CHACHAPOLY_C
     #Disable TLS 1.3 (as no AEAD)
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
     # Disable CBC-legacy (controlled by MBEDTLS_CIPHER_MODE_CBC plus at least one block cipher (AES, ARIA, Camellia, DES))
-    scripts/config.py unset MBEDTLS_CIPHER_MODE_CBC
+    Prompts/config.py unset MBEDTLS_CIPHER_MODE_CBC
     # Disable CBC-EtM (controlled by the same as CBC-legacy plus MBEDTLS_SSL_ENCRYPT_THEN_MAC)
-    scripts/config.py unset MBEDTLS_SSL_ENCRYPT_THEN_MAC
+    Prompts/config.py unset MBEDTLS_SSL_ENCRYPT_THEN_MAC
     # Enable stream (currently that's just the NULL pseudo-cipher (controlled by MBEDTLS_CIPHER_NULL_CIPHER))
-    scripts/config.py set MBEDTLS_CIPHER_NULL_CIPHER
+    Prompts/config.py set MBEDTLS_CIPHER_NULL_CIPHER
     # Modules that depend on AEAD
-    scripts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
-    scripts/config.py unset MBEDTLS_SSL_TICKET_C
+    Prompts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
+    Prompts/config.py unset MBEDTLS_SSL_TICKET_C
 
     make
 
@@ -147,20 +147,20 @@ component_test_tls1_2_default_cbc_legacy_cipher_only () {
     msg "build: default with only CBC-legacy cipher"
 
     # Disable AEAD (controlled by the presence of one of GCM_C, CCM_C, CHACHAPOLY_C)
-    scripts/config.py unset MBEDTLS_GCM_C
-    scripts/config.py unset MBEDTLS_CCM_C
-    scripts/config.py unset MBEDTLS_CHACHAPOLY_C
+    Prompts/config.py unset MBEDTLS_GCM_C
+    Prompts/config.py unset MBEDTLS_CCM_C
+    Prompts/config.py unset MBEDTLS_CHACHAPOLY_C
     #Disable TLS 1.3 (as no AEAD)
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
     # Enable CBC-legacy (controlled by MBEDTLS_CIPHER_MODE_CBC plus at least one block cipher (AES, ARIA, Camellia, DES))
-    scripts/config.py set MBEDTLS_CIPHER_MODE_CBC
+    Prompts/config.py set MBEDTLS_CIPHER_MODE_CBC
     # Disable CBC-EtM (controlled by the same as CBC-legacy plus MBEDTLS_SSL_ENCRYPT_THEN_MAC)
-    scripts/config.py unset MBEDTLS_SSL_ENCRYPT_THEN_MAC
+    Prompts/config.py unset MBEDTLS_SSL_ENCRYPT_THEN_MAC
     # Disable stream (currently that's just the NULL pseudo-cipher (controlled by MBEDTLS_CIPHER_NULL_CIPHER))
-    scripts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
+    Prompts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
     # Modules that depend on AEAD
-    scripts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
-    scripts/config.py unset MBEDTLS_SSL_TICKET_C
+    Prompts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
+    Prompts/config.py unset MBEDTLS_SSL_TICKET_C
 
     make
 
@@ -174,22 +174,22 @@ component_test_tls1_2_default_cbc_legacy_cipher_only () {
 component_test_tls1_2_default_cbc_legacy_cipher_only_use_psa () {
     msg "build: default with only CBC-legacy cipher use psa"
 
-    scripts/config.py set MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py set MBEDTLS_USE_PSA_CRYPTO
     # Disable AEAD (controlled by the presence of one of GCM_C, CCM_C, CHACHAPOLY_C)
-    scripts/config.py unset MBEDTLS_GCM_C
-    scripts/config.py unset MBEDTLS_CCM_C
-    scripts/config.py unset MBEDTLS_CHACHAPOLY_C
+    Prompts/config.py unset MBEDTLS_GCM_C
+    Prompts/config.py unset MBEDTLS_CCM_C
+    Prompts/config.py unset MBEDTLS_CHACHAPOLY_C
     #Disable TLS 1.3 (as no AEAD)
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
     # Enable CBC-legacy (controlled by MBEDTLS_CIPHER_MODE_CBC plus at least one block cipher (AES, ARIA, Camellia, DES))
-    scripts/config.py set MBEDTLS_CIPHER_MODE_CBC
+    Prompts/config.py set MBEDTLS_CIPHER_MODE_CBC
     # Disable CBC-EtM (controlled by the same as CBC-legacy plus MBEDTLS_SSL_ENCRYPT_THEN_MAC)
-    scripts/config.py unset MBEDTLS_SSL_ENCRYPT_THEN_MAC
+    Prompts/config.py unset MBEDTLS_SSL_ENCRYPT_THEN_MAC
     # Disable stream (currently that's just the NULL pseudo-cipher (controlled by MBEDTLS_CIPHER_NULL_CIPHER))
-    scripts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
+    Prompts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
     # Modules that depend on AEAD
-    scripts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
-    scripts/config.py unset MBEDTLS_SSL_TICKET_C
+    Prompts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
+    Prompts/config.py unset MBEDTLS_SSL_TICKET_C
 
     make
 
@@ -204,20 +204,20 @@ component_test_tls1_2_default_cbc_legacy_cbc_etm_cipher_only () {
     msg "build: default with only CBC-legacy and CBC-EtM ciphers"
 
     # Disable AEAD (controlled by the presence of one of GCM_C, CCM_C, CHACHAPOLY_C)
-    scripts/config.py unset MBEDTLS_GCM_C
-    scripts/config.py unset MBEDTLS_CCM_C
-    scripts/config.py unset MBEDTLS_CHACHAPOLY_C
+    Prompts/config.py unset MBEDTLS_GCM_C
+    Prompts/config.py unset MBEDTLS_CCM_C
+    Prompts/config.py unset MBEDTLS_CHACHAPOLY_C
     #Disable TLS 1.3 (as no AEAD)
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
     # Enable CBC-legacy (controlled by MBEDTLS_CIPHER_MODE_CBC plus at least one block cipher (AES, ARIA, Camellia, DES))
-    scripts/config.py set MBEDTLS_CIPHER_MODE_CBC
+    Prompts/config.py set MBEDTLS_CIPHER_MODE_CBC
     # Enable CBC-EtM (controlled by the same as CBC-legacy plus MBEDTLS_SSL_ENCRYPT_THEN_MAC)
-    scripts/config.py set MBEDTLS_SSL_ENCRYPT_THEN_MAC
+    Prompts/config.py set MBEDTLS_SSL_ENCRYPT_THEN_MAC
     # Disable stream (currently that's just the NULL pseudo-cipher (controlled by MBEDTLS_CIPHER_NULL_CIPHER))
-    scripts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
+    Prompts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
     # Modules that depend on AEAD
-    scripts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
-    scripts/config.py unset MBEDTLS_SSL_TICKET_C
+    Prompts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
+    Prompts/config.py unset MBEDTLS_SSL_TICKET_C
 
     make
 
@@ -231,22 +231,22 @@ component_test_tls1_2_default_cbc_legacy_cbc_etm_cipher_only () {
 component_test_tls1_2_default_cbc_legacy_cbc_etm_cipher_only_use_psa () {
     msg "build: default with only CBC-legacy and CBC-EtM ciphers use psa"
 
-    scripts/config.py set MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py set MBEDTLS_USE_PSA_CRYPTO
     # Disable AEAD (controlled by the presence of one of GCM_C, CCM_C, CHACHAPOLY_C)
-    scripts/config.py unset MBEDTLS_GCM_C
-    scripts/config.py unset MBEDTLS_CCM_C
-    scripts/config.py unset MBEDTLS_CHACHAPOLY_C
+    Prompts/config.py unset MBEDTLS_GCM_C
+    Prompts/config.py unset MBEDTLS_CCM_C
+    Prompts/config.py unset MBEDTLS_CHACHAPOLY_C
     #Disable TLS 1.3 (as no AEAD)
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
     # Enable CBC-legacy (controlled by MBEDTLS_CIPHER_MODE_CBC plus at least one block cipher (AES, ARIA, Camellia, DES))
-    scripts/config.py set MBEDTLS_CIPHER_MODE_CBC
+    Prompts/config.py set MBEDTLS_CIPHER_MODE_CBC
     # Enable CBC-EtM (controlled by the same as CBC-legacy plus MBEDTLS_SSL_ENCRYPT_THEN_MAC)
-    scripts/config.py set MBEDTLS_SSL_ENCRYPT_THEN_MAC
+    Prompts/config.py set MBEDTLS_SSL_ENCRYPT_THEN_MAC
     # Disable stream (currently that's just the NULL pseudo-cipher (controlled by MBEDTLS_CIPHER_NULL_CIPHER))
-    scripts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
+    Prompts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
     # Modules that depend on AEAD
-    scripts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
-    scripts/config.py unset MBEDTLS_SSL_TICKET_C
+    Prompts/config.py unset MBEDTLS_SSL_CONTEXT_SERIALIZATION
+    Prompts/config.py unset MBEDTLS_SSL_TICKET_C
 
     make
 
@@ -282,8 +282,8 @@ component_test_config_thread_legacy () {
 component_test_config_thread_psa () {
     msg "build: configs/config-thread.h + USE_PSA_CRYPTO"
     cp configs/config-thread.h "$CONFIG_H"
-    scripts/config.py set MBEDTLS_PSA_CRYPTO_C
-    scripts/config.py set MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py set MBEDTLS_PSA_CRYPTO_C
+    Prompts/config.py set MBEDTLS_USE_PSA_CRYPTO
     # test-ref-configs works by overwriting mbedtls_config.h; this makes cmake
     # want to re-generate generated files that depend on it, quite correctly.
     # However this doesn't work as the generation script expects a specific
@@ -309,7 +309,7 @@ component_test_config_thread_psa () {
 # these two interoperate with each other.
 component_test_tls1_2_ecjpake_compatibility () {
     msg "build: TLS1.2 server+client w/ EC-JPAKE w/o USE_PSA"
-    scripts/config.py set MBEDTLS_KEY_EXCHANGE_ECJPAKE_ENABLED
+    Prompts/config.py set MBEDTLS_KEY_EXCHANGE_ECJPAKE_ENABLED
     # Explicitly make lib first to avoid a race condition:
     # https://github.com/Mbed-TLS/mbedtls/issues/8229
     make lib
@@ -318,7 +318,7 @@ component_test_tls1_2_ecjpake_compatibility () {
     cp programs/ssl/ssl_client2 c2_no_use_psa
 
     msg "build: TLS1.2 server+client w/ EC-JPAKE w/ USE_PSA"
-    scripts/config.py set MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py set MBEDTLS_USE_PSA_CRYPTO
     make clean
     make lib
     make -C programs ssl/ssl_server2 ssl/ssl_client2
@@ -361,8 +361,8 @@ component_test_tls1_2_ccm_psk_legacy () {
 component_test_tls1_2_ccm_psk_psa () {
     msg "build: configs/config-ccm-psk-tls1_2.h + USE_PSA_CRYPTO"
     cp configs/config-ccm-psk-tls1_2.h "$CONFIG_H"
-    scripts/config.py set MBEDTLS_PSA_CRYPTO_C
-    scripts/config.py set MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py set MBEDTLS_PSA_CRYPTO_C
+    Prompts/config.py set MBEDTLS_USE_PSA_CRYPTO
     # test-ref-configs works by overwriting mbedtls_config.h; this makes cmake
     # want to re-generate generated files that depend on it, quite correctly.
     # However this doesn't work as the generation script expects a specific
@@ -406,8 +406,8 @@ component_test_tls1_2_ccm_psk_dtls_legacy () {
     msg "build: configs/config-ccm-psk-dtls1_2.h + DEBUG"
     MBEDTLS_TEST_CONFIGURATION="$MBEDTLS_TEST_CONFIGURATION+DEBUG"
     make clean
-    scripts/config.py set MBEDTLS_DEBUG_C
-    scripts/config.py set MBEDTLS_ERROR_C
+    Prompts/config.py set MBEDTLS_DEBUG_C
+    Prompts/config.py set MBEDTLS_ERROR_C
     make ssl-opt
 
     msg "test: configs/config-ccm-psk-dtls1_2.h + DEBUG - ssl-opt.sh"
@@ -417,8 +417,8 @@ component_test_tls1_2_ccm_psk_dtls_legacy () {
 component_test_tls1_2_ccm_psk_dtls_psa () {
     msg "build: configs/config-ccm-psk-dtls1_2.h + USE_PSA_CRYPTO"
     cp configs/config-ccm-psk-dtls1_2.h "$CONFIG_H"
-    scripts/config.py set MBEDTLS_PSA_CRYPTO_C
-    scripts/config.py set MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py set MBEDTLS_PSA_CRYPTO_C
+    Prompts/config.py set MBEDTLS_USE_PSA_CRYPTO
     # test-ref-configs works by overwriting mbedtls_config.h; this makes cmake
     # want to re-generate generated files that depend on it, quite correctly.
     # However this doesn't work as the generation script expects a specific
@@ -440,8 +440,8 @@ component_test_tls1_2_ccm_psk_dtls_psa () {
     msg "build: configs/config-ccm-psk-dtls1_2.h + USE_PSA_CRYPTO + DEBUG"
     MBEDTLS_TEST_CONFIGURATION="$MBEDTLS_TEST_CONFIGURATION+DEBUG"
     make clean
-    scripts/config.py set MBEDTLS_DEBUG_C
-    scripts/config.py set MBEDTLS_ERROR_C
+    Prompts/config.py set MBEDTLS_DEBUG_C
+    Prompts/config.py set MBEDTLS_ERROR_C
     make ssl-opt
 
     msg "test: configs/config-ccm-psk-dtls1_2.h + USE_PSA_CRYPTO + DEBUG - ssl-opt.sh"
@@ -450,8 +450,8 @@ component_test_tls1_2_ccm_psk_dtls_psa () {
 
 component_test_small_ssl_out_content_len () {
     msg "build: small SSL_OUT_CONTENT_LEN (ASan build)"
-    scripts/config.py set MBEDTLS_SSL_IN_CONTENT_LEN 16384
-    scripts/config.py set MBEDTLS_SSL_OUT_CONTENT_LEN 4096
+    Prompts/config.py set MBEDTLS_SSL_IN_CONTENT_LEN 16384
+    Prompts/config.py set MBEDTLS_SSL_OUT_CONTENT_LEN 4096
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -461,8 +461,8 @@ component_test_small_ssl_out_content_len () {
 
 component_test_small_ssl_in_content_len () {
     msg "build: small SSL_IN_CONTENT_LEN (ASan build)"
-    scripts/config.py set MBEDTLS_SSL_IN_CONTENT_LEN 4096
-    scripts/config.py set MBEDTLS_SSL_OUT_CONTENT_LEN 16384
+    Prompts/config.py set MBEDTLS_SSL_IN_CONTENT_LEN 4096
+    Prompts/config.py set MBEDTLS_SSL_OUT_CONTENT_LEN 16384
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -472,7 +472,7 @@ component_test_small_ssl_in_content_len () {
 
 component_test_small_ssl_dtls_max_buffering () {
     msg "build: small MBEDTLS_SSL_DTLS_MAX_BUFFERING #0"
-    scripts/config.py set MBEDTLS_SSL_DTLS_MAX_BUFFERING 1000
+    Prompts/config.py set MBEDTLS_SSL_DTLS_MAX_BUFFERING 1000
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -482,7 +482,7 @@ component_test_small_ssl_dtls_max_buffering () {
 
 component_test_small_mbedtls_ssl_dtls_max_buffering () {
     msg "build: small MBEDTLS_SSL_DTLS_MAX_BUFFERING #1"
-    scripts/config.py set MBEDTLS_SSL_DTLS_MAX_BUFFERING 190
+    Prompts/config.py set MBEDTLS_SSL_DTLS_MAX_BUFFERING 190
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -492,12 +492,12 @@ component_test_small_mbedtls_ssl_dtls_max_buffering () {
 
 component_test_depends_py_kex () {
     msg "test/build: depends.py kex (gcc)"
-    tests/scripts/depends.py kex --unset-use-psa
+    tests/Prompts/depends.py kex --unset-use-psa
 }
 
 component_test_depends_py_kex_psa () {
     msg "test/build: depends.py kex (gcc) with MBEDTLS_USE_PSA_CRYPTO defined"
-    tests/scripts/depends.py kex
+    tests/Prompts/depends.py kex
 }
 
 # Common helper for component_full_without_ecdhe_ecdsa() and
@@ -511,10 +511,10 @@ build_full_minus_something_and_test_tls () {
 
     msg "build: full minus something, test TLS"
 
-    scripts/config.py full
+    Prompts/config.py full
     for sym in $symbols_to_disable; do
         echo "Disabling $sym"
-        scripts/config.py unset $sym
+        Prompts/config.py unset $sym
     done
 
     make
@@ -537,22 +537,22 @@ component_full_without_ecdhe_ecdsa_and_tls13 () {
 
 component_build_no_ssl_srv () {
     msg "build: full config except SSL server, make, gcc" # ~ 30s
-    scripts/config.py full
-    scripts/config.py unset MBEDTLS_SSL_SRV_C
+    Prompts/config.py full
+    Prompts/config.py unset MBEDTLS_SSL_SRV_C
     make CC=gcc CFLAGS='-Werror -Wall -Wextra -O1 -Wmissing-prototypes'
 }
 
 component_build_no_ssl_cli () {
     msg "build: full config except SSL client, make, gcc" # ~ 30s
-    scripts/config.py full
-    scripts/config.py unset MBEDTLS_SSL_CLI_C
+    Prompts/config.py full
+    Prompts/config.py unset MBEDTLS_SSL_CLI_C
     make CC=gcc CFLAGS='-Werror -Wall -Wextra -O1 -Wmissing-prototypes'
 }
 
 component_test_no_max_fragment_length () {
     # Run max fragment length tests with MFL disabled
     msg "build: default config except MFL extension (ASan build)" # ~ 30s
-    scripts/config.py unset MBEDTLS_SSL_MAX_FRAGMENT_LENGTH
+    Prompts/config.py unset MBEDTLS_SSL_MAX_FRAGMENT_LENGTH
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -562,8 +562,8 @@ component_test_no_max_fragment_length () {
 
 component_test_asan_remove_peer_certificate () {
     msg "build: default config with MBEDTLS_SSL_KEEP_PEER_CERTIFICATE disabled (ASan build)"
-    scripts/config.py unset MBEDTLS_SSL_KEEP_PEER_CERTIFICATE
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_SSL_KEEP_PEER_CERTIFICATE
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -582,9 +582,9 @@ component_test_asan_remove_peer_certificate () {
 
 component_test_no_max_fragment_length_small_ssl_out_content_len () {
     msg "build: no MFL extension, small SSL_OUT_CONTENT_LEN (ASan build)"
-    scripts/config.py unset MBEDTLS_SSL_MAX_FRAGMENT_LENGTH
-    scripts/config.py set MBEDTLS_SSL_IN_CONTENT_LEN 16384
-    scripts/config.py set MBEDTLS_SSL_OUT_CONTENT_LEN 4096
+    Prompts/config.py unset MBEDTLS_SSL_MAX_FRAGMENT_LENGTH
+    Prompts/config.py set MBEDTLS_SSL_IN_CONTENT_LEN 16384
+    Prompts/config.py set MBEDTLS_SSL_OUT_CONTENT_LEN 4096
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -597,7 +597,7 @@ component_test_no_max_fragment_length_small_ssl_out_content_len () {
 
 component_test_variable_ssl_in_out_buffer_len () {
     msg "build: MBEDTLS_SSL_VARIABLE_BUFFER_LENGTH enabled (ASan build)"
-    scripts/config.py set MBEDTLS_SSL_VARIABLE_BUFFER_LENGTH
+    Prompts/config.py set MBEDTLS_SSL_VARIABLE_BUFFER_LENGTH
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -613,7 +613,7 @@ component_test_variable_ssl_in_out_buffer_len () {
 
 component_test_dtls_cid_legacy () {
     msg "build: MBEDTLS_SSL_DTLS_CONNECTION_ID (legacy) enabled (ASan build)"
-    scripts/config.py set MBEDTLS_SSL_DTLS_CONNECTION_ID_COMPAT 1
+    Prompts/config.py set MBEDTLS_SSL_DTLS_CONNECTION_ID_COMPAT 1
 
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
@@ -630,11 +630,11 @@ component_test_dtls_cid_legacy () {
 
 component_test_ssl_alloc_buffer_and_mfl () {
     msg "build: default config with memory buffer allocator and MFL extension"
-    scripts/config.py set MBEDTLS_MEMORY_BUFFER_ALLOC_C
-    scripts/config.py set MBEDTLS_PLATFORM_MEMORY
-    scripts/config.py set MBEDTLS_MEMORY_DEBUG
-    scripts/config.py set MBEDTLS_SSL_MAX_FRAGMENT_LENGTH
-    scripts/config.py set MBEDTLS_SSL_VARIABLE_BUFFER_LENGTH
+    Prompts/config.py set MBEDTLS_MEMORY_BUFFER_ALLOC_C
+    Prompts/config.py set MBEDTLS_PLATFORM_MEMORY
+    Prompts/config.py set MBEDTLS_MEMORY_DEBUG
+    Prompts/config.py set MBEDTLS_SSL_MAX_FRAGMENT_LENGTH
+    Prompts/config.py set MBEDTLS_SSL_VARIABLE_BUFFER_LENGTH
     cmake -DCMAKE_BUILD_TYPE:String=Release .
     make
 
@@ -647,9 +647,9 @@ component_test_ssl_alloc_buffer_and_mfl () {
 
 component_test_when_no_ciphersuites_have_mac () {
     msg "build: when no ciphersuites have MAC"
-    scripts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
-    scripts/config.py unset MBEDTLS_CIPHER_MODE_CBC
-    scripts/config.py unset MBEDTLS_CMAC_C
+    Prompts/config.py unset MBEDTLS_CIPHER_NULL_CIPHER
+    Prompts/config.py unset MBEDTLS_CIPHER_MODE_CBC
+    Prompts/config.py unset MBEDTLS_CMAC_C
     make
 
     msg "test: !MBEDTLS_SSL_SOME_SUITES_USE_MAC"
@@ -661,7 +661,7 @@ component_test_when_no_ciphersuites_have_mac () {
 
 component_test_tls12_only () {
     msg "build: default config without MBEDTLS_SSL_PROTO_TLS1_3, cmake, gcc, ASan"
-    scripts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
+    Prompts/config.py unset MBEDTLS_SSL_PROTO_TLS1_3
     CC=gcc cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
 
@@ -677,8 +677,8 @@ component_test_tls12_only () {
 
 component_test_tls13_only () {
     msg "build: default config without MBEDTLS_SSL_PROTO_TLS1_2"
-    scripts/config.py set MBEDTLS_SSL_EARLY_DATA
-    scripts/config.py set MBEDTLS_SSL_RECORD_SIZE_LIMIT
+    Prompts/config.py set MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py set MBEDTLS_SSL_RECORD_SIZE_LIMIT
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/tls13-only.h\"'"
 
     msg "test: TLS 1.3 only, all key exchange modes enabled"
@@ -690,17 +690,17 @@ component_test_tls13_only () {
 
 component_test_tls13_only_psk () {
     msg "build: TLS 1.3 only from default, only PSK key exchange mode"
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_EPHEMERAL_ENABLED
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL_ENABLED
-    scripts/config.py unset MBEDTLS_ECDH_C
-    scripts/config.py unset MBEDTLS_DHM_C
-    scripts/config.py unset MBEDTLS_X509_CRT_PARSE_C
-    scripts/config.py unset MBEDTLS_X509_RSASSA_PSS_SUPPORT
-    scripts/config.py unset MBEDTLS_SSL_SERVER_NAME_INDICATION
-    scripts/config.py unset MBEDTLS_ECDSA_C
-    scripts/config.py unset MBEDTLS_PKCS1_V21
-    scripts/config.py unset MBEDTLS_PKCS7_C
-    scripts/config.py set   MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_EPHEMERAL_ENABLED
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL_ENABLED
+    Prompts/config.py unset MBEDTLS_ECDH_C
+    Prompts/config.py unset MBEDTLS_DHM_C
+    Prompts/config.py unset MBEDTLS_X509_CRT_PARSE_C
+    Prompts/config.py unset MBEDTLS_X509_RSASSA_PSS_SUPPORT
+    Prompts/config.py unset MBEDTLS_SSL_SERVER_NAME_INDICATION
+    Prompts/config.py unset MBEDTLS_ECDSA_C
+    Prompts/config.py unset MBEDTLS_PKCS1_V21
+    Prompts/config.py unset MBEDTLS_PKCS7_C
+    Prompts/config.py set   MBEDTLS_SSL_EARLY_DATA
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/tls13-only.h\"'"
 
     msg "test_suite_ssl: TLS 1.3 only, only PSK key exchange mode enabled"
@@ -712,9 +712,9 @@ component_test_tls13_only_psk () {
 
 component_test_tls13_only_ephemeral () {
     msg "build: TLS 1.3 only from default, only ephemeral key exchange mode"
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL_ENABLED
-    scripts/config.py unset MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL_ENABLED
+    Prompts/config.py unset MBEDTLS_SSL_EARLY_DATA
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/tls13-only.h\"'"
 
     msg "test_suite_ssl: TLS 1.3 only, only ephemeral key exchange mode"
@@ -726,10 +726,10 @@ component_test_tls13_only_ephemeral () {
 
 component_test_tls13_only_ephemeral_ffdh () {
     msg "build: TLS 1.3 only from default, only ephemeral ffdh key exchange mode"
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL_ENABLED
-    scripts/config.py unset MBEDTLS_SSL_EARLY_DATA
-    scripts/config.py unset MBEDTLS_ECDH_C
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_EPHEMERAL_ENABLED
+    Prompts/config.py unset MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py unset MBEDTLS_ECDH_C
 
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/tls13-only.h\"'"
 
@@ -742,15 +742,15 @@ component_test_tls13_only_ephemeral_ffdh () {
 
 component_test_tls13_only_psk_ephemeral () {
     msg "build: TLS 1.3 only from default, only PSK ephemeral key exchange mode"
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_EPHEMERAL_ENABLED
-    scripts/config.py unset MBEDTLS_X509_CRT_PARSE_C
-    scripts/config.py unset MBEDTLS_X509_RSASSA_PSS_SUPPORT
-    scripts/config.py unset MBEDTLS_SSL_SERVER_NAME_INDICATION
-    scripts/config.py unset MBEDTLS_ECDSA_C
-    scripts/config.py unset MBEDTLS_PKCS1_V21
-    scripts/config.py unset MBEDTLS_PKCS7_C
-    scripts/config.py set   MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_EPHEMERAL_ENABLED
+    Prompts/config.py unset MBEDTLS_X509_CRT_PARSE_C
+    Prompts/config.py unset MBEDTLS_X509_RSASSA_PSS_SUPPORT
+    Prompts/config.py unset MBEDTLS_SSL_SERVER_NAME_INDICATION
+    Prompts/config.py unset MBEDTLS_ECDSA_C
+    Prompts/config.py unset MBEDTLS_PKCS1_V21
+    Prompts/config.py unset MBEDTLS_PKCS7_C
+    Prompts/config.py set   MBEDTLS_SSL_EARLY_DATA
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/tls13-only.h\"'"
 
     msg "test_suite_ssl: TLS 1.3 only, only PSK ephemeral key exchange mode"
@@ -762,16 +762,16 @@ component_test_tls13_only_psk_ephemeral () {
 
 component_test_tls13_only_psk_ephemeral_ffdh () {
     msg "build: TLS 1.3 only from default, only PSK ephemeral ffdh key exchange mode"
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_EPHEMERAL_ENABLED
-    scripts/config.py unset MBEDTLS_X509_CRT_PARSE_C
-    scripts/config.py unset MBEDTLS_X509_RSASSA_PSS_SUPPORT
-    scripts/config.py unset MBEDTLS_SSL_SERVER_NAME_INDICATION
-    scripts/config.py unset MBEDTLS_ECDSA_C
-    scripts/config.py unset MBEDTLS_PKCS1_V21
-    scripts/config.py unset MBEDTLS_PKCS7_C
-    scripts/config.py set   MBEDTLS_SSL_EARLY_DATA
-    scripts/config.py unset MBEDTLS_ECDH_C
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_EPHEMERAL_ENABLED
+    Prompts/config.py unset MBEDTLS_X509_CRT_PARSE_C
+    Prompts/config.py unset MBEDTLS_X509_RSASSA_PSS_SUPPORT
+    Prompts/config.py unset MBEDTLS_SSL_SERVER_NAME_INDICATION
+    Prompts/config.py unset MBEDTLS_ECDSA_C
+    Prompts/config.py unset MBEDTLS_PKCS1_V21
+    Prompts/config.py unset MBEDTLS_PKCS7_C
+    Prompts/config.py set   MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py unset MBEDTLS_ECDH_C
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/tls13-only.h\"'"
 
     msg "test_suite_ssl: TLS 1.3 only, only PSK ephemeral ffdh key exchange mode"
@@ -783,14 +783,14 @@ component_test_tls13_only_psk_ephemeral_ffdh () {
 
 component_test_tls13_only_psk_all () {
     msg "build: TLS 1.3 only from default, without ephemeral key exchange mode"
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_EPHEMERAL_ENABLED
-    scripts/config.py unset MBEDTLS_X509_CRT_PARSE_C
-    scripts/config.py unset MBEDTLS_X509_RSASSA_PSS_SUPPORT
-    scripts/config.py unset MBEDTLS_SSL_SERVER_NAME_INDICATION
-    scripts/config.py unset MBEDTLS_ECDSA_C
-    scripts/config.py unset MBEDTLS_PKCS1_V21
-    scripts/config.py unset MBEDTLS_PKCS7_C
-    scripts/config.py set   MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_EPHEMERAL_ENABLED
+    Prompts/config.py unset MBEDTLS_X509_CRT_PARSE_C
+    Prompts/config.py unset MBEDTLS_X509_RSASSA_PSS_SUPPORT
+    Prompts/config.py unset MBEDTLS_SSL_SERVER_NAME_INDICATION
+    Prompts/config.py unset MBEDTLS_ECDSA_C
+    Prompts/config.py unset MBEDTLS_PKCS1_V21
+    Prompts/config.py unset MBEDTLS_PKCS7_C
+    Prompts/config.py set   MBEDTLS_SSL_EARLY_DATA
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/tls13-only.h\"'"
 
     msg "test_suite_ssl: TLS 1.3 only, PSK and PSK ephemeral key exchange modes"
@@ -802,8 +802,8 @@ component_test_tls13_only_psk_all () {
 
 component_test_tls13_only_ephemeral_all () {
     msg "build: TLS 1.3 only from default, without PSK key exchange mode"
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
-    scripts/config.py set   MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_KEY_EXCHANGE_MODE_PSK_ENABLED
+    Prompts/config.py set   MBEDTLS_SSL_EARLY_DATA
     make CFLAGS="'-DMBEDTLS_USER_CONFIG_FILE=\"../tests/configs/tls13-only.h\"'"
 
     msg "test_suite_ssl: TLS 1.3 only, ephemeral and PSK ephemeral key exchange modes"
@@ -815,8 +815,8 @@ component_test_tls13_only_ephemeral_all () {
 
 component_test_tls13_no_padding () {
     msg "build: default config plus early data minus padding"
-    scripts/config.py set MBEDTLS_SSL_CID_TLS1_3_PADDING_GRANULARITY 1
-    scripts/config.py set MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py set MBEDTLS_SSL_CID_TLS1_3_PADDING_GRANULARITY 1
+    Prompts/config.py set MBEDTLS_SSL_EARLY_DATA
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
     msg "test: default config plus early data minus padding"
@@ -827,8 +827,8 @@ component_test_tls13_no_padding () {
 
 component_test_tls13_no_compatibility_mode () {
     msg "build: default config plus early data minus middlebox compatibility mode"
-    scripts/config.py unset MBEDTLS_SSL_TLS1_3_COMPATIBILITY_MODE
-    scripts/config.py set   MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py unset MBEDTLS_SSL_TLS1_3_COMPATIBILITY_MODE
+    Prompts/config.py set   MBEDTLS_SSL_EARLY_DATA
     CC=$ASAN_CC cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
     msg "test: default config plus early data minus middlebox compatibility mode"
@@ -839,9 +839,9 @@ component_test_tls13_no_compatibility_mode () {
 
 component_test_full_minus_session_tickets () {
     msg "build: full config without session tickets"
-    scripts/config.py full
-    scripts/config.py unset MBEDTLS_SSL_SESSION_TICKETS
-    scripts/config.py unset MBEDTLS_SSL_EARLY_DATA
+    Prompts/config.py full
+    Prompts/config.py unset MBEDTLS_SSL_SESSION_TICKETS
+    Prompts/config.py unset MBEDTLS_SSL_EARLY_DATA
     CC=gcc cmake -D CMAKE_BUILD_TYPE:String=Asan .
     make
     msg "test: full config without session tickets"

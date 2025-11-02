@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto v1.0
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        utils/map2xml/CConfig.cpp
+ *  FILE:        Utils/map2xml/CConfig.cpp
  *  PURPOSE:     Config reader class
  *
  *  Multi Theft Auto is available from https://www.multitheftauto.com/

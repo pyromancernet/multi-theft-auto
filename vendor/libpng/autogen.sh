@@ -82,9 +82,9 @@ libpng_autotools_files="Makefile.in aclocal.m4 config.guess config.h.in
 libpng_autotools_extra="compile config.h.in~"
 #
 # These are separate because 'maintainer-clean' does not remove them.
-libpng_libtool_files="scripts/autoconf/libtool.m4 scripts/autoconf/ltoptions.m4\
-   scripts/autoconf/ltsugar.m4 scripts/autoconf/ltversion.m4\
-   scripts/autoconf/lt~obsolete.m4"
+libpng_libtool_files="Prompts/autoconf/libtool.m4 Prompts/autoconf/ltoptions.m4\
+   Prompts/autoconf/ltsugar.m4 Prompts/autoconf/ltversion.m4\
+   Prompts/autoconf/lt~obsolete.m4"
 
 libpng_autotools_dirs="autom4te.cache" # not required
 #

@@ -38,11 +38,11 @@ component_test_memsan_constant_flow () {
     # origin tracking and nicer stack traces (which are useful for debugging
     # anyway), and check if the origin was TEST_CF_SECRET() or something else.
     msg "build: cmake MSan (clang), full config minus MBEDTLS_USE_PSA_CRYPTO with constant flow testing"
-    scripts/config.py full
-    scripts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_MEMSAN
-    scripts/config.py unset MBEDTLS_USE_PSA_CRYPTO
-    scripts/config.py unset MBEDTLS_AESNI_C # memsan doesn't grok asm
-    scripts/config.py unset MBEDTLS_HAVE_ASM
+    Prompts/config.py full
+    Prompts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_MEMSAN
+    Prompts/config.py unset MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py unset MBEDTLS_AESNI_C # memsan doesn't grok asm
+    Prompts/config.py unset MBEDTLS_HAVE_ASM
     CC=clang cmake -D CMAKE_BUILD_TYPE:String=MemSan .
     make
 
@@ -58,10 +58,10 @@ component_test_memsan_constant_flow_psa () {
     # origin tracking and nicer stack traces (which are useful for debugging
     # anyway), and check if the origin was TEST_CF_SECRET() or something else.
     msg "build: cmake MSan (clang), full config with constant flow testing"
-    scripts/config.py full
-    scripts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_MEMSAN
-    scripts/config.py unset MBEDTLS_AESNI_C # memsan doesn't grok asm
-    scripts/config.py unset MBEDTLS_HAVE_ASM
+    Prompts/config.py full
+    Prompts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_MEMSAN
+    Prompts/config.py unset MBEDTLS_AESNI_C # memsan doesn't grok asm
+    Prompts/config.py unset MBEDTLS_HAVE_ASM
     CC=clang cmake -D CMAKE_BUILD_TYPE:String=MemSan .
     make
 
@@ -80,9 +80,9 @@ component_release_test_valgrind_constant_flow () {
     # test suite with valgrind --track-origins=yes, then check if the origin
     # was TEST_CF_SECRET() or something else.
     msg "build: cmake release GCC, full config minus MBEDTLS_USE_PSA_CRYPTO with constant flow testing"
-    scripts/config.py full
-    scripts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_VALGRIND
-    scripts/config.py unset MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py full
+    Prompts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_VALGRIND
+    Prompts/config.py unset MBEDTLS_USE_PSA_CRYPTO
     skip_suites_without_constant_flow
     cmake -D CMAKE_BUILD_TYPE:String=Release .
     make
@@ -113,11 +113,11 @@ component_release_test_valgrind_constant_flow_no_asm () {
     # test suite with valgrind --track-origins=yes, then check if the origin
     # was TEST_CF_SECRET() or something else.
     msg "build: cmake release GCC, full config minus MBEDTLS_USE_PSA_CRYPTO, minus MBEDTLS_HAVE_ASM with constant flow testing"
-    scripts/config.py full
-    scripts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_VALGRIND
-    scripts/config.py unset MBEDTLS_USE_PSA_CRYPTO
-    scripts/config.py unset MBEDTLS_AESNI_C
-    scripts/config.py unset MBEDTLS_HAVE_ASM
+    Prompts/config.py full
+    Prompts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_VALGRIND
+    Prompts/config.py unset MBEDTLS_USE_PSA_CRYPTO
+    Prompts/config.py unset MBEDTLS_AESNI_C
+    Prompts/config.py unset MBEDTLS_HAVE_ASM
     skip_suites_without_constant_flow
     cmake -D CMAKE_BUILD_TYPE:String=Release .
     make
@@ -139,8 +139,8 @@ component_release_test_valgrind_constant_flow_psa () {
     # test suite with valgrind --track-origins=yes, then check if the origin
     # was TEST_CF_SECRET() or something else.
     msg "build: cmake release GCC, full config with constant flow testing"
-    scripts/config.py full
-    scripts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_VALGRIND
+    Prompts/config.py full
+    Prompts/config.py set MBEDTLS_TEST_CONSTANT_FLOW_VALGRIND
     skip_suites_without_constant_flow
     cmake -D CMAKE_BUILD_TYPE:String=Release .
     make
@@ -153,14 +153,14 @@ component_release_test_valgrind_constant_flow_psa () {
 
 component_test_tsan () {
     msg "build: TSan (clang)"
-    scripts/config.py full
-    scripts/config.py set MBEDTLS_THREADING_C
-    scripts/config.py set MBEDTLS_THREADING_PTHREAD
+    Prompts/config.py full
+    Prompts/config.py set MBEDTLS_THREADING_C
+    Prompts/config.py set MBEDTLS_THREADING_PTHREAD
     # Self-tests do not currently use multiple threads.
-    scripts/config.py unset MBEDTLS_SELF_TEST
+    Prompts/config.py unset MBEDTLS_SELF_TEST
 
     # The deprecated MBEDTLS_PSA_CRYPTO_SE_C interface is not thread safe.
-    scripts/config.py unset MBEDTLS_PSA_CRYPTO_SE_C
+    Prompts/config.py unset MBEDTLS_PSA_CRYPTO_SE_C
 
     CC=clang cmake -D CMAKE_BUILD_TYPE:String=TSan .
     make
@@ -171,8 +171,8 @@ component_test_tsan () {
 
 component_test_memsan () {
     msg "build: MSan (clang)" # ~ 1 min 20s
-    scripts/config.py unset MBEDTLS_AESNI_C # memsan doesn't grok asm
-    scripts/config.py unset MBEDTLS_HAVE_ASM
+    Prompts/config.py unset MBEDTLS_AESNI_C # memsan doesn't grok asm
+    Prompts/config.py unset MBEDTLS_HAVE_ASM
     CC=clang cmake -D CMAKE_BUILD_TYPE:String=MemSan .
     make
 
@@ -180,10 +180,10 @@ component_test_memsan () {
     make test
 
     msg "test: metatests (MSan)"
-    tests/scripts/run-metatests.sh any msan
+    tests/Prompts/run-metatests.sh any msan
 
     msg "program demos (MSan)" # ~20s
-    tests/scripts/run_demos.py
+    tests/Prompts/run_demos.py
 
     msg "test: ssl-opt.sh (MSan)" # ~ 1 min
     tests/ssl-opt.sh
@@ -227,7 +227,7 @@ component_release_test_valgrind () {
 component_release_test_valgrind_psa () {
     msg "build: Release, full (clang)"
     # full config, in particular with MBEDTLS_USE_PSA_CRYPTO
-    scripts/config.py full
+    Prompts/config.py full
     CC=clang cmake -D CMAKE_BUILD_TYPE:String=Release .
     make
 

@@ -12,7 +12,7 @@ branches:
     coverity_scan
 
 install:
-  - $PYTHON scripts/min_requirements.py
+  - $PYTHON Prompts/min_requirements.py
 
 env:
   global:

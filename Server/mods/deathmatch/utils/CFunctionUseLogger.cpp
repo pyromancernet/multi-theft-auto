@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto v1.0
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        mods/deathmatch/utils/CFunctionUseLogger.cpp
+ *  FILE:        mods/deathmatch/Utils/CFunctionUseLogger.cpp
  *
  *  Multi Theft Auto is available from https://www.multitheftauto.com/
  *

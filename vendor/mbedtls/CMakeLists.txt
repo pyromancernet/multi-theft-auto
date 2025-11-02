@@ -123,7 +123,7 @@ endif()
 if(MBEDTLS_PYTHON_EXECUTABLE)
 
     # If 128-bit keys are configured for CTR_DRBG, display an appropriate warning
-    execute_process(COMMAND ${MBEDTLS_PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/scripts/config.py -f ${CMAKE_CURRENT_SOURCE_DIR}/include/mbedtls/mbedtls_config.h get MBEDTLS_CTR_DRBG_USE_128_BIT_KEY
+    execute_process(COMMAND ${MBEDTLS_PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/Prompts/config.py -f ${CMAKE_CURRENT_SOURCE_DIR}/include/mbedtls/mbedtls_config.h get MBEDTLS_CTR_DRBG_USE_128_BIT_KEY
                         RESULT_VARIABLE result)
     if(${result} EQUAL 0)
         message(WARNING ${CTR_DRBG_128_BIT_KEY_WARNING})
@@ -359,11 +359,11 @@ if(ENABLE_TESTING OR ENABLE_PROGRAMS)
             COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_CURRENT_BINARY_DIR}/tests/include/test
             COMMAND
                 "${MBEDTLS_PYTHON_EXECUTABLE}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/framework/scripts/generate_test_keys.py"
+                "${CMAKE_CURRENT_SOURCE_DIR}/framework/Prompts/generate_test_keys.py"
                 "--output"
                 "${CMAKE_CURRENT_BINARY_DIR}/tests/include/test/test_keys.h"
             DEPENDS
-                ${CMAKE_CURRENT_SOURCE_DIR}/framework/scripts/generate_test_keys.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/framework/Prompts/generate_test_keys.py
         )
         add_custom_target(test_keys_header
             DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/tests/include/test/test_keys.h)
@@ -375,11 +375,11 @@ if(ENABLE_TESTING OR ENABLE_PROGRAMS)
                 ${CMAKE_CURRENT_SOURCE_DIR}/tests
             COMMAND
                 "${MBEDTLS_PYTHON_EXECUTABLE}"
-                "${CMAKE_CURRENT_SOURCE_DIR}/framework/scripts/generate_test_cert_macros.py"
+                "${CMAKE_CURRENT_SOURCE_DIR}/framework/Prompts/generate_test_cert_macros.py"
                 "--output"
                 "${CMAKE_CURRENT_BINARY_DIR}/tests/include/test/test_certs.h"
             DEPENDS
-                ${CMAKE_CURRENT_SOURCE_DIR}/framework/scripts/generate_test_cert_macros.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/framework/Prompts/generate_test_cert_macros.py
         )
         add_custom_target(test_certs_header DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/tests/include/test/test_certs.h)
         add_dependencies(mbedtls_test test_keys_header test_certs_header)
@@ -442,10 +442,10 @@ if(ENABLE_TESTING)
         #         cmake -D CMAKE_BUILD_TYPE=Coverage /path/to/source && make
         # 2. Run the relevant tests for the part of the code you're interested in.
         #    For the reference coverage measurement, see
-        #    tests/scripts/basic-build-test.sh
-        # 3. Run scripts/lcov.sh to generate an HTML report.
+        #    tests/Prompts/basic-build-test.sh
+        # 3. Run Prompts/lcov.sh to generate an HTML report.
         ADD_CUSTOM_TARGET(lcov
-            COMMAND scripts/lcov.sh
+            COMMAND Prompts/lcov.sh
         )
 
         ADD_CUSTOM_TARGET(memcheck

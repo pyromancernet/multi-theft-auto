@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        utils/src/hookcheck/pdb-analyzer.cpp
+ *  FILE:        Utils/src/hookcheck/pdb-analyzer.cpp
  *  PURPOSE:     Implementation for a class for extracting information from a PDB
  *               file using the DIA SDK provided by Microsoft. Its main focus is
  *               to identify __declspec(naked) functions, and provide information

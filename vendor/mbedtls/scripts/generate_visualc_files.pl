@@ -15,10 +15,10 @@ use Digest::MD5 'md5_hex';
 
 my $vsx_dir = "visualc/VS2017";
 my $vsx_ext = "vcxproj";
-my $vsx_app_tpl_file = "scripts/data_files/vs2017-app-template.$vsx_ext";
-my $vsx_main_tpl_file = "scripts/data_files/vs2017-main-template.$vsx_ext";
+my $vsx_app_tpl_file = "Prompts/data_files/vs2017-app-template.$vsx_ext";
+my $vsx_main_tpl_file = "Prompts/data_files/vs2017-main-template.$vsx_ext";
 my $vsx_main_file = "$vsx_dir/mbedTLS.$vsx_ext";
-my $vsx_sln_tpl_file = "scripts/data_files/vs2017-sln-template.sln";
+my $vsx_sln_tpl_file = "Prompts/data_files/vs2017-sln-template.sln";
 my $vsx_sln_file = "$vsx_dir/mbedTLS.sln";
 
 my $programs_dir = 'programs';

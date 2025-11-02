@@ -22,10 +22,10 @@
  * To develop and test a client locally or in a trustworthy closed group (local or private release):
  *  a. With active anti-cheat:
  *      1. Set MTASA_VERSION_TYPE to VERSION_TYPE_UNSTABLE
- *      2. Use netc.dll from https://mirror-cdn.multitheftauto.com/bdata/netc.dll (preferably run utils/buildactions/install_data.lua)
+ *      2. Use netc.dll from https://mirror-cdn.multitheftauto.com/bdata/netc.dll (preferably run Utils/buildactions/install_data.lua)
  *  b. Without anti-cheat:
  *      1. Set MTASA_VERSION_TYPE to VERSION_TYPE_CUSTOM
- *      2. Use netc.dll from https://mirror-cdn.multitheftauto.com/bdata/netc.dll (preferably run utils/buildactions/install_data.lua)
+ *      2. Use netc.dll from https://mirror-cdn.multitheftauto.com/bdata/netc.dll (preferably run Utils/buildactions/install_data.lua)
  *
  * To compile and host an official public server (anyone on official MTA client can connect):
  *      1. Copy net.dll or net.so from a nightly release (see https://nightly.multitheftauto.com/)
@@ -35,7 +35,7 @@
  *
  * To compile and host a custom public server (only custom MTA clients can connect):
  *      1. Use `<disableac>5,6,21</disableac>` in your mtaserver.conf (may not be needed in the future)
- *      2. Use regular developer net.dll or net.so (preferably run utils/buildactions/install_data.lua)
+ *      2. Use regular developer net.dll or net.so (preferably run Utils/buildactions/install_data.lua)
  *      3. Set MTASA_VERSION_TYPE to VERSION_TYPE_UNSTABLE
  *      4. Switch to Nightly build configuration
  *

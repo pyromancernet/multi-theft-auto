@@ -1,7 +1,7 @@
 MBEDTLS_TEST_PATH:=../../tests
 
 MBEDTLS_PATH := ../..
-include ../../scripts/common.make
+include ../../Prompts/common.make
 
 DEP=${MBEDLIBS}
 

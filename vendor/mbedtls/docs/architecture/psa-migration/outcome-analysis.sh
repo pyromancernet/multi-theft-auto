@@ -57,7 +57,7 @@ record "before-default"
 
 cleanup
 
-scripts/config.py full
+Prompts/config.py full
 record "before-full"
 
 # get the numbers now for default and full
@@ -68,7 +68,7 @@ record "after-default"
 
 cleanup
 
-scripts/config.py full
+Prompts/config.py full
 record "after-full"
 
 cleanup

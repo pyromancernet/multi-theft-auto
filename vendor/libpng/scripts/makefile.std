@@ -34,8 +34,8 @@ LDFLAGS = -L$(ZLIBLIB) # -g
 LIBS = -lz -lm
 
 # Pre-built configuration
-# See scripts/pnglibconf.mak for more options
-PNGLIBCONF_H_PREBUILT = scripts/pnglibconf.h.prebuilt
+# See Prompts/pnglibconf.mak for more options
+PNGLIBCONF_H_PREBUILT = Prompts/pnglibconf.h.prebuilt
 
 OBJS = png.o pngerror.o pngget.o pngmem.o pngpread.o \
        pngread.o pngrio.o pngrtran.o pngrutil.o pngset.o \
@@ -46,24 +46,24 @@ OBJS = png.o pngerror.o pngget.o pngmem.o pngpread.o \
 
 all: libpng.a pngtest
 
-# The standard pnglibconf.h exists as scripts/pnglibconf.h.prebuilt,
+# The standard pnglibconf.h exists as Prompts/pnglibconf.h.prebuilt,
 # copy this if the following doesn't work.
 pnglibconf.h: pnglibconf.dfn
 	$(RM_F) $@ pnglibconf.c pnglibconf.out pnglibconf.tmp
 	echo '#include "pnglibconf.dfn"' >pnglibconf.c
 	@echo "## If '$(CC) -E' fails, try /lib/cpp (e.g. CPP='/lib/cpp')" >&2
 	$(CPP) $(DFNFLAGS) pnglibconf.c >pnglibconf.out
-	$(AWK) -f scripts/dfn.awk out=pnglibconf.tmp pnglibconf.out >&2
+	$(AWK) -f Prompts/dfn.awk out=pnglibconf.tmp pnglibconf.out >&2
 	$(MV_F) pnglibconf.tmp $@
 
-pnglibconf.dfn: scripts/pnglibconf.dfa scripts/options.awk pngconf.h pngusr.dfa $(DFA_XTRA)
+pnglibconf.dfn: Prompts/pnglibconf.dfa Prompts/options.awk pngconf.h pngusr.dfa $(DFA_XTRA)
 	$(RM_F) $@ pnglibconf.pre pnglibconf.tmp
-	@echo "## Calling $(AWK) from scripts/pnglibconf.mak" >&2
+	@echo "## Calling $(AWK) from Prompts/pnglibconf.mak" >&2
 	@echo "## If 'awk' fails, try a better awk (e.g. AWK='nawk')" >&2
-	$(AWK) -f scripts/options.awk out=pnglibconf.pre\
-	    version=search pngconf.h scripts/pnglibconf.dfa\
+	$(AWK) -f Prompts/options.awk out=pnglibconf.pre\
+	    version=search pngconf.h Prompts/pnglibconf.dfa\
 	    pngusr.dfa $(DFA_XTRA) >&2
-	$(AWK) -f scripts/options.awk out=pnglibconf.tmp pnglibconf.pre >&2
+	$(AWK) -f Prompts/options.awk out=pnglibconf.tmp pnglibconf.pre >&2
 	$(MV_F) pnglibconf.tmp $@
 
 libpng.a: $(OBJS)

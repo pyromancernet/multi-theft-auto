@@ -5,7 +5,7 @@
 #
 # Usage (preferably on a 32-bit platform):
 # cmake -D CMAKE_BUILD_TYPE=Release .
-# scripts/ecc-heap.sh | tee ecc-heap.log
+# Prompts/ecc-heap.sh | tee ecc-heap.log
 #
 # Copyright The Mbed TLS Contributors
 # SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
@@ -72,8 +72,8 @@ EOF
 
 for F in 0 1; do
     for W in 2 3 4; do
-        scripts/config.py set MBEDTLS_ECP_WINDOW_SIZE $W
-        scripts/config.py set MBEDTLS_ECP_FIXED_POINT_OPTIM $F
+        Prompts/config.py set MBEDTLS_ECP_WINDOW_SIZE $W
+        Prompts/config.py set MBEDTLS_ECP_FIXED_POINT_OPTIM $F
         make benchmark >/dev/null 2>&1
         echo "fixed point optim = $F, max window size = $W"
         echo "--------------------------------------------"

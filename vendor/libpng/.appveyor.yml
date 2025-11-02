@@ -52,13 +52,13 @@ install:
 
 before_build:
   - 'if "%TOOLCHAIN%"=="vstudio" set CI_CMAKE_GENERATOR=Visual Studio 17 2022'
-  - 'if "%TOOLCHAIN%"=="vstudio" set CI_CMAKE_TOOLCHAIN_FILE=C:\tools\vcpkg\scripts\buildsystems\vcpkg.cmake'
+  - 'if "%TOOLCHAIN%"=="vstudio" set CI_CMAKE_TOOLCHAIN_FILE=C:\tools\vcpkg\Prompts\buildsystems\vcpkg.cmake'
   - 'if "%TOOLCHAIN%"=="vstudio" if "%ARCH%"=="x86" set CI_CMAKE_GENERATOR_PLATFORM=Win32'
   - 'if "%TOOLCHAIN%"=="vstudio" if "%ARCH%"=="x64" set CI_CMAKE_GENERATOR_PLATFORM=x64'
   - 'if "%TOOLCHAIN%"=="vstudio" if "%ARCH%"=="arm64" set CI_CMAKE_GENERATOR_PLATFORM=ARM64'
   - 'if "%TOOLCHAIN%"=="vstudio" if "%ARCH%"=="arm64" set CI_CMAKE_VARS=-DPNG_TESTS=0'
   - 'if "%TOOLCHAIN%"=="llvm" set CI_CMAKE_GENERATOR=Ninja'
-  - 'if "%TOOLCHAIN%"=="llvm" set CI_CMAKE_TOOLCHAIN_FILE=C:\tools\vcpkg\scripts\buildsystems\vcpkg.cmake'
+  - 'if "%TOOLCHAIN%"=="llvm" set CI_CMAKE_TOOLCHAIN_FILE=C:\tools\vcpkg\Prompts\buildsystems\vcpkg.cmake'
   - 'if "%TOOLCHAIN%"=="llvm" set CI_CC=clang'
   - 'if "%TOOLCHAIN%"=="msys2" set CI_CMAKE_GENERATOR=Ninja'
   - 'if "%TOOLCHAIN%"=="msys2" set CI_CC=gcc'
@@ -67,7 +67,7 @@ before_build:
   - 'set CI_CMAKE_BUILD_FLAGS=-j2'
   - 'set CI_CTEST_FLAGS=-j2'
   - 'set CI_MAKE_FLAGS=-j2'
-  - 'set CI_MAKEFILES=scripts/makefile.gcc scripts/makefile.msys scripts/makefile.std'
+  - 'set CI_MAKEFILES=Prompts/makefile.gcc Prompts/makefile.msys Prompts/makefile.std'
 
 build_script:
   - 'if "%TOOLCHAIN%"=="vstudio" C:\msys64\usr\bin\bash.exe -l "%APPVEYOR_BUILD_FOLDER%\ci\ci_verify_cmake.sh"'

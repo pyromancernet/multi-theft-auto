@@ -126,7 +126,7 @@ def main(library_build_dir: str):
             if unexpected_successes:
                 print('Unexpected successes encountered.')
                 print('Please remove the corresponding tests from '
-                      'EXPECTED_FAILURES in tests/scripts/compliance_test.py')
+                      'EXPECTED_FAILURES in tests/Prompts/compliance_test.py')
                 print()
             print('FAILED')
             return 1

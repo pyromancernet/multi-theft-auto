@@ -5,7 +5,7 @@ project "Client Webbrowser"
 	targetdir(buildpath("mta"))
 
 	filter "system:windows"
-		includedirs { "../../vendor/sparsehash/src/windows" }
+		includedirs { "../../Vendor/sparsehash/src/windows" }
 		buildoptions { "-Zm130" }
 
 	filter {}
@@ -13,12 +13,12 @@ project "Client Webbrowser"
 			"../../Shared/sdk",
 			".",
 			"../sdk",
-			"../../vendor/cef3/cef",
-			"../../vendor/sparsehash/src/"
+			"../../Vendor/cef3/cef",
+			"../../Vendor/sparsehash/src/"
 		}
 
 	libdirs {
-		"../../vendor/cef3/cef/Release"
+		"../../Vendor/cef3/cef/Release"
 	}
 
 

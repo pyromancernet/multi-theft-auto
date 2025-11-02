@@ -2,7 +2,7 @@
 #
 #  PROJECT:     Multi Theft Auto v1.0
 #  LICENSE:     See LICENSE in the top level directory
-#  FILE:        utils/gen_error_wikitable.py
+#  FILE:        Utils/gen_error_wikitable.py
 #  PURPOSE:     Generates a MediaWiki table for error codes from source code
 #  DEVELOPERS:  Dan Chowdhury <>
 #

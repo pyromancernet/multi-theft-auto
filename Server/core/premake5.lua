@@ -5,14 +5,14 @@ project "Core"
 	targetdir(buildpath("server"))
 
 	filter "system:windows"
-		includedirs { "../../vendor/sparsehash/current/src/windows" }
+		includedirs { "../../Vendor/sparsehash/current/src/windows" }
 
 	filter {}
 		includedirs {
 			"../../Shared/sdk",
 			"../sdk",
-			"../../vendor/google-breakpad/src",
-			"../../vendor/sparsehash/current/src/",
+			"../../Vendor/google-breakpad/src",
+			"../../Vendor/sparsehash/current/src/",
 		}
 
 	pchheader "StdInc.h"
@@ -32,7 +32,7 @@ project "Core"
 
 	filter { "system:windows", "platforms:x86" }
 		includedirs {
-			"../../vendor/detours/4.0.1/src"
+			"../../Vendor/detours/4.0.1/src"
 		}
 		links { "detours", "Imagehlp" }
 

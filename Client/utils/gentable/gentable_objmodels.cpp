@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto v1.0
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        utils/gentable/gentable_objmodels.cpp
+ *  FILE:        Utils/gentable/gentable_objmodels.cpp
  *  PURPOSE:     Object model table generator
  *
  *  Multi Theft Auto is available from https://www.multitheftauto.com/

@@ -30,8 +30,8 @@ jobs:
           git add --verbose Shared/installer/locale "Shared/data/MTA San Andreas/MTA/locale"
           
           # Discard install_cef.lua conflicts
-          git checkout --ours -- utils/buildactions/install_cef.lua
-          git add --verbose utils/buildactions/install_cef.lua
+          git checkout --ours -- Utils/buildactions/install_cef.lua
+          git add --verbose Utils/buildactions/install_cef.lua
 
           # Discard d3dcompiler_47.dll conflicts (Due to old CEF version on maetro)
           git checkout --ours -- "Shared/data/MTA San Andreas/MTA/d3dcompiler_47.dll"

@@ -1371,8 +1371,8 @@ AS_IF([test "$am_cv_xargs_n_works" = yes], [am__xargs_n='xargs -n'], [dnl
 AC_SUBST(am__xargs_n)
 ])
 
-m4_include([scripts/autoconf/libtool.m4])
-m4_include([scripts/autoconf/ltoptions.m4])
-m4_include([scripts/autoconf/ltsugar.m4])
-m4_include([scripts/autoconf/ltversion.m4])
-m4_include([scripts/autoconf/lt~obsolete.m4])
+m4_include([Prompts/autoconf/libtool.m4])
+m4_include([Prompts/autoconf/ltoptions.m4])
+m4_include([Prompts/autoconf/ltsugar.m4])
+m4_include([Prompts/autoconf/ltversion.m4])
+m4_include([Prompts/autoconf/lt~obsolete.m4])

@@ -10,7 +10,7 @@ previously `list-identifiers.sh --internal`, and is useful for generating an
 exclusion file list for ABI/API checking, since we do not promise compatibility
 for them.
 
-It uses the CodeParser class from framework/scripts/check_names.py to perform
+It uses the CodeParser class from framework/Prompts/check_names.py to perform
 the parsing.
 
 The script returns 0 on success, 1 if there is a script error.

@@ -186,7 +186,7 @@ get_options() {
             -M|--memcheck)
                 MEMCHECK=1
                 ;;
-            # Please check scripts/check_test_cases.py correspondingly
+            # Please check Prompts/check_test_cases.py correspondingly
             # if you have to modify option, --list-test-cases
             --list-test-cases)
                 list_test_cases
@@ -290,7 +290,7 @@ reset_ciphersuites()
 # list of entries of the form "STANDARD_NAME=PROGRAM_NAME".
 translate_ciphers()
 {
-    ciphers=$(../framework/scripts/translate_ciphers.py "$@")
+    ciphers=$(../framework/Prompts/translate_ciphers.py "$@")
     if [ $? -ne 0 ]; then
         echo "translate_ciphers.py failed with exit code $1" >&2
         echo "$2" >&2

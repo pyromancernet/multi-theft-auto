@@ -2,7 +2,7 @@
 #
 #  PROJECT:     Multi Theft Auto
 #  LICENSE:     See LICENSE in the top level directory
-#  FILE:        utils/localization/build_locale_nsi.py
+#  FILE:        Utils/localization/build_locale_nsi.py
 #  PURPOSE:     Build a multi-language .NSI script based upon input PO files
 #  DEVELOPERS:  Dan Chowdhury <>
 #

@@ -136,14 +136,14 @@ if(GEN_FILES)
             ${CMAKE_CURRENT_BINARY_DIR}/error.c
         COMMAND
             ${PERL_EXECUTABLE}
-                ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/generate_errors.pl
+                ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/generate_errors.pl
                 ${CMAKE_CURRENT_SOURCE_DIR}/../include/mbedtls
-                ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/data_files
+                ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/data_files
                 ${CMAKE_CURRENT_BINARY_DIR}/error.c
         DEPENDS
-            ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/generate_errors.pl
+            ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/generate_errors.pl
             ${error_headers}
-            ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/data_files/error.fmt
+            ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/data_files/error.fmt
     )
 
     add_custom_command(
@@ -151,14 +151,14 @@ if(GEN_FILES)
             ${CMAKE_CURRENT_BINARY_DIR}/version_features.c
         COMMAND
             ${PERL_EXECUTABLE}
-                ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/generate_features.pl
+                ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/generate_features.pl
                 ${CMAKE_CURRENT_SOURCE_DIR}/../include/mbedtls
-                ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/data_files
+                ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/data_files
                 ${CMAKE_CURRENT_BINARY_DIR}/version_features.c
         DEPENDS
-            ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/generate_features.pl
+            ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/generate_features.pl
             ${CMAKE_CURRENT_SOURCE_DIR}/../include/mbedtls/mbedtls_config.h
-            ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/data_files/version_features.fmt
+            ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/data_files/version_features.fmt
     )
 
     add_custom_command(
@@ -166,11 +166,11 @@ if(GEN_FILES)
             ${CMAKE_CURRENT_BINARY_DIR}/ssl_debug_helpers_generated.c
         COMMAND
             ${MBEDTLS_PYTHON_EXECUTABLE}
-                ${CMAKE_CURRENT_SOURCE_DIR}/../framework/scripts/generate_ssl_debug_helpers.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/../framework/Prompts/generate_ssl_debug_helpers.py
                 --mbedtls-root ${CMAKE_CURRENT_SOURCE_DIR}/..
                 ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS
-            ${CMAKE_CURRENT_SOURCE_DIR}/../framework/scripts/generate_ssl_debug_helpers.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/../framework/Prompts/generate_ssl_debug_helpers.py
             ${error_headers}
     )
 
@@ -180,12 +180,12 @@ if(GEN_FILES)
             ${CMAKE_CURRENT_BINARY_DIR}/psa_crypto_driver_wrappers_no_static.c
         COMMAND
             ${MBEDTLS_PYTHON_EXECUTABLE}
-                ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/generate_driver_wrappers.py
+                ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/generate_driver_wrappers.py
                 ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS
-            ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/generate_driver_wrappers.py
-            ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/data_files/driver_templates/psa_crypto_driver_wrappers.h.jinja
-            ${CMAKE_CURRENT_SOURCE_DIR}/../scripts/data_files/driver_templates/psa_crypto_driver_wrappers_no_static.c.jinja
+            ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/generate_driver_wrappers.py
+            ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/data_files/driver_templates/psa_crypto_driver_wrappers.h.jinja
+            ${CMAKE_CURRENT_SOURCE_DIR}/../Prompts/data_files/driver_templates/psa_crypto_driver_wrappers_no_static.c.jinja
     )
 
 

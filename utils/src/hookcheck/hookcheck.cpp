@@ -2,7 +2,7 @@
  *
  *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
- *  FILE:        utils/src/hookcheck/hookcheck.cpp
+ *  FILE:        Utils/src/hookcheck/hookcheck.cpp
  *  PURPOSE:     A tool to inspect the value of __LOCAL_SIZE inside
  *               __declspec(naked) hook functions, to verify that its value is
  *               equal to zero. It uses the PDB file to identify these functions

@@ -22,8 +22,8 @@ CFLAGS+=	-Wall -Wextra -Wundef
 CLEANFILES+=	pngtest.o pngtest pnglibconf.h
 
 # Pre-built configuration
-# See scripts/pnglibconf.mak for more options
-PNGLIBCONF_H_PREBUILT= scripts/pnglibconf.h.prebuilt
+# See Prompts/pnglibconf.mak for more options
+PNGLIBCONF_H_PREBUILT= Prompts/pnglibconf.h.prebuilt
 
 .c.o:
 	${CC} -c ${CPPFLAGS} ${CFLAGS} -o $@ $*.c

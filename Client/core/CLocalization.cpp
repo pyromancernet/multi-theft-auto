@@ -10,7 +10,7 @@
  *****************************************************************************/
 
 #include "StdInc.h"
-#include "../../vendor/tinygettext/log.hpp"
+#include "../../Vendor/tinygettext/log.hpp"
 #define MTA_LOCALE_TEXTDOMAIN       "client"
 // TRANSLATORS: Replace with your language native name
 #define NATIVE_LANGUAGE_NAME _td("English")

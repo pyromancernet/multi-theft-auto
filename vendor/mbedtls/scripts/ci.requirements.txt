@@ -15,7 +15,7 @@ pylint == 2.4.4
 # mypy 0.942 is the version in Ubuntu 22.04.
 mypy == 0.942
 
-# At the time of writing, only needed for tests/scripts/audit-validity-dates.py.
+# At the time of writing, only needed for tests/Prompts/audit-validity-dates.py.
 # It needs >=35.0.0 for correct operation, and that requires Python >=3.6,
 # but our CI has Python 3.5. So let pip install the newest version that's
 # compatible with the running Python: this way we get something good enough

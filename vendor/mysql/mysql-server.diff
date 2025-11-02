@@ -104,10 +104,10 @@ index a0ee373a35b..6931af59b21 100644
    > ${CMAKE_CURRENT_BINARY_DIR}/libmysql_api_test.out
    )
  MY_ADD_CUSTOM_TARGET(run_libmysql_api_test ALL
-diff --git a/scripts/CMakeLists.txt b/scripts/CMakeLists.txt
+diff --git a/Prompts/CMakeLists.txt b/Prompts/CMakeLists.txt
 index 9ebe10bdb51..4ea0fa5496a 100644
---- a/scripts/CMakeLists.txt
-+++ b/scripts/CMakeLists.txt
+--- a/Prompts/CMakeLists.txt
++++ b/Prompts/CMakeLists.txt
 @@ -54,11 +54,17 @@ ELSE()
    MESSAGE(FATAL_ERROR "Cannot concatenate files")
  ENDIF()
@@ -235,10 +235,10 @@ index 9ebe10bdb51..4ea0fa5496a 100644
    firewall_sp_firewall_group_delist
    ${CMAKE_CURRENT_SOURCE_DIR}/firewall/firewall_sp_firewall_group_delist.sql
    sql_firewall_sp_firewall_group_delist.h
-diff --git a/scripts/sys_schema/CMakeLists.txt b/scripts/sys_schema/CMakeLists.txt
+diff --git a/Prompts/sys_schema/CMakeLists.txt b/Prompts/sys_schema/CMakeLists.txt
 index 1d3295e8d4f..08327e3026c 100644
---- a/scripts/sys_schema/CMakeLists.txt
-+++ b/scripts/sys_schema/CMakeLists.txt
+--- a/Prompts/sys_schema/CMakeLists.txt
++++ b/Prompts/sys_schema/CMakeLists.txt
 @@ -205,10 +205,16 @@ ADD_CUSTOM_COMMAND(
  MY_ADD_CUSTOM_TARGET(all_sys_schema
    DEPENDS ALL_SYS_SCHEMA.sql)
