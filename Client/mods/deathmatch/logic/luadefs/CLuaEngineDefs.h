@@ -98,6 +98,7 @@ public:
     static void EnginePreloadWorldArea(CVector position, std::optional<PreloadAreaOption> option);
     static bool EngineRestreamModel(std::uint16_t modelId);
     static void EngineRestream(std::optional<RestreamOption> option);
+    static bool EngineConvertModelToType(std::uint32_t model, eClientModelType type);
 
 private:
     static void AddEngineColClass(lua_State* luaVM);

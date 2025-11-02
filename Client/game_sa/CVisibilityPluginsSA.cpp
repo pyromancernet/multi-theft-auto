@@ -16,7 +16,7 @@
 
 void CVisibilityPluginsSA::SetClumpAlpha(RpClump* pClump, int iAlpha)
 {
-    DWORD dwFunc = FUNC_CVisiblityPlugins_SetClumpAlpha;
+    DWORD dwFunc = FUNC_CVisibilityPlugins_SetClumpAlpha;
     __asm
     {
         push    iAlpha
@@ -52,6 +52,14 @@ int CVisibilityPluginsSA::GetAtomicId(RwObject* pAtomic)
         mov     iResult, eax
     }
     return iResult;
+}
+
+void CVisibilityPluginsSA::SetAtomicId(RpAtomic* atomic, int id)
+{
+    if (!atomic)
+        return;
+
+    ((void(__cdecl*)(RpAtomic*, int))FUNC_CVisibilityPlugins_SetAtomicId)(atomic, id);
 }
 
 bool CVisibilityPluginsSA::InsertEntityIntoEntityList(void* entity, float distance, void* callback)
