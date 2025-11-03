@@ -20,12 +20,14 @@
     (set flag.new_cef_exe on the build server to generate new exe)
 */
 
-int _declspec(dllimport) InitCEF();
+#include <Windows.h>
+[[nodiscard]] int __declspec(dllimport) InitCEF();
 
-using HINSTANCE = struct HINSTANCE__*;
-using LPSTR = char*;
-
-int __stdcall WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdShow, int nCmdShow)
+int __stdcall WinMain(
+    [[maybe_unused]] HINSTANCE hInstance,
+    [[maybe_unused]] HINSTANCE hPrevInstance,
+    [[maybe_unused]] LPSTR lpCmdLine,
+    [[maybe_unused]] int nCmdShow)
 {
     return InitCEF();
 }
