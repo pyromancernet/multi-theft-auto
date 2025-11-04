@@ -49,9 +49,25 @@ public:
 
     static void RemoveAllFunctions();
 
+    // Global function system for cross-resource function sharing
+    static void RegisterGlobalFunction(const SString& strName, lua_State* luaVM);
+    static bool CallGlobalFunction(const SString& strName, lua_State* luaVM, int iArguments);
+    static bool HasGlobalFunction(const SString& strName);
+    static void RemoveGlobalFunction(const SString& strName);
+    static void ClearGlobalFunctions();
+
 private:
     static CFastHashMap<lua_CFunction, CLuaCFunction*> ms_Functions;
     static CFastHashMap<SString, CLuaCFunction*>       ms_FunctionsByName;
     static void*                                       ms_pFunctionPtrLow;
     static void*                                       ms_pFunctionPtrHigh;
+
+    // Storage for global functions (shared across all VMs)
+    struct SGlobalFunction
+    {
+        int         iLuaRef;            // Reference in global registry
+        lua_State*  pSourceVM;          // VM where function was defined
+        SString     strName;            // Function name
+    };
+    static CFastHashMap<SString, SGlobalFunction*> ms_GlobalFunctions;
 };
