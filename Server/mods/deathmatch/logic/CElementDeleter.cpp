@@ -51,69 +51,19 @@ void CElementDeleter::DoDeleteAll()
         delete *m_List.begin();
 }
 
-void CElementDeleter::Unreference(CElement* element)
+void CElementDeleter::Unreference(CElement* pElement)
 {
-    m_List.remove(element);
+    m_List.remove(pElement);
 }
 
-bool CElementDeleter::IsBeingDeleted(CElement* element) const
+bool CElementDeleter::IsBeingDeleted(CElement* pElement)
 {
-    return ListContains(m_List, element);
+    return ListContains(m_List, pElement);
 }
 
-void CElementDeleter::DeleteTree(CElement* rootElement, bool unlink, bool updatePerPlayerEntities)
+void CElementDeleter::CleanUpForVM(CLuaMain* pLuaMain)
 {
-    if (!rootElement || IsBeingDeleted(rootElement))
-        return;
-
-    std::vector<CElement*> elementsToDelete;
-    CollectTreeElements(rootElement, elementsToDelete);
-
-    // Fire destroy events for all elements
-    for (auto* element : elementsToDelete)
-    {
-        if (IsBeingDeleted(element))
-            continue;
-
-        CLuaArguments arguments;
-        element->CallEvent("onElementDestroy", arguments);
-
-        if (!element->IsBeingDeleted())
-            m_List.push_back(element);
-
-        g_pGame->GetPlayerManager()->ClearElementData(element);
-        element->SetIsBeingDeleted(true);
-    }
-
-    // Clear children and unlink elements
-    for (auto* element : elementsToDelete)
-    {
-        element->ClearChildren();
-        element->SetParentObject(nullptr, false);
-
-        if (unlink)
-            element->Unlink();
-    }
-
-    if (updatePerPlayerEntities && rootElement)
-        rootElement->UpdatePerPlayerEntities();
-}
-
-void CElementDeleter::CollectTreeElements(CElement* element, std::vector<CElement*>& elements)
-{
-    if (!element || IsBeingDeleted(element))
-        return;
-
-    elements.push_back(element);
-
-    for (auto iter = element->IterBegin(); iter != element->IterEnd(); ++iter)
-    {
-        CollectTreeElements(*iter, elements);
-    }
-}
-
-void CElementDeleter::CleanUpForVM(CLuaMain* luaMain)
-{
-    for (auto* element : m_List)
-        element->DeleteEvents(luaMain, false);
+    CElementListType::const_iterator iter = m_List.begin();
+    for (; iter != m_List.end(); iter++)
+        (*iter)->DeleteEvents(pLuaMain, false);
 }
