@@ -60,6 +60,7 @@ public:
     LUA_DECLARE(EngineRestoreObjectGroupPhysicalProperties)
 
     static bool                                            EngineAddClothingModel(CClientDFF* pDff, std::string strModelName);
+    static bool                                            EngineSetClothingCacheTime(std::uint32_t timeInMs);
     static bool                                            EngineAddClothingTXD(CClientTXD* pTxd, std::string strModelName);
     static uint                                            EngineGetModelFlags(uint uiModelID);
     static bool                                            EngineSetModelFlags(uint uiModelID, uint uiFlags, std::optional<bool> bIdeFlags);
@@ -98,6 +99,7 @@ public:
     static void EnginePreloadWorldArea(CVector position, std::optional<PreloadAreaOption> option);
     static bool EngineRestreamModel(std::uint16_t modelId);
     static void EngineRestream(std::optional<RestreamOption> option);
+    static bool EngineConvertModelToType(std::uint32_t model, eClientModelType type);
 
 private:
     static void AddEngineColClass(lua_State* luaVM);

@@ -16,12 +16,14 @@
 
 struct RpClump;
 struct RwObject;
+struct RpAtomic;
 
 class CVisibilityPlugins
 {
 public:
     virtual void SetClumpAlpha(RpClump* pClump, int iAlpha) = 0;
     virtual int  GetAtomicId(RwObject* pAtomic) = 0;
+    virtual void SetAtomicId(RpAtomic* atomic, int id) = 0;
 
     virtual bool InsertEntityIntoEntityList(void* entity, float distance, void* callback) = 0;
 };
