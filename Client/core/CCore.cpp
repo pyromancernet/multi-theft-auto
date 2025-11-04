@@ -121,7 +121,6 @@ CCore::CCore()
 
     m_bIsOfflineMod = false;
     m_bQuitOnPulse = false;
-    m_bIsQuitting = false;
     m_bDestroyMessageBox = false;
     m_bCursorToggleControls = false;
     m_bLastFocused = true;
