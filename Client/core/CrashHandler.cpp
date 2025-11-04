@@ -112,7 +112,6 @@ using CrashHandlerResult = std::variant<std::monostate, std::string, DWORD, std:
 
     switch (exceptionCode)
     {
-        case EXCEPTION_ILLEGAL_INSTRUCTION:
         case EXCEPTION_STACK_OVERFLOW:
         case EXCEPTION_NONCONTINUABLE_EXCEPTION:
         case STATUS_STACK_BUFFER_OVERRUN_CODE:
@@ -135,8 +134,6 @@ using CrashHandlerResult = std::variant<std::monostate, std::string, DWORD, std:
 
     if (IsMemoryException(exceptionCode)) [[unlikely]]
     {
-        constexpr auto bufferSize = DEBUG_BUFFER_SIZE;
-        char           debugBuffer[bufferSize];
         std::array<char, DEBUG_BUFFER_SIZE> debugBuffer{};
         SAFE_DEBUG_PRINT_C(debugBuffer.data(), debugBuffer.size(), "IsFatalException: Access violation/page fault 0x%08X - treating as fatal for dump generation\n", exceptionCode);
         return TRUE;
