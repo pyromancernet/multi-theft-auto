@@ -1195,7 +1195,14 @@ CWebCoreInterface* CCore::GetWebCore()
         cvars->Get("browser_enable_gpu", gpuEnabled);
 
         m_pWebCore = CreateModule<CWebCoreInterface>(m_WebCoreModule, "CefWeb", "cefweb", "InitWebCoreInterface", this);
-        m_pWebCore->Initialise(gpuEnabled);
+        if (!m_pWebCore) [[unlikely]]
+            return nullptr;
+
+        if (!m_pWebCore->Initialise(gpuEnabled)) [[unlikely]]
+        {
+            SAFE_DELETE(m_pWebCore);
+            return nullptr;
+        }
     }
     return m_pWebCore;
 }
@@ -1516,6 +1523,7 @@ void CCore::Quit(bool bInstantly)
 
         // Destroy ourself (unreachable but kept for completeness)
         delete CCore::GetSingletonPtr();
+
     }
     else
     {
