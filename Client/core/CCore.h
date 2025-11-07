@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- *  PROJECT:     Multi Theft Auto v1.0
+ *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
  *  FILE:        core/CCore.h
  *  PURPOSE:     Header file for base core class
@@ -41,7 +41,6 @@ class CDiscordInterface;
 #include <ijsify.h>
 #include <core/CWebCoreInterface.h>
 #include "CTrayIcon.h"
-#include "FPSLimiter.h"
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -105,10 +104,10 @@ public:
     CLocalGUI*                         GetLocalGUI();
     CLocalizationInterface*            GetLocalization() { return g_pLocalization; };
     CWebCoreInterface*                 GetWebCore();
+    CWebCoreInterface*                 GetWebCoreUnchecked() { return m_pWebCore; }            // For cleanup in destructors only - bypasses initialization check
     CTrayIconInterface*                GetTrayIcon() { return m_pTrayIcon; };
     std::shared_ptr<CDiscordInterface> GetDiscord();
     CSteamClient*                      GetSteamClient() { return m_steamClient.get(); }
-    FPSLimiter::FPSLimiterInterface*   GetFPSLimiter() const noexcept { return m_pFPSLimiter.get(); }
 
     void SaveConfig(bool bWaitUntilFinished = false);
 
@@ -189,7 +188,7 @@ public:
     void DestroyGUI();
 
     // Web
-    bool IsWebCoreLoaded() { return m_pWebCore != nullptr; }
+    bool IsWebCoreLoaded() { return m_pWebCore != nullptr && m_pWebCore->IsInitialised(); }
     void DestroyWeb();
 
     // Hooks
@@ -222,9 +221,13 @@ public:
     bool IsOptionalUpdateInfoRequired(const char* szHost) { return m_pLocalGUI->IsOptionalUpdateInfoRequired(szHost); }
     void InitiateDataFilesFix() { m_pLocalGUI->InitiateDataFilesFix(); }
 
-    // FPS Limiter
-    void OnFPSLimitChange(std::uint16_t fps);
-
+    uint GetFrameRateLimit() { return m_uiFrameRateLimit; }
+    void RecalculateFrameRateLimit(uint uiServerFrameRateLimit = -1, bool bLogToConsole = true);
+    void ApplyFrameRateLimit(uint uiOverrideRate = -1);
+    void ApplyQueuedFrameRateLimit();
+    void EnsureFrameRateLimitApplied();
+    void SetClientScriptFrameRateLimit(uint uiClientScriptFrameRateLimit);
+    void SetCurrentRefreshRate(uint value);
     void DoReliablePulse();
 
     bool IsTimingCheckpoints();
@@ -308,13 +311,12 @@ private:
     CModelCacheManager* m_pModelCacheManager;
 
     // Instances (put new classes here!)
-    CXMLFile*                               m_pConfigFile;
-    CClientVariables                        m_ClientVariables;
-    CWebCoreInterface*                      m_pWebCore = nullptr;
-    CTrayIcon*                              m_pTrayIcon;
-    std::unique_ptr<CSteamClient>           m_steamClient;
-    std::shared_ptr<CDiscordRichPresence>   m_pDiscordRichPresence;
-    std::unique_ptr<FPSLimiter::FPSLimiter> m_pFPSLimiter;
+    CXMLFile*                             m_pConfigFile;
+    CClientVariables                      m_ClientVariables;
+    CWebCoreInterface*                    m_pWebCore = nullptr;
+    CTrayIcon*                            m_pTrayIcon;
+    std::unique_ptr<CSteamClient>         m_steamClient;
+    std::shared_ptr<CDiscordRichPresence> m_pDiscordRichPresence;
 
     // Hook interfaces.
     CMessageLoopHook*        m_pMessageLoopHook;
@@ -368,6 +370,14 @@ private:
     bool m_bQuitOnPulse;
     bool m_bDestroyMessageBox;
 
+    bool                 m_bDoneFrameRateLimit;
+    uint                 m_uiServerFrameRateLimit;
+    uint                 m_uiClientScriptFrameRateLimit;
+    uint                 m_uiFrameRateLimit;
+    CElapsedTimeHD       m_FrameRateTimer;
+    uint                 m_uiQueuedFrameRate;
+    bool                 m_bQueuedFrameRateValid;
+    uint                 m_CurrentRefreshRate;
     bool                 m_requestNewNickname{false};
     EDiagnosticDebugType m_DiagnosticDebug;
 

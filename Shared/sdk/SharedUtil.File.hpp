@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- *  PROJECT:     Multi Theft Auto v1.0
+ *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
  *  FILE:        SharedUtil.File.hpp
  *  PURPOSE:
@@ -14,10 +14,7 @@
 #include "SharedUtil.Misc.h"
 #include "SharedUtil.Buffer.h"
 #include <algorithm>
-
-#if __cplusplus >= 201703L // C++17
-    #include <filesystem>
-#endif
+#include <filesystem>
 
 #ifdef _WIN32
     #ifndef NOMINMAX
@@ -242,7 +239,7 @@ bool SharedUtil::FileDelete(const SString& strFilename, bool bForce)
 {
 #ifdef _WIN32
     if (bForce)
-        SetFileAttributes(strFilename, FILE_ATTRIBUTE_NORMAL);
+        SetFileAttributesW(FromUTF8(strFilename), FILE_ATTRIBUTE_NORMAL);
 #endif
     return File::Delete(strFilename) == 0;
 }
@@ -318,7 +315,7 @@ bool SharedUtil::FileSave(const SString& strFilename, const void* pBuffer, unsig
 {
 #ifdef _WIN32
     if (bForce)
-        SetFileAttributes(strFilename, FILE_ATTRIBUTE_NORMAL);
+        SetFileAttributesW(FromUTF8(strFilename), FILE_ATTRIBUTE_NORMAL);
 #endif
 
     if (bForce)
@@ -342,7 +339,7 @@ bool SharedUtil::FileAppend(const SString& strFilename, const void* pBuffer, uns
 {
 #ifdef _WIN32
     if (bForce)
-        SetFileAttributes(strFilename, FILE_ATTRIBUTE_NORMAL);
+        SetFileAttributesW(FromUTF8(strFilename), FILE_ATTRIBUTE_NORMAL);
 #endif
 
     FILE* fh = File::Fopen(strFilename, "ab");
@@ -747,7 +744,7 @@ bool SharedUtil::FileCopy(const SString& strSrc, const SString& strDest, bool bF
 
 #ifdef _WIN32
     if (bForce)
-        SetFileAttributes(strDest, FILE_ATTRIBUTE_NORMAL);
+        SetFileAttributesW(FromUTF8(strDest), FILE_ATTRIBUTE_NORMAL);
 #endif
 
     FILE* fhSrc = File::Fopen(strSrc, "rb");
@@ -952,7 +949,7 @@ SString SharedUtil::MakeUniquePath(const SString& strInPathFilename)
     SString strTest = strPathFilename;
     int     iCount = 1;
 #ifdef _WIN32
-    while (GetFileAttributes(strTest) != INVALID_FILE_ATTRIBUTES)
+    while (GetFileAttributesW(FromUTF8(strTest)) != INVALID_FILE_ATTRIBUTES)
 #else
     while (DirectoryExists(strTest) || FileExists(strTest))
 #endif

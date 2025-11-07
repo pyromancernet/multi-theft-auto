@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- *  PROJECT:     Multi Theft Auto v1.0
+ *  PROJECT:     Multi Theft Auto
  *  LICENSE:     See LICENSE in the top level directory
  *  FILE:        SharedUtil.Misc.h
  *  PURPOSE:
@@ -26,31 +26,6 @@
 #include "SharedUtil.Defines.h"
 #include "SharedUtil.Map.h"
 #include "SharedUtil.Logging.h"
-
-#if __cplusplus >= 201703L // C++17
-    #ifndef __GLIBCXX__
-        namespace std
-        {
-            namespace filesystem
-            {
-                class path;
-            }
-        }
-    #else
-        namespace std
-        {
-            namespace filesystem
-            {
-                inline namespace __cxx11 __attribute__((__abi_tag__("cxx11"))) {}
-                inline _GLIBCXX_BEGIN_NAMESPACE_CXX11
-
-                class path;
-
-                _GLIBCXX_END_NAMESPACE_CXX11
-            }
-        }
-    #endif
-#endif
 
 #ifdef WIN32
 // Forward declare basic windows types to avoid including windows.h here
@@ -110,20 +85,20 @@ namespace SharedUtil
     SString GetMajorVersionString();
 
     // Get a system registry value
-    SString GetSystemRegistryValue(uint hKey, const SString& strPath, const SString& strName, int* iResult = nullptr);
+    SString GetSystemRegistryValue(uint hKey, const SString& strPath, const SString& strName);
 
     // Get/set registry values for the current version
     void    SetRegistryValue(const SString& strPath, const SString& strName, const SString& strValue, bool bFlush = false);
-    SString GetRegistryValue(const SString& strPath, const SString& strName, int* iResult = nullptr);
+    SString GetRegistryValue(const SString& strPath, const SString& strName);
     bool    RemoveRegistryKey(const SString& strPath);
 
     // Get/set registry values for a particular version
     void    SetVersionRegistryValue(const SString& strVersion, const SString& strPath, const SString& strName, const SString& strValue);
-    SString GetVersionRegistryValue(const SString& strVersion, const SString& strPath, const SString& strName, int* iResult = nullptr);
+    SString GetVersionRegistryValue(const SString& strVersion, const SString& strPath, const SString& strName);
 
     // Get/set registry values for all versions (Common)
     void    SetCommonRegistryValue(const SString& strPath, const SString& strName, const SString& strValue);
-    SString GetCommonRegistryValue(const SString& strPath, const SString& strName, int* iResult = nullptr);
+    SString GetCommonRegistryValue(const SString& strPath, const SString& strName);
 
     bool ShellExecuteBlocking(const SString& strAction, const SString& strFile, const SString& strParameters = "", const SString& strDirectory = "",
                               int nShowCmd = 1);
@@ -134,7 +109,9 @@ namespace SharedUtil
     // Output a UTF8 encoded messagebox
     // Used in the Win32 Client only
     //
+    #ifdef _WINDOWS_
     int MessageBoxUTF8(HWND hWnd, SString lpText, SString lpCaption, UINT uType);
+    #endif
 
     //
     // Return full path and filename of parent exe
@@ -158,6 +135,8 @@ namespace SharedUtil
 
     // Returns true if the pointer points to committed, readable memory
     bool IsReadablePointer(const void* ptr, size_t size);
+
+    [[nodiscard]] const SString& GetMTAProcessBaseDir();
 
     template <typename TFunction>
     [[nodiscard]] inline bool TryGetProcAddress(HMODULE hModule, const char* functionName, TFunction& outExport) noexcept
@@ -186,7 +165,8 @@ namespace SharedUtil
     class GlobalUnlockGuard
     {
     public:
-    using MutexGuard = std::scoped_lock<std::mutex>;
+
+    using MutexGuard = std::lock_guard<std::mutex>;
 
         GlobalUnlockGuard() noexcept = default;
         explicit GlobalUnlockGuard(WinHGlobalHandle handle) noexcept : m_handle(handle) {}
@@ -226,7 +206,11 @@ namespace SharedUtil
 
     [[nodiscard]] WinHGlobalHandle release() noexcept
         {
-            return WithLock([&]() noexcept { return std::exchange(m_handle, nullptr); });
+            return WithLock([&]() noexcept { 
+                WinHGlobalHandle temp = m_handle;
+                m_handle = nullptr;
+                return temp;
+            });
         }
 
     [[nodiscard]] WinHGlobalHandle get() const noexcept
@@ -246,14 +230,14 @@ namespace SharedUtil
         }
 
         template <typename Fn>
-        decltype(auto) WithLock(Fn&& fn) const noexcept(noexcept(std::invoke(std::forward<Fn>(fn))))
+        auto WithLock(Fn&& fn) const noexcept(noexcept(fn())) -> decltype(fn())
         {
             MutexGuard lock(m_mutex);
-            return std::invoke(std::forward<Fn>(fn));
+            return fn();
         }
 
         template <typename Fn>
-        decltype(auto) WithLock(Fn&& fn) noexcept(noexcept(static_cast<const GlobalUnlockGuard*>(this)->WithLock(std::forward<Fn>(fn))))
+        auto WithLock(Fn&& fn) noexcept(noexcept(static_cast<const GlobalUnlockGuard*>(this)->WithLock(std::forward<Fn>(fn)))) -> decltype(static_cast<const GlobalUnlockGuard*>(this)->WithLock(std::forward<Fn>(fn)))
         {
             return static_cast<const GlobalUnlockGuard*>(this)->WithLock(std::forward<Fn>(fn));
         }
@@ -443,10 +427,6 @@ namespace SharedUtil
     //
     // string stuff
     //
-
-#if __cplusplus >= 201703L // C++17
-    std::string UTF8FilePath(const std::filesystem::path& input);
-#endif
 
     std::wstring MbUTF8ToUTF16(const SString& s);
 

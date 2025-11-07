@@ -59,6 +59,7 @@ public:
     CWebCore();
     ~CWebCore();
     bool Initialise(bool gpuEnabled) override;
+    bool IsInitialised() const noexcept override { return m_bInitialised; }
 
     CWebViewInterface* CreateWebView(unsigned int uiWidth, unsigned int uiHeight, bool bIsLocal, CWebBrowserItem* pWebBrowserRenderItem, bool bTransparent);
     void               DestroyWebView(CWebViewInterface* pWebViewInterface);
@@ -100,8 +101,6 @@ public:
     void OnPreScreenshot();
     void OnPostScreenshot();
 
-    void OnFPSLimitChange(std::uint16_t fps) override;
-
     bool SetGlobalAudioVolume(float fVolume);
 
     bool        UpdateListsFromMaster();
@@ -140,4 +139,5 @@ private:
 
     // Shouldn't be changed after init
     bool m_bGPUEnabled;
+    bool m_bInitialised = false;            // Track if CefInitialize() succeeded
 };
