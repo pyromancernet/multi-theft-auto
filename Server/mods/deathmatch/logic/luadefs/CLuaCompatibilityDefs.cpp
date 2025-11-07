@@ -23,13 +23,17 @@ void CLuaCompatibilityDefs::LoadFunctions()
     constexpr static const std::pair<const char*, lua_CFunction> functions[]{
         {"getPlayerSkin", CLuaElementDefs::getElementModel},
         {"setPlayerSkin", CLuaElementDefs::setElementModel},
+
         {"getVehicleModel", CLuaElementDefs::getElementModel},
         {"setVehicleModel", CLuaElementDefs::setElementModel},
+
         {"getObjectModel", CLuaElementDefs::getElementModel},
         {"setObjectModel", CLuaElementDefs::setElementModel},
+
         {"getVehicleID", CLuaElementDefs::getElementModel},
         {"getVehicleIDFromName", CLuaVehicleDefs::GetVehicleModelFromName},
         {"getVehicleNameFromID", CLuaVehicleDefs::GetVehicleNameFromModel},
+
         {"getPlayerWeaponSlot", CLuaPedDefs::GetPedWeaponSlot},
         {"getPlayerArmor", ArgumentParserWarn<false, CLuaPedDefs::GetPedArmor>},
         {"getPlayerRotation", CLuaPedDefs::GetPedRotation},
@@ -63,18 +67,23 @@ void CLuaCompatibilityDefs::LoadFunctions()
         {"getPlayerOccupiedVehicle", CLuaPedDefs::GetPedOccupiedVehicle},
         {"getPlayerOccupiedVehicleSeat", CLuaPedDefs::GetPedOccupiedVehicleSeat},
         {"isPlayerInVehicle", CLuaPedDefs::IsPedInVehicle},
+
         {"getClientName", CLuaPlayerDefs::GetPlayerName},
         {"getClientIP", CLuaPlayerDefs::GetPlayerIP},
         {"getClientAccount", CLuaPlayerDefs::GetPlayerAccount},
         {"setClientName", CLuaPlayerDefs::SetPlayerName},
+
         {"getPlayerWeapon", CLuaPedDefs::GetPedWeapon},
         {"getPlayerTotalAmmo", CLuaPedDefs::GetPedTotalAmmo},
         {"getPlayerAmmoInClip", CLuaPedDefs::GetPedAmmoInClip},
+
         {"getPedSkin", CLuaElementDefs::getElementModel},
         {"setPedSkin", CLuaElementDefs::setElementModel},
+
         {"xmlNodeGetSubNodes", CLuaXMLDefs::xmlNodeGetChildren},
         {"xmlCreateSubNode", CLuaXMLDefs::xmlCreateChild},
         {"xmlFindSubNode", CLuaXMLDefs::xmlNodeFindChild},
+
         {"attachElementToElement", CLuaElementDefs::attachElements},
         {"detachElementFromElement", CLuaElementDefs::detachElements},
 

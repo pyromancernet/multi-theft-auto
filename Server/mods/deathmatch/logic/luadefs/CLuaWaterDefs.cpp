@@ -19,10 +19,13 @@ void CLuaWaterDefs::LoadFunctions()
 {
     constexpr static const std::pair<const char*, lua_CFunction> functions[]{
         {"createWater", CreateWater},
-        {"setWaterLevel", SetWaterLevel},
+
         {"resetWaterLevel", ResetWaterLevel},
+        {"setWaterLevel", SetWaterLevel},
+
         {"getWaterVertexPosition", GetWaterVertexPosition},
         {"setWaterVertexPosition", SetWaterVertexPosition},
+
         {"getWaterColor", GetWaterColor},
         {"setWaterColor", SetWaterColor},
         {"resetWaterColor", ResetWaterColor},

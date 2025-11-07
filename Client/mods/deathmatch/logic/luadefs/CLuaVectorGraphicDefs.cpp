@@ -20,7 +20,6 @@ void CLuaVectorGraphicDefs::LoadFunctions()
         {"svgGetSize", ArgumentParser<SVGGetSize>},
         {"svgSetSize", ArgumentParser<SVGSetSize>},
         {"svgSetUpdateCallback", ArgumentParser<SVGSetUpdateCallback>},
-
     };
 
     // Add functions

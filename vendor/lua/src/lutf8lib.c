@@ -1,12 +1,10 @@
 #define LUA_LIB
+
 #include "lua.h"
 #include "lauxlib.h"
 #include "lualib.h"
-
-
 #include <assert.h>
 #include <string.h>
-
 
 /* UTF-8 string operations */
 
@@ -149,7 +147,6 @@ static const char *utf8_index(const char *s, const char *e, int idx) {
 	}
 }
 
-
 /* Unicode character categories */
 
 #include "unidata.h"
@@ -197,10 +194,10 @@ static int convert_char(conv_table *t, size_t size, unsigned int ch) {
 #define table_size(t) (sizeof(t)/sizeof((t)[0]))
 
 #define define_category(name) static int utf8_is##name(unsigned int ch) \
-{ return find_in_range(name##_table, table_size(name##_table), ch); }
+	{ return find_in_range(name##_table, table_size(name##_table), ch); }
 
 #define define_converter(name) static unsigned int utf8_##name(unsigned int ch) \
-{ return convert_char(name##_table, table_size(name##_table), ch); }
+	{ return convert_char(name##_table, table_size(name##_table), ch); }
 
 define_category(alpha)
 define_category(lower)
@@ -247,7 +244,6 @@ static int utf8_width(unsigned int ch, int ambi_is_single) {
 		return 0;
 	return 1;
 }
-
 
 /* string module compatible interface */
 
@@ -399,7 +395,6 @@ static int Lutf8_char(lua_State *L) {
 	luaL_pushresult(&b);
 	return 1;
 }
-
 
 /* unicode extra interface */
 
@@ -626,16 +621,14 @@ static int Lutf8_ncasecmp(lua_State *L) {
 	return 1;
 }
 
-
 /* utf8 pattern matching implement */
 
 #ifndef   LUA_MAXCAPTURES
-# define  LUA_MAXCAPTURES  32
+	# define  LUA_MAXCAPTURES  32
 #endif /* LUA_MAXCAPTURES */
 
 #define CAP_UNFINISHED (-1)
 #define CAP_POSITION   (-2)
-
 
 typedef struct MatchState {
 	int matchdepth;  /* control for recursive depth (to avoid C stack overflow) */
@@ -655,7 +648,7 @@ static const char *match(MatchState *ms, const char *s, const char *p);
 
 /* maximum recursion depth for 'match' */
 #if !defined(MAXCCALLS)
-#define MAXCCALLS	200
+	#define MAXCCALLS	200
 #endif
 
 #define L_ESC		'%'
@@ -1035,7 +1028,6 @@ static int nospecials(const char *p, const char * ep) {
 	return 1;  /* no special chars found */
 }
 
-
 /* utf8 pattern matching interface */
 
 static int find_aux(lua_State *L, int find) {
@@ -1247,43 +1239,41 @@ static int Lutf8_gsub(lua_State *L) {
 	return 2;
 }
 
-
 /* lua module import interface */
 
 LUALIB_API int luaopen_utf8(lua_State *L) {
 	luaL_Reg libs[] = {
-#define ENTRY(name) { #name, Lutf8_##name }
-		ENTRY(len),
-		ENTRY(sub),
-		ENTRY(reverse),
-		ENTRY(lower),
-		ENTRY(upper),
-		ENTRY(title),
-		ENTRY(fold),
-		ENTRY(byte),
-		ENTRY(char),
-		ENTRY(escape),
-		ENTRY(insert),
-		ENTRY(remove),
-		ENTRY(charpos),
-		ENTRY(next),
-		ENTRY(width),
-		ENTRY(widthindex),
-		ENTRY(ncasecmp),
-		ENTRY(find),
-		ENTRY(gmatch),
-		ENTRY(gsub),
-		ENTRY(match),
-#undef  ENTRY
+		#define ENTRY(name) { #name, Lutf8_##name }
+			ENTRY(len),
+			ENTRY(sub),
+			ENTRY(reverse),
+			ENTRY(lower),
+			ENTRY(upper),
+			ENTRY(title),
+			ENTRY(fold),
+			ENTRY(byte),
+			ENTRY(char),
+			ENTRY(escape),
+			ENTRY(insert),
+			ENTRY(remove),
+			ENTRY(charpos),
+			ENTRY(next),
+			ENTRY(width),
+			ENTRY(widthindex),
+			ENTRY(ncasecmp),
+			ENTRY(find),
+			ENTRY(gmatch),
+			ENTRY(gsub),
+			ENTRY(match),
+		#undef  ENTRY
 		{ NULL, NULL }
 	};
 
-#if LUA_VERSION_NUM >= 502
-	luaL_newlib(L, libs);
-#else
-	lua_createtable(L, 0, sizeof(libs) / sizeof(libs[0]));
-	luaL_register(L, "utf8", libs);
-#endif
-
+	#if LUA_VERSION_NUM >= 502
+		luaL_newlib(L, libs);
+	#else
+		lua_createtable(L, 0, sizeof(libs) / sizeof(libs[0]));
+		luaL_register(L, "utf8", libs);
+	#endif
 	return 1;
 }
