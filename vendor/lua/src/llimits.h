@@ -5,124 +5,88 @@
 */
 
 #ifndef llimits_h
-#define llimits_h
+	#define llimits_h
 
+	#include <limits.h>
+	#include <stddef.h>
+	#include "lua.h"
 
-#include <limits.h>
-#include <stddef.h>
+	// Basic type definitions
+	typedef LUAI_UINT32 lu_int32;
+	typedef LUAI_UMEM lu_mem;
+	typedef LUAI_MEM l_mem;
 
+	// Small naturals using unsigned char
+	typedef unsigned char lu_byte;
 
-#include "lua.h"
+	// Memory and size limits
+	#define MAX_SIZET ((size_t)(~(size_t)0) - 2)
+	#define MAX_LUMEM ((lu_mem)(~(lu_mem)0) - 2)
+	#define MAX_INT (INT_MAX - 2)  /* maximum value of an int (-2 for safety) */
 
+	// Pointer to integer conversion for hashing
+	#define IntPoint(p) ((unsigned int)(lu_mem)(p))
 
-typedef LUAI_UINT32 lu_int32;
+	// Type for maximum alignment
+	typedef LUAI_USER_ALIGNMENT_T L_Umaxalign;
 
-typedef LUAI_UMEM lu_mem;
+	// Result of usual argument conversion over lua_Number
+	typedef LUAI_UACNUMBER l_uacNumber;
 
-typedef LUAI_MEM l_mem;
+	// Internal assertions for in-house debugging
+	#ifdef lua_assert
+		#define check_exp(c, e) (lua_assert(c), (e))
+		#define api_check(l, e) lua_assert(e)
+	#else
+		#define lua_assert(c) ((void)0)
+		#define check_exp(c, e) (e)
+		#define api_check luai_apicheck
+	#endif
 
+	// Unused macro to avoid warnings
+	#ifndef UNUSED
+	#define UNUSED(x) ((void)(x))
+	#endif
 
+	// Cast macros
+	#ifndef cast
+		#define cast(t, exp) ((t)(exp))
+	#endif
 
-/* chars used as small naturals (so that `char' is reserved for characters) */
-typedef unsigned char lu_byte;
+	#define cast_byte(i) cast(lu_byte, (i))
+	#define cast_num(i) cast(lua_Number, (i))
+	#define cast_int(i) cast(int, (i))
 
+	// Type for virtual-machine instructions
+	typedef lu_int32 Instruction;
 
-#define MAX_SIZET	((size_t)(~(size_t)0)-2)
+	// Maximum stack for a Lua function
+	#define MAXSTACK 250
 
-#define MAX_LUMEM	((lu_mem)(~(lu_mem)0)-2)
+	// Minimum size for the string table (must be power of 2)
+	#ifndef MINSTRTABSIZE
+		#define MINSTRTABSIZE 32
+	#endif
 
+	// Minimum size for string buffer
+	#ifndef LUA_MINBUFFER
+		#define LUA_MINBUFFER 32
+	#endif
 
-#define MAX_INT (INT_MAX-2)  /* maximum value of an int (-2 for safety) */
+	// Locking macros
+	#ifndef lua_lock
+		#define lua_lock(L) ((void)0)
+		#define lua_unlock(L) ((void)0)
+	#endif
 
-/*
-** conversion of pointer to integer
-** this is for hashing only; there is no problem if the integer
-** cannot hold the whole pointer value
-*/
-#define IntPoint(p)  ((unsigned int)(lu_mem)(p))
+	#ifndef luai_threadyield
+		#define luai_threadyield(L) {lua_unlock(L); lua_lock(L);}
+	#endif
 
-
-
-/* type to ensure maximum alignment */
-typedef LUAI_USER_ALIGNMENT_T L_Umaxalign;
-
-
-/* result of a `usual argument conversion' over lua_Number */
-typedef LUAI_UACNUMBER l_uacNumber;
-
-
-/* internal assertions for in-house debugging */
-#ifdef lua_assert
-
-#define check_exp(c,e)		(lua_assert(c), (e))
-#define api_check(l,e)		lua_assert(e)
-
-#else
-
-#define lua_assert(c)		((void)0)
-#define check_exp(c,e)		(e)
-#define api_check		luai_apicheck
-
-#endif
-
-
-#ifndef UNUSED
-#define UNUSED(x)	((void)(x))	/* to avoid warnings */
-#endif
-
-
-#ifndef cast
-#define cast(t, exp)	((t)(exp))
-#endif
-
-#define cast_byte(i)	cast(lu_byte, (i))
-#define cast_num(i)	cast(lua_Number, (i))
-#define cast_int(i)	cast(int, (i))
-
-
-
-/*
-** type for virtual-machine instructions
-** must be an unsigned with (at least) 4 bytes (see details in lopcodes.h)
-*/
-typedef lu_int32 Instruction;
-
-
-
-/* maximum stack for a Lua function */
-#define MAXSTACK	250
-
-
-
-/* minimum size for the string table (must be power of 2) */
-#ifndef MINSTRTABSIZE
-#define MINSTRTABSIZE	32
-#endif
-
-
-/* minimum size for string buffer */
-#ifndef LUA_MINBUFFER
-#define LUA_MINBUFFER	32
-#endif
-
-
-#ifndef lua_lock
-#define lua_lock(L)     ((void) 0) 
-#define lua_unlock(L)   ((void) 0)
-#endif
-
-#ifndef luai_threadyield
-#define luai_threadyield(L)     {lua_unlock(L); lua_lock(L);}
-#endif
-
-
-/*
-** macro to control inclusion of some hard tests on stack reallocation
-*/ 
-#ifndef HARDSTACKTESTS
-#define condhardstacktests(x)	((void)0)
-#else
-#define condhardstacktests(x)	x
-#endif
-
+	// Macro to control inclusion of hard tests on stack reallocation
+	#ifndef HARDSTACKTESTS
+		#define condhardstacktests(x) ((void)0)
+	#else
+		#define condhardstacktests(x) x
+	#endif
 #endif
