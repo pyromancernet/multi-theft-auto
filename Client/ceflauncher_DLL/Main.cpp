@@ -20,7 +20,6 @@
 #include "CCefApp.h"
 #include <string>
 #include <cef3/cef/include/cef_sandbox_win.h>
-#include <SharedUtil.h>
 
 // #define CEF_ENABLE_SANDBOX
 #ifdef CEF_ENABLE_SANDBOX
@@ -31,18 +30,15 @@ DWORD WINAPI CheckParentProcessAliveness(LPVOID);
 
 int _declspec(dllexport) InitCEF()
 {
-    // Get MTA base directory and set DLL directory to MTA folder
-    const SString strBaseDir = SharedUtil::GetMTAProcessBaseDir();
-    
-    if (strBaseDir.empty())
-    {
-        // Unable to determine base directory - CEF cannot initialize
-        return -1;
-    }
-    
-    const SString strMTADir = SharedUtil::PathJoin(strBaseDir, "MTA");
-    
-    SetDllDirectoryW(SharedUtil::FromUTF8(strMTADir));
+    // Get absolute CEFLauncher.exe path
+    TCHAR buffer[MAX_PATH];
+    GetModuleFileName(NULL, buffer, MAX_PATH);
+    std::wstring currentFileName(buffer);
+
+    // Extract MTA path and set DLL directory (absolute path is required here)
+    size_t       pos = currentFileName.find_last_of(L'\\');
+    std::wstring mtaPath = currentFileName.substr(0, pos - 3);            // Strip "CEF"
+    SetDllDirectory(mtaPath.c_str());
 
     // Load libcef.dll from the DLL directory
     assert(SUCCEEDED(__HrLoadAllImportsForDll("libcef.dll")));
@@ -74,10 +70,9 @@ static DWORD WINAPI CheckParentProcessAliveness(LPVOID)
 {
     NTSTATUS(NTAPI * queryInformation)(HANDLE, PROCESSINFOCLASS, PVOID, ULONG, PULONG) = nullptr;
 
-    if (auto ntdll = GetModuleHandleW(L"ntdll.dll"); ntdll != nullptr)
+    if (HMODULE const ntdll = GetModuleHandleW(L"ntdll.dll"); ntdll != nullptr)
     {
-        auto procAddr = GetProcAddress(ntdll, "NtQueryInformationProcess");
-        queryInformation = reinterpret_cast<decltype(queryInformation)>(reinterpret_cast<void*>(procAddr));
+        queryInformation = reinterpret_cast<decltype(queryInformation)>(GetProcAddress(ntdll, "NtQueryInformationProcess"));
     }
 
     if (queryInformation == nullptr)

@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- *  PROJECT:     Multi Theft Auto
+ *  PROJECT:     Multi Theft Auto v1.0
  *               (Shared logic for modifications)
  *  LICENSE:     See LICENSE in the top level directory
  *  FILE:        mods/shared_logic/CClientWebBrowser.cpp
@@ -19,16 +19,7 @@ CClientWebBrowser::CClientWebBrowser(CClientManager* pManager, ElementID ID, CWe
     SetTypeName("webbrowser");
 
     // Create the web view
-    const auto pWebCore = g_pCore->GetWebCore();
-    if (!pWebCore)
-    {
-        m_pWebView = nullptr;
-        return;
-    }
-    m_pWebView = pWebCore->CreateWebView(pWebBrowserItem->m_uiSizeX, pWebBrowserItem->m_uiSizeY, bLocal, pWebBrowserItem, bTransparent);
-
-    if (!m_pWebView)
-        return;
+    m_pWebView = g_pCore->GetWebCore()->CreateWebView(pWebBrowserItem->m_uiSizeX, pWebBrowserItem->m_uiSizeY, bLocal, pWebBrowserItem, bTransparent);
 
     // Set events interface
     m_pWebView->SetWebBrowserEvents(this);
@@ -39,14 +30,8 @@ CClientWebBrowser::CClientWebBrowser(CClientManager* pManager, ElementID ID, CWe
 
 CClientWebBrowser::~CClientWebBrowser()
 {
-    if (m_pWebView)
-    {
-        // Use GetWebCoreUnchecked() to ensure cleanup even if initialization failed
-        const auto pWebCore = g_pCore->GetWebCoreUnchecked();
-        if (pWebCore)
-            pWebCore->DestroyWebView(m_pWebView);
-        m_pWebView = nullptr;
-    }
+    g_pCore->GetWebCore()->DestroyWebView(m_pWebView);
+    m_pWebView = nullptr;
 
     // Unlink from tree
     Unlink();
@@ -63,42 +48,36 @@ void CClientWebBrowser::Unlink()
 
 bool CClientWebBrowser::IsLoading()
 {
-    return m_pWebView ? m_pWebView->IsLoading() : false;
+    return m_pWebView->IsLoading();
 }
 
 bool CClientWebBrowser::LoadURL(const SString& strURL, bool bFilterEnabled, const SString& strPostData, bool bURLEncoded)
 {
-    return m_pWebView ? m_pWebView->LoadURL(strURL, bFilterEnabled, strPostData, bURLEncoded) : false;
+    return m_pWebView->LoadURL(strURL, bFilterEnabled, strPostData, bURLEncoded);
 }
 
 const SString& CClientWebBrowser::GetTitle()
 {
-    static SString empty;
-    return m_pWebView ? m_pWebView->GetTitle() : empty;
+    return m_pWebView->GetTitle();
 }
 
 SString CClientWebBrowser::GetURL()
 {
-    return m_pWebView ? m_pWebView->GetURL() : SString();
+    return m_pWebView->GetURL();
 }
 
 void CClientWebBrowser::SetRenderingPaused(bool bPaused)
 {
-    if (m_pWebView)
-        m_pWebView->SetRenderingPaused(bPaused);
+    m_pWebView->SetRenderingPaused(bPaused);
 }
 
 void CClientWebBrowser::Focus()
 {
-    if (m_pWebView)
-        m_pWebView->Focus();
+    m_pWebView->Focus();
 }
 
 bool CClientWebBrowser::ExecuteJavascript(const SString& strJavascriptCode)
 {
-    if (!m_pWebView)
-        return false;
-    
     // Don't allow javascript code execution on remote websites
     if (!m_pWebView->IsLocal())
         return false;
@@ -109,89 +88,82 @@ bool CClientWebBrowser::ExecuteJavascript(const SString& strJavascriptCode)
 
 bool CClientWebBrowser::SetProperty(const SString& strKey, const SString& strValue)
 {
-    return m_pWebView ? m_pWebView->SetProperty(strKey, strValue) : false;
+    return m_pWebView->SetProperty(strKey, strValue);
 }
 
 bool CClientWebBrowser::GetProperty(const SString& strKey, SString& outValue)
 {
-    return m_pWebView ? m_pWebView->GetProperty(strKey, outValue) : false;
+    return m_pWebView->GetProperty(strKey, outValue);
 }
 
 void CClientWebBrowser::InjectMouseMove(int iPosX, int iPosY)
 {
-    if (m_pWebView)
-        m_pWebView->InjectMouseMove(iPosX, iPosY);
+    m_pWebView->InjectMouseMove(iPosX, iPosY);
 }
 
 void CClientWebBrowser::InjectMouseDown(eWebBrowserMouseButton mouseButton, int count)
 {
-    if (m_pWebView)
-        m_pWebView->InjectMouseDown(mouseButton, count);
+    m_pWebView->InjectMouseDown(mouseButton, count);
 }
 
 void CClientWebBrowser::InjectMouseUp(eWebBrowserMouseButton mouseButton)
 {
-    if (m_pWebView)
-        m_pWebView->InjectMouseUp(mouseButton);
+    m_pWebView->InjectMouseUp(mouseButton);
 }
 
 void CClientWebBrowser::InjectMouseWheel(int iScrollVert, int iScrollHorz)
 {
-    if (m_pWebView)
-        m_pWebView->InjectMouseWheel(iScrollVert, iScrollHorz);
+    m_pWebView->InjectMouseWheel(iScrollVert, iScrollHorz);
 }
 
 bool CClientWebBrowser::IsLocal()
 {
-    return m_pWebView ? m_pWebView->IsLocal() : false;
+    return m_pWebView->IsLocal();
 }
 
 float CClientWebBrowser::GetAudioVolume()
 {
-    return m_pWebView ? m_pWebView->GetAudioVolume() : 0.0f;
+    return m_pWebView->GetAudioVolume();
 }
 
 bool CClientWebBrowser::SetAudioVolume(float fVolume)
 {
-    return m_pWebView ? m_pWebView->SetAudioVolume(fVolume) : false;
+    return m_pWebView->SetAudioVolume(fVolume);
 }
 
 void CClientWebBrowser::GetSourceCode(const std::function<void(const std::string& code)>& callback)
 {
-    if (m_pWebView)
-        m_pWebView->GetSourceCode(callback);
+    return m_pWebView->GetSourceCode(callback);
 }
 
 void CClientWebBrowser::Resize(const CVector2D& size)
 {
-    if (m_pWebView)
-        m_pWebView->Resize(size);
+    m_pWebView->Resize(size);
 }
 
 bool CClientWebBrowser::CanGoBack()
 {
-    return m_pWebView ? m_pWebView->CanGoBack() : false;
+    return m_pWebView->CanGoBack();
 }
 
 bool CClientWebBrowser::CanGoForward()
 {
-    return m_pWebView ? m_pWebView->CanGoForward() : false;
+    return m_pWebView->CanGoForward();
 }
 
 bool CClientWebBrowser::GoBack()
 {
-    return m_pWebView ? m_pWebView->GoBack() : false;
+    return m_pWebView->GoBack();
 }
 
 bool CClientWebBrowser::GoForward()
 {
-    return m_pWebView ? m_pWebView->GoForward() : false;
+    return m_pWebView->GoForward();
 }
 
 void CClientWebBrowser::Refresh(bool bIgnoreCache)
 {
-    if (m_pWebView)
-        m_pWebView->Refresh(bIgnoreCache);
+    m_pWebView->Refresh(bIgnoreCache);
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -345,9 +317,6 @@ void CClientWebBrowser::Events_OnConsoleMessage(const std::string& message, cons
 
 bool CClientWebBrowser::AddAjaxHandler(const SString& strURL, ajax_callback_t& handler)
 {
-    if (!m_pWebView)
-        return false;
-    
     if (!m_pWebView->RegisterAjaxHandler(strURL))
         return false;
 
@@ -357,9 +326,6 @@ bool CClientWebBrowser::AddAjaxHandler(const SString& strURL, ajax_callback_t& h
 
 bool CClientWebBrowser::RemoveAjaxHandler(const SString& strURL)
 {
-    if (!m_pWebView)
-        return false;
-    
     if (!m_pWebView->UnregisterAjaxHandler(strURL))
         return false;
 
@@ -368,7 +334,7 @@ bool CClientWebBrowser::RemoveAjaxHandler(const SString& strURL)
 
 bool CClientWebBrowser::ToggleDevTools(bool visible)
 {
-    return m_pWebView ? m_pWebView->ToggleDevTools(visible) : false;
+    return m_pWebView->ToggleDevTools(visible);
 }
 
 CClientGUIWebBrowser::CClientGUIWebBrowser(bool isLocal, bool isTransparent, uint width, uint height, CClientManager* pManager, CLuaMain* pLuaMain,

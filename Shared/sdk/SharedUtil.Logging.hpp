@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- *  PROJECT:     Multi Theft Auto
+ *  PROJECT:     Multi Theft Auto v1.0
  *  LICENSE:     See LICENSE in the top level directory
  *  FILE:        SharedUtil.Misc.hpp
  *  PURPOSE:
@@ -48,7 +48,7 @@ namespace SharedUtil
         SetDebugTagHidden("Mem");
 
         #ifdef Has_InitDebugTagsLocal
-            InitDebugTagsLocal();
+        InitDebugTagsLocal();
         #endif
     }
 
@@ -97,7 +97,7 @@ void SharedUtil::OutputDebugLine(const char* szMessage)
     if (strMessage.length() > 0 && strMessage[strMessage.length() - 1] != '\n')
         strMessage += "\n";
 #ifdef _WIN32
-    OutputDebugStringW(FromUTF8(strMessage));
+    OutputDebugString(strMessage);
 #else
             // Other platforms here
 #endif
@@ -144,7 +144,7 @@ void SharedUtil::OutputReleaseLine(const char* szMessage)
     if (strMessage.length() > 0 && strMessage[strMessage.length() - 1] != '\n')
         strMessage += "\n";
 #ifdef _WIN32
-    OutputDebugStringW(FromUTF8(strMessage));
+    OutputDebugString(strMessage);
 #else
         // Other platforms here
 #endif

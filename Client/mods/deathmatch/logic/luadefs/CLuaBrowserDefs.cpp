@@ -141,14 +141,7 @@ int CLuaBrowserDefs::CreateBrowser(lua_State* luaVM)
     if (argStream.HasErrors())
         return luaL_error(luaVM, argStream.GetFullErrorMessage());
 
-    const auto pWebCore = g_pCore->GetWebCore();
-    if (!pWebCore)
-    {
-        lua_pushboolean(luaVM, false);
-        return 1;
-    }
-
-    if (!bIsLocal && !pWebCore->GetRemotePagesEnabled())
+    if (!bIsLocal && !g_pCore->GetWebCore()->GetRemotePagesEnabled())
     {
         lua_pushboolean(luaVM, false);
         return 1;
@@ -193,7 +186,7 @@ int CLuaBrowserDefs::RequestBrowserDomains(lua_State* luaVM)
     if (!argStream.HasErrors())
     {
         // Remove empty and invalid URLs
-        std::regex invalidSynmbolsRegex("[^A-Za-z0-9\-._~!#$&'()*+,;=:@\/?%]");
+        std::regex invalidSynmbolsRegex("[^A-Za-z0-9\\-._~!#$&'()*+,;=:@\\/?%]");
 
         pages.erase(std::remove_if(pages.begin(), pages.end(),
                                    [&invalidSynmbolsRegex](const auto& url) { return url.empty() || std::regex_search(url, invalidSynmbolsRegex); }),
@@ -201,15 +194,7 @@ int CLuaBrowserDefs::RequestBrowserDomains(lua_State* luaVM)
 
         // Convert to domains if we got a list of URLs
         if (bIsURL)
-        {
-            auto pWebCore = g_pCore->GetWebCore();
-            if (!pWebCore)
-            {
-                lua_pushboolean(luaVM, false);
-                return 1;
-            }
-            std::transform(pages.begin(), pages.end(), pages.begin(), [pWebCore](const auto& url) { return pWebCore->GetDomainFromURL(url); });
-        }
+            std::transform(pages.begin(), pages.end(), pages.begin(), [](const auto& url) { return g_pCore->GetWebCore()->GetDomainFromURL(url); });
 
         WebRequestCallback callback = [=](bool bAllow, const std::unordered_set<SString>& domains) {
             // Test if luaVM is still available
@@ -234,13 +219,7 @@ int CLuaBrowserDefs::RequestBrowserDomains(lua_State* luaVM)
             }
         };
 
-        auto pWebCore = g_pCore->GetWebCore();
-        if (!pWebCore)
-        {
-            lua_pushboolean(luaVM, false);
-            return 1;
-        }
-        pWebCore->RequestPages(pages, VERIFY_FUNCTION(callbackFunction) ? &callback : nullptr);
+        g_pCore->GetWebCore()->RequestPages(pages, VERIFY_FUNCTION(callbackFunction) ? &callback : nullptr);
         lua_pushboolean(luaVM, true);
         return 1;
     }
@@ -536,8 +515,7 @@ int CLuaBrowserDefs::SetBrowserVolume(lua_State* luaVM)
     if (argStream.NextIsNumber())
     {
         argStream.ReadNumber(fVolume);
-        auto pWebCore = g_pCore->GetWebCore();
-        lua_pushboolean(luaVM, pWebCore ? pWebCore->SetGlobalAudioVolume(fVolume) : false);
+        lua_pushboolean(luaVM, g_pCore->GetWebCore()->SetGlobalAudioVolume(fVolume));
         return 1;
     }
 
@@ -568,19 +546,12 @@ int CLuaBrowserDefs::IsBrowserDomainBlocked(lua_State* luaVM)
 
     if (!argStream.HasErrors())
     {
-        auto pWebCore = g_pCore->GetWebCore();
-        if (!pWebCore)
-        {
-            lua_pushnil(luaVM);
-            return 1;
-        }
-        
         if (bIsURL)
-            strURL = pWebCore->GetDomainFromURL(strURL);
+            strURL = g_pCore->GetWebCore()->GetDomainFromURL(strURL);
 
         if (!strURL.empty())
         {
-            lua_pushboolean(luaVM, pWebCore->GetDomainState(strURL) != eURLState::WEBPAGE_ALLOWED);
+            lua_pushboolean(luaVM, g_pCore->GetWebCore()->GetDomainState(strURL) != eURLState::WEBPAGE_ALLOWED);
             return 1;
         }
     }
@@ -599,9 +570,7 @@ int CLuaBrowserDefs::FocusBrowser(lua_State* luaVM)
     CScriptArgReader argStream(luaVM);
     if (argStream.NextIsNil() || argStream.NextIsNone())
     {
-        auto pWebCore = g_pCore->GetWebCore();
-        if (pWebCore)
-            pWebCore->SetFocusedWebView(NULL);
+        g_pCore->GetWebCore()->SetFocusedWebView(NULL);
         lua_pushboolean(luaVM, true);
         return 1;
     }
@@ -631,8 +600,7 @@ int CLuaBrowserDefs::IsBrowserFocused(lua_State* luaVM)
 
     if (!argStream.HasErrors())
     {
-        auto pWebCore = g_pCore->GetWebCore();
-        CWebViewInterface* pWebView = pWebCore ? pWebCore->GetFocusedWebView() : nullptr;
+        CWebViewInterface* pWebView = g_pCore->GetWebCore()->GetFocusedWebView();
         lua_pushboolean(luaVM, pWebBrowser->GetWebView() == pWebView);
         return 1;
     }
@@ -699,16 +667,14 @@ int CLuaBrowserDefs::GetBrowserProperty(lua_State* luaVM)
 int CLuaBrowserDefs::GetBrowserSettings(lua_State* luaVM)
 {
     //  table getBrowserSettings ()
-    auto pWebCore = g_pCore->GetWebCore();
-    
     lua_createtable(luaVM, 0, 3);
 
     lua_pushstring(luaVM, "RemoteEnabled");
-    lua_pushboolean(luaVM, pWebCore ? pWebCore->GetRemotePagesEnabled() : false);
+    lua_pushboolean(luaVM, g_pCore->GetWebCore()->GetRemotePagesEnabled());
     lua_settable(luaVM, -3);
 
     lua_pushstring(luaVM, "RemoteJavascript");
-    lua_pushboolean(luaVM, pWebCore ? pWebCore->GetRemoteJavascriptEnabled() : false);
+    lua_pushboolean(luaVM, g_pCore->GetWebCore()->GetRemoteJavascriptEnabled());
     lua_settable(luaVM, -3);
 
     lua_pushstring(luaVM, "PluginsEnabled");
@@ -773,8 +739,7 @@ int CLuaBrowserDefs::ToggleBrowserDevTools(lua_State* luaVM)
 
     if (!argStream.HasErrors())
     {
-        auto pWebCore = g_pCore->GetWebCore();
-        if (pWebCore && pWebCore->IsTestModeEnabled())
+        if (g_pCore->GetWebCore()->IsTestModeEnabled())
         {
             lua_pushboolean(luaVM, pWebBrowser->ToggleDevTools(visible));
             return 1;
@@ -951,8 +916,7 @@ int CLuaBrowserDefs::GUICreateBrowser(lua_State* luaVM)
 
     if (!argStream.HasErrors())
     {
-        auto pWebCore = g_pCore->GetWebCore();
-        if (!bIsLocal && (!pWebCore || !pWebCore->GetRemotePagesEnabled()))
+        if (!bIsLocal && !g_pCore->GetWebCore()->GetRemotePagesEnabled())
         {
             lua_pushboolean(luaVM, false);
             return 1;
@@ -1095,6 +1059,5 @@ int CLuaBrowserDefs::SetBrowserAjaxHandler(lua_State* luaVM)
 
 bool CLuaBrowserDefs::IsBrowserGPUEnabled() noexcept
 {
-    auto pWebCore = g_pCore->GetWebCore();
-    return pWebCore ? pWebCore->GetGPUEnabled() : false;
+    return g_pCore->GetWebCore()->GetGPUEnabled();
 }

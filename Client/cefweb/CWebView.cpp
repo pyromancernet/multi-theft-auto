@@ -1,6 +1,6 @@
 /*****************************************************************************
  *
- *  PROJECT:     Multi Theft Auto
+ *  PROJECT:     Multi Theft Auto v1.0
  *               (Shared logic for modifications)
  *  LICENSE:     See LICENSE in the top level directory
  *  FILE:        core/CWebView.cpp
@@ -37,7 +37,7 @@ CWebView::~CWebView()
 {
     if (IsMainThread())
     {
-        if (auto pWebCore = g_pCore->GetWebCore(); pWebCore)
+        if (auto pWebCore = g_pCore->GetWebCore(); pWebCore) [[likely]]
         {
             if (pWebCore->GetFocusedWebView() == this)
                 pWebCore->SetFocusedWebView(nullptr);
@@ -64,15 +64,14 @@ void CWebView::Initialise()
 {
     // Initialise the web session (which holds the actual settings) in in-memory mode
     CefBrowserSettings browserSettings;
-    browserSettings.windowless_frame_rate = g_pCore->GetFrameRateLimit();
+    browserSettings.windowless_frame_rate = g_pCore->GetFPSLimiter()->GetFPSTarget();
     browserSettings.javascript_access_clipboard = cef_state_t::STATE_DISABLED;
     browserSettings.javascript_dom_paste = cef_state_t::STATE_DISABLED;
     browserSettings.webgl = cef_state_t::STATE_ENABLED;
 
     if (!m_bIsLocal)
     {
-        const auto pWebCore = g_pCore->GetWebCore();
-        const bool bEnabledJavascript = pWebCore ? pWebCore->GetRemoteJavascriptEnabled() : false;
+        bool bEnabledJavascript = g_pCore->GetWebCore()->GetRemoteJavascriptEnabled();
         browserSettings.javascript = bEnabledJavascript ? cef_state_t::STATE_ENABLED : cef_state_t::STATE_DISABLED;
     }
 
@@ -111,12 +110,8 @@ bool CWebView::LoadURL(const SString& strURL, bool bFilterEnabled, const SString
         return false;            // Invalid URL
 
     // Are we allowed to browse this website?
-    if (bFilterEnabled)
-    {
-        auto pWebCore = g_pCore->GetWebCore();
-        if (pWebCore && pWebCore->GetDomainState(UTF16ToMbUTF8(urlParts.host.str), true) != eURLState::WEBPAGE_ALLOWED)
-            return false;
-    }
+    if (bFilterEnabled && g_pCore->GetWebCore()->GetDomainState(UTF16ToMbUTF8(urlParts.host.str), true) != eURLState::WEBPAGE_ALLOWED)
+        return false;
 
     // Load it!
     auto pFrame = m_pWebView->GetMainFrame();
@@ -194,14 +189,10 @@ void CWebView::Focus(bool state)
     if (m_pWebView)
         m_pWebView->GetHost()->SetFocus(state);
 
-    auto pWebCore = g_pCore->GetWebCore();
-    if (!pWebCore)
-        return;
-    
     if (state)
-        pWebCore->SetFocusedWebView(this);
-    else if (pWebCore->GetFocusedWebView() == this)
-        pWebCore->SetFocusedWebView(nullptr);
+        g_pCore->GetWebCore()->SetFocusedWebView(this);
+    else if (g_pCore->GetWebCore()->GetFocusedWebView() == this)
+        g_pCore->GetWebCore()->SetFocusedWebView(nullptr);
 }
 
 void CWebView::ClearTexture()
