@@ -26,10 +26,8 @@ MTAEXPORT CServerBase* InitServer(void)
 }
 
 #ifndef WIN32
-
-/* POSIX library destructor */
-extern "C" void __attribute__((destructor)) ReleaseServer(void);
-
+    /* POSIX library destructor */
+    extern "C" void __attribute__((destructor)) ReleaseServer(void);
 #endif
 
 MTAEXPORT void ReleaseServer(void)
@@ -43,15 +41,13 @@ MTAEXPORT void ReleaseServer(void)
 }
 
 #ifdef WIN32    /* Win32 DllMain entry */
-
-int WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, PVOID pvNothing)
-{
-    if (dwReason == DLL_PROCESS_DETACH)
+    int WINAPI DllMain(HINSTANCE hModule, DWORD dwReason, PVOID pvNothing)
     {
-        ReleaseServer();
+        if (dwReason == DLL_PROCESS_DETACH)
+        {
+            ReleaseServer();
+        }
+
+        return TRUE;
     }
-
-    return TRUE;
-}
-
 #endif
