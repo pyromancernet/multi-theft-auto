@@ -46,29 +46,39 @@ void CLuaCompatibilityDefs::LoadFunctions()
         {"setPlayerSkin", CLuaElementDefs::SetElementModel},
         {"setPlayerRotation", CLuaPedDefs::SetPedRotation},
         {"setPlayerCanBeKnockedOffBike", CLuaPedDefs::SetPedCanBeKnockedOffBike},
+
         {"setVehicleModel", CLuaElementDefs::SetElementModel},
         {"getVehicleModel", CLuaElementDefs::GetElementModel},
+
         {"getPedSkin", CLuaElementDefs::GetElementModel},
         {"setPedSkin", CLuaElementDefs::SetElementModel},
+
         {"getObjectRotation", CLuaElementDefs::GetElementRotation},
         {"setObjectRotation", CLuaElementDefs::SetElementRotation},
+
         {"getVehicleIDFromName", CLuaVehicleDefs::GetVehicleModelFromName},
         {"getVehicleID", CLuaElementDefs::GetElementModel},
         {"getVehicleRotation", CLuaElementDefs::GetElementRotation},
         {"getVehicleNameFromID", CLuaVehicleDefs::GetVehicleNameFromModel},
         {"setVehicleRotation", CLuaElementDefs::SetElementRotation},
+
         {"attachElementToElement", CLuaElementDefs::AttachElements},
         {"detachElementFromElement", CLuaElementDefs::DetachElements},
+
         {"xmlFindSubNode", CLuaXMLDefs::xmlNodeFindChild},
         {"xmlNodeGetSubNodes", CLuaXMLDefs::xmlNodeGetChildren},
         {"xmlNodeFindSubNode", CLuaXMLDefs::xmlNodeFindChild},
         {"xmlCreateSubNode", CLuaXMLDefs::xmlCreateChild},
         {"xmlNodeFindChild", CLuaXMLDefs::xmlNodeFindChild},
+
         {"isPlayerDead", CLuaPedDefs::IsPedDead},
+
         {"guiEditSetCaratIndex", CLuaGUIDefs::GUIEditSetCaretIndex},
         {"guiMemoSetCaratIndex", CLuaGUIDefs::GUIMemoSetCaretIndex},
+
         {"setControlState", ArgumentParserWarn<false, CLuaPedDefs::SetPedControlState>},
         {"getControlState", ArgumentParserWarn<false, CLuaPedDefs::GetPedControlState>},
+
         {"setCameraShakeLevel", ArgumentParserWarn<false, CLuaCameraDefs::SetCameraDrunkLevel>},
         {"getCameraShakeLevel", ArgumentParserWarn<false, CLuaCameraDefs::GetCameraDrunkLevel>},
     };

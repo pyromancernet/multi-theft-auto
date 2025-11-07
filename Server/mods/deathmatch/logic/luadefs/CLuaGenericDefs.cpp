@@ -24,18 +24,22 @@ void CLuaGenericDefs::LoadFunctions()
     constexpr static const std::pair<const char*, lua_CFunction> functions[]{
         {"setTransferBoxVisible", ArgumentParser<CStaticFunctionDefinitions::SetClientTransferBoxVisible>},
         {"isTransferBoxVisible", ArgumentParser<IsTransferBoxVisible>},
+
         {"getMaxPlayers", ArgumentParserWarn<0, CStaticFunctionDefinitions::GetMaxPlayers>},
         {"setMaxPlayers", ArgumentParserWarn<false, CStaticFunctionDefinitions::SetMaxPlayers>},
+
         {"outputChatBox", ArgumentParserWarn<false, OutputChatBox>},
         {"outputConsole", ArgumentParserWarn<false, OutputConsole>},
         {"outputDebugString", ArgumentParserWarn<false, OutputScriptDebugLog>},
         {"outputServerLog", ArgumentParserWarn<false, OutputServerLog>},
+
         {"getServerIpFromMasterServer", ArgumentParser<GetServerIpFromMasterServer>},
         {"getServerName", ArgumentParserWarn<nullptr, GetServerName>},
         {"getServerHttpPort", ArgumentParserWarn<nullptr, GetServerHttpPort>},
         {"getServerPassword", ArgumentParserWarn<nullptr, GetServerPassword>},
         {"setServerPassword", ArgumentParserWarn<false, SetServerPassword>},
         {"getServerConfigSetting", ArgumentParserWarn<false, GetServerConfigSetting>},
+
         {"clearChatBox", ArgumentParserWarn<false, ClearChatBox>},
     };
 
