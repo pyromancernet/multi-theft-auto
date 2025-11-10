@@ -16,6 +16,15 @@ else
 end
 GLIBC_COMPAT = os.getenv("GLIBC_COMPAT") == "true"
 
+-- SDK paths
+MTASA_SDK_ROOT = path.getabsolute("../mtasa-sdk")
+MTASA_SDK_SHARED = path.join(MTASA_SDK_ROOT, "Shared")
+MTASA_SDK_SERVER = path.join(MTASA_SDK_ROOT, "Server")
+MTASA_SDK_CLIENT = path.join(MTASA_SDK_ROOT, "Client")
+
+-- Vendors paths
+MTASA_VENDORS_ROOT = path.getabsolute("../mtasa-vendors")
+
 newoption {
 	trigger     = "gccprefix",
 	value       = "PREFIX",
@@ -50,7 +59,7 @@ workspace "MTASA"
 
 	dxdir = os.getenv("DXSDK_DIR") or ""
 	includedirs {
-		"vendor",
+		MTASA_VENDORS_ROOT,
 	}
 
 	defines {
@@ -144,7 +153,6 @@ workspace "MTASA"
 		include "Client/cefweb"
 		include "Client/core"
 		include "Client/game_sa"
-		include "Client/sdk"
 		include "Client/gui"
 		include "Client/launch"
 		include "Client/loader"
@@ -153,23 +161,23 @@ workspace "MTASA"
 		include "Client/mods/deathmatch"
 
 		group "Client/CEGUI"
-		include "Vendor/cegui-0.4.0-custom/src/renderers/directx9GUIRenderer"
-		include "Vendor/cegui-0.4.0-custom/WidgetSets/Falagard"
-		include "Vendor/cegui-0.4.0-custom"
+		include(path.join(MTASA_VENDORS_ROOT, "cegui-0.4.0-custom/src/renderers/directx9GUIRenderer"))
+		include(path.join(MTASA_VENDORS_ROOT, "cegui-0.4.0-custom/WidgetSets/Falagard"))
+		include(path.join(MTASA_VENDORS_ROOT, "cegui-0.4.0-custom"))
 
 		group "Vendor"
-		include "Vendor/portaudio"
-		include "Vendor/cef3"
-		include "Vendor/discord-rpc"
-		include "Vendor/freetype"
-		include "Vendor/jpeg-9f"
-		include "Vendor/ksignals"
-		include "Vendor/libpng"
-		include "Vendor/tinygettext"
-		include "Vendor/pthreads"
-		include "Vendor/libspeex"
-		include "Vendor/detours"
-		include "Vendor/lunasvg"
+		include(path.join(MTASA_VENDORS_ROOT, "portaudio"))
+		include(path.join(MTASA_VENDORS_ROOT, "cef3"))
+		include(path.join(MTASA_VENDORS_ROOT, "discord-rpc"))
+		include(path.join(MTASA_VENDORS_ROOT, "freetype"))
+		include(path.join(MTASA_VENDORS_ROOT, "jpeg-9f"))
+		include(path.join(MTASA_VENDORS_ROOT, "ksignals"))
+		include(path.join(MTASA_VENDORS_ROOT, "libpng"))
+		include(path.join(MTASA_VENDORS_ROOT, "tinygettext"))
+		include(path.join(MTASA_VENDORS_ROOT, "pthreads"))
+		include(path.join(MTASA_VENDORS_ROOT, "libspeex"))
+		include(path.join(MTASA_VENDORS_ROOT, "detours"))
+		include(path.join(MTASA_VENDORS_ROOT, "lunasvg"))
 	end
 
 	filter {}
@@ -178,26 +186,25 @@ workspace "MTASA"
 		include "Server/dbconmy"
 		include "Server/launcher"
 		include "Server/mods/deathmatch"
-		include "Server/sdk"
 
 		group "Shared"
 		include "Shared"
 		include "Shared/XML"
 
 		group "Vendor"
-		include "Vendor/bcrypt"
-		include "Vendor/cryptopp"
-		include "Vendor/curl"
-		include "Vendor/ehs"
-		include "Vendor/google-breakpad"
-		include "Vendor/json-c"
-		include "Vendor/lua"
-		include "Vendor/mbedtls"
-		include "Vendor/pcre"
-		include "Vendor/pme"
-		include "Vendor/sqlite"
-		include "Vendor/tinyxml"
-		include "Vendor/unrar"
-		include "Vendor/zip"
-		include "Vendor/zlib"
-		include "Vendor/glob"
+		include(path.join(MTASA_VENDORS_ROOT, "bcrypt"))
+		include(path.join(MTASA_VENDORS_ROOT, "cryptopp"))
+		include(path.join(MTASA_VENDORS_ROOT, "curl"))
+		include(path.join(MTASA_VENDORS_ROOT, "ehs"))
+		include(path.join(MTASA_VENDORS_ROOT, "google-breakpad"))
+		include(path.join(MTASA_VENDORS_ROOT, "json-c"))
+		include(path.join(MTASA_VENDORS_ROOT, "lua"))
+		include(path.join(MTASA_VENDORS_ROOT, "mbedtls"))
+		include(path.join(MTASA_VENDORS_ROOT, "pcre"))
+		include(path.join(MTASA_VENDORS_ROOT, "pme"))
+		include(path.join(MTASA_VENDORS_ROOT, "sqlite"))
+		include(path.join(MTASA_VENDORS_ROOT, "tinyxml"))
+		include(path.join(MTASA_VENDORS_ROOT, "unrar"))
+		include(path.join(MTASA_VENDORS_ROOT, "zip"))
+		include(path.join(MTASA_VENDORS_ROOT, "zlib"))
+		include(path.join(MTASA_VENDORS_ROOT, "glob"))

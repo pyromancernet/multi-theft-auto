@@ -5,14 +5,14 @@ project "Core"
 	targetdir(buildpath("server"))
 
 	filter "system:windows"
-		includedirs { "../../Vendor/sparsehash/current/src/windows" }
+		includedirs { path.join(MTASA_VENDORS_ROOT, "sparsehash/current/src/windows") }
 
 	filter {}
 		includedirs {
-			"../../Shared/sdk",
-			"../sdk",
-			"../../Vendor/google-breakpad/src",
-			"../../Vendor/sparsehash/current/src/",
+			MTASA_SDK_SHARED,
+			MTASA_SDK_SERVER,
+			path.join(MTASA_VENDORS_ROOT, "google-breakpad/src"),
+			path.join(MTASA_VENDORS_ROOT, "sparsehash/current/src/"),
 		}
 
 	pchheader "StdInc.h"
@@ -32,7 +32,7 @@ project "Core"
 
 	filter { "system:windows", "platforms:x86" }
 		includedirs {
-			"../../Vendor/detours/4.0.1/src"
+			path.join(MTASA_VENDORS_ROOT, "detours/4.0.1/src")
 		}
 		links { "detours", "Imagehlp" }
 

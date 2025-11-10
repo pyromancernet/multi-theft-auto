@@ -5,8 +5,8 @@ project "XML"
 	targetdir(buildpath("server"))
 
 	includedirs {
-		"../sdk",
-		"../../Vendor/tinyxml"
+		MTASA_SDK_SHARED,
+		path.join(MTASA_VENDORS_ROOT, "tinyxml")
 	}
 
 	pchheader "StdInc.h"

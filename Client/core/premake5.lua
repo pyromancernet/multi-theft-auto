@@ -5,22 +5,22 @@ project "Client Core"
 	targetdir(buildpath("mta"))
 
 	filter "system:windows"
-		includedirs { "../../Vendor/sparsehash/src/windows" }
+		includedirs { path.join(MTASA_VENDORS_ROOT, "sparsehash/src/windows") }
 		buildoptions { "-Zm130" }
 
 	filter {}
 		includedirs {
-			"../../Shared/sdk",
+			MTASA_SDK_SHARED,
 			".",
-			"../sdk",
-			"../../Vendor/cegui-0.4.0-custom/include",
-			"../../Vendor/tinygettext",
-			"../../Vendor/zlib",
-			"../../Vendor/jpeg-9f",
-			"../../Vendor/pthreads/include",
-			"../../Vendor/sparsehash/src/",
-			"../../Vendor/detours/4.0.1/src",
-			"../../Vendor/discord-rpc/discord/include",
+			MTASA_SDK_CLIENT,
+			path.join(MTASA_VENDORS_ROOT, "cegui-0.4.0-custom/include"),
+			path.join(MTASA_VENDORS_ROOT, "tinygettext"),
+			path.join(MTASA_VENDORS_ROOT, "zlib"),
+			path.join(MTASA_VENDORS_ROOT, "jpeg-9f"),
+			path.join(MTASA_VENDORS_ROOT, "pthreads/include"),
+			path.join(MTASA_VENDORS_ROOT, "sparsehash/src/"),
+			path.join(MTASA_VENDORS_ROOT, "detours/4.0.1/src"),
+			path.join(MTASA_VENDORS_ROOT, "discord-rpc/discord/include"),
 		}
 
 	pchheader "StdInc.h"

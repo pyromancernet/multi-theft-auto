@@ -9,13 +9,13 @@ project "Multiplayer SA"
 	editandcontinue "Off"
 
 	filter "system:windows"
-		includedirs { "../../Vendor/sparsehash/src/windows" }
+		includedirs { path.join(MTASA_VENDORS_ROOT, "sparsehash/src/windows") }
 
 	filter {}
 		includedirs {
-			"../../Shared/sdk",
-			"../sdk",
-			"../../Vendor/sparsehash/src/",
+			MTASA_SDK_SHARED,
+			MTASA_SDK_CLIENT,
+			path.join(MTASA_VENDORS_ROOT, "sparsehash/src/"),
 		}
 
 	pchheader "StdInc.h"

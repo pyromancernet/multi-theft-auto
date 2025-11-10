@@ -19,7 +19,7 @@ project "Loader Proxy"
 	}
 
 	includedirs {
-		"../../Shared/sdk",
+		MTASA_SDK_SHARED,
 	}
 
 	filter "architecture:not x86"

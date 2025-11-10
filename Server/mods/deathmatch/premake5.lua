@@ -8,25 +8,25 @@ project "Deathmatch"
 	pchsource "StdInc.cpp"
 
 	filter "system:windows"
-		includedirs { "../../../Vendor/sparsehash/src/windows" }
+		includedirs { path.join(MTASA_VENDORS_ROOT, "sparsehash/src/windows") }
 
 	filter {}
 		includedirs {
-			"../../../Shared/sdk",
-			"../../sdk",
-			"../../../Vendor/bochs",
-			"../../../Vendor/pme",
-			"../../../Vendor/zip",
-			"../../../Vendor/glob/include",
-			"../../../Vendor/zlib",
-			"../../../Vendor/pcre",
-			"../../../Vendor/json-c",
-			"../../../Vendor/lua/src",
+			MTASA_SDK_SHARED,
+			MTASA_SDK_SERVER,
+			path.join(MTASA_VENDORS_ROOT, "bochs"),
+			path.join(MTASA_VENDORS_ROOT, "pme"),
+			path.join(MTASA_VENDORS_ROOT, "zip"),
+			path.join(MTASA_VENDORS_ROOT, "glob/include"),
+			path.join(MTASA_VENDORS_ROOT, "zlib"),
+			path.join(MTASA_VENDORS_ROOT, "pcre"),
+			path.join(MTASA_VENDORS_ROOT, "json-c"),
+			path.join(MTASA_VENDORS_ROOT, "lua/src"),
 			"../../../Shared/gta",
 			"../../../Shared/mods/deathmatch/logic",
 			"../../../Shared/animation",
 			"../../../Shared/publicsdk/include",
-			"../../../Vendor/sparsehash/src/",
+			path.join(MTASA_VENDORS_ROOT, "sparsehash/src/"),
 			"logic",
 			"utils",
 			"."
@@ -39,7 +39,7 @@ project "Deathmatch"
 
 	vpaths {
 		["Headers/*"] = {"**.h", "../../../Shared/mods/deathmatch/**.h", "../../**.h"},
-		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", "../../../Vendor/**.cpp", "../../**.cpp"},
+		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", path.join(MTASA_VENDORS_ROOT, "**/**.cpp"), "../../**.cpp"},
 		["*"] = "premake5.lua"
 	}
 
@@ -52,11 +52,11 @@ project "Deathmatch"
 		"../../../Shared/animation/CEasingCurve.cpp",
 		"../../../Shared/animation/CPositionRotationAnimation.cpp",
 		-- Todo: Replace these two by using the CryptoPP functions instead
-		"../../../Vendor/bochs/bochs_internal/bochs_crc32.cpp",
+		path.join(MTASA_VENDORS_ROOT, "bochs/bochs_internal/bochs_crc32.cpp"),
 	}
 
 	filter "system:windows"
-		includedirs { "../../../Vendor/pthreads/include" }
+		includedirs { path.join(MTASA_VENDORS_ROOT, "pthreads/include") }
 		buildoptions { "-Zm130" }
 		links { "ws2_32", "pthread" }
 

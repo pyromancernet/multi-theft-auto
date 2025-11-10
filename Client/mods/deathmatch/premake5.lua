@@ -10,40 +10,40 @@ project "Client Deathmatch"
 	defines { "LUNASVG_BUILD", "LUA_USE_APICHECK", "SDK_WITH_BCRYPT" }
 	links {
 		"Lua_Client", "pcre", "json-c", "ws2_32", "portaudio", "zlib", "cryptopp", "libspeex", "blowfish_bcrypt", "lunasvg",
-		"../../../Vendor/bass/lib/bass",
-		"../../../Vendor/bass/lib/bass_fx",
-		"../../../Vendor/bass/lib/bassmix",
-		"../../../Vendor/bass/lib/tags"
+		path.join(MTASA_VENDORS_ROOT, "bass/lib/bass"),
+		path.join(MTASA_VENDORS_ROOT, "bass/lib/bass_fx"),
+		path.join(MTASA_VENDORS_ROOT, "bass/lib/bassmix"),
+		path.join(MTASA_VENDORS_ROOT, "bass/lib/tags")
 	}
 
 	vpaths {
 		["Headers/*"] = {"**.h", "../../../Shared/mods/deathmatch/**.h", "../../**.h"},
-		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", "../../../Vendor/**.cpp"},
+		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", path.join(MTASA_VENDORS_ROOT, "**/**.cpp")},
 		["*"] = "premake5.lua"
 	}
 
 	filter "system:windows"
-		includedirs { "../../../Vendor/sparsehash/src/windows" }
+		includedirs { path.join(MTASA_VENDORS_ROOT, "sparsehash/src/windows") }
 		linkoptions { "/SAFESEH:NO" }
 
 	filter {}
 		includedirs {
-			"../../../Shared/sdk",
+			MTASA_SDK_SHARED,
 			".",
 			"./logic",
-			"../../sdk/",
-			"../../../Vendor/pthreads/include",
-			"../../../Vendor/bochs",
-			"../../../Vendor/bass",
-			"../../../Vendor/libspeex",
-			"../../../Vendor/zlib",
-			"../../../Vendor/pcre",
-			"../../../Vendor/json-c",
-			"../../../Vendor/lua/src",
+			MTASA_SDK_CLIENT,
+			path.join(MTASA_VENDORS_ROOT, "pthreads/include"),
+			path.join(MTASA_VENDORS_ROOT, "bochs"),
+			path.join(MTASA_VENDORS_ROOT, "bass"),
+			path.join(MTASA_VENDORS_ROOT, "libspeex"),
+			path.join(MTASA_VENDORS_ROOT, "zlib"),
+			path.join(MTASA_VENDORS_ROOT, "pcre"),
+			path.join(MTASA_VENDORS_ROOT, "json-c"),
+			path.join(MTASA_VENDORS_ROOT, "lua/src"),
 			"../../../Shared/mods/deathmatch/logic",
 			"../../../Shared/animation",
-			"../../../Vendor/sparsehash/src/",
-			"../../../Vendor/lunasvg/include"
+			path.join(MTASA_VENDORS_ROOT, "sparsehash/src/"),
+			path.join(MTASA_VENDORS_ROOT, "lunasvg/include")
 	}
 
 	files {
@@ -55,7 +55,7 @@ project "Client Deathmatch"
 		"../../../Shared/animation/CEasingCurve.cpp",
 		"../../../Shared/animation/CPositionRotationAnimation.cpp",
 		-- Todo: Replace these two by using the CryptoPP functions instead
-		"../../../Vendor/bochs/bochs_internal/bochs_crc32.cpp"
+		path.join(MTASA_VENDORS_ROOT, "bochs/bochs_internal/bochs_crc32.cpp")
 	}
 
 	filter "system:windows"
