@@ -16,14 +16,14 @@ else
 end
 GLIBC_COMPAT = os.getenv("GLIBC_COMPAT") == "true"
 
--- SDK paths
-MTASA_SDK_ROOT = path.getabsolute("../mtasa-sdk")
+-- SDK paths (submodule)
+MTASA_SDK_ROOT = path.getabsolute("sdk")
 MTASA_SDK_SHARED = path.join(MTASA_SDK_ROOT, "Shared")
 MTASA_SDK_SERVER = path.join(MTASA_SDK_ROOT, "Server")
 MTASA_SDK_CLIENT = path.join(MTASA_SDK_ROOT, "Client")
 
--- Vendors paths
-MTASA_VENDORS_ROOT = path.getabsolute("../mtasa-vendors")
+-- Vendors paths (submodule)
+MTASA_VENDORS_ROOT = path.getabsolute("vendor")
 
 newoption {
 	trigger     = "gccprefix",

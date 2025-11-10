@@ -1,0 +1,6 @@
+[submodule "sdk"]
+	path = sdk
+	url = ../mtasa-sdk
+[submodule "vendor"]
+	path = vendor
+	url = ../mtasa-vendors
