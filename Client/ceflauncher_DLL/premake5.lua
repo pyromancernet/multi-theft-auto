@@ -4,7 +4,7 @@ project "CEFLauncher DLL"
 	targetname "CEFLauncher_DLL"
 	targetdir(buildpath("mta/cef"))
 
-	includedirs { "../../vendor/cef3/cef", "../../Shared/sdk" }
+	includedirs { "../../vendor/cef3/cef", MTASA_SDK_SHARED }
 	libdirs { "../../vendor/cef3/cef/Release" }
 
 	defines { "UNICODE", "PSAPI_VERSION=1" }
@@ -20,7 +20,7 @@ project "CEFLauncher DLL"
 		"premake5.lua",
 		"*.h",
 		"*.cpp",
-		"../../Shared/sdk/SharedUtil.cpp"
+		MTASA_SDK_SHARED .. "/SharedUtil.cpp"
 	}
 
 	links { "delayimp", "CEF", "libcef.lib", "Psapi.lib", "version.lib", "Winmm.lib", "Ws2_32.lib", "DbgHelp.lib" }

@@ -5,8 +5,8 @@ project "Launcher"
 	targetname "mta-server"
 
 	includedirs {
-		"../../Shared/sdk",
-		"../sdk",
+		MTASA_SDK_SHARED,
+		MTASA_SDK_SERVER,
 	}
 
 	vpaths {

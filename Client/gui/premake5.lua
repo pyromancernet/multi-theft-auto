@@ -9,8 +9,8 @@ project "GUI"
 
 	filter {}
 		includedirs {
-			"../../Shared/sdk",
-			"../sdk",
+			MTASA_SDK_SHARED,
+			MTASA_SDK_CLIENT,
 			"../../vendor/cegui-0.4.0-custom/include",
 			"../../vendor/sparsehash/src/"
 		}

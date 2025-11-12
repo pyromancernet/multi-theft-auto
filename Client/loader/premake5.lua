@@ -8,8 +8,8 @@ project "Loader"
 	}
 
 	includedirs {
-		"../../Shared/sdk",
-		"../sdk",
+		MTASA_SDK_SHARED,
+		MTASA_SDK_CLIENT,
 		"../../vendor",
 		"../../vendor/detours/4.0.1/src",
 	}

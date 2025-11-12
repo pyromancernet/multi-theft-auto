@@ -12,8 +12,8 @@ project "Deathmatch"
 
 	filter {}
 		includedirs {
-			"../../../Shared/sdk",
-			"../../sdk",
+			MTASA_SDK_SHARED,
+			MTASA_SDK_SERVER,
 			"../../../vendor/bochs",
 			"../../../vendor/pme",
 			"../../../vendor/zip",

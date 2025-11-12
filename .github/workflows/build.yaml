@@ -36,7 +36,7 @@ jobs:
         run: utils\premake5 install_data
 
       - name: Run Build
-        run: win-build.bat release ${{ matrix.platform }}
+        run: Prompts\win-build.bat release ${{ matrix.platform }}
         shell: cmd
         env:
           DXSDK_DIR: './utils/DXFiles/'
@@ -64,7 +64,7 @@ jobs:
         run: brew link --overwrite mysql
 
       - name: Run Build
-        run: ./linux-build.sh
+        run: ./Prompts/linux-build.sh
 
   linux:
     strategy:

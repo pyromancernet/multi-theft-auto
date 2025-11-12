@@ -28,10 +28,10 @@ project "Client Deathmatch"
 
 	filter {}
 		includedirs {
-			"../../../Shared/sdk",
+			MTASA_SDK_SHARED,
 			".",
 			"./logic",
-			"../../sdk/",
+			MTASA_SDK_CLIENT .. "/",
 			"../../../vendor/pthreads/include",
 			"../../../vendor/bochs",
 			"../../../vendor/bass",

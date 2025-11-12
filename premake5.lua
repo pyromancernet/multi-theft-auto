@@ -7,6 +7,12 @@ require "install_cef"
 require "install_unifont"
 require "install_discord"
 
+-- MTASA SDK paths. Submodules may use these variables.
+MTASA_SDK = path.getabsolute("../mtasa-sdk")
+MTASA_SDK_SHARED = path.join(MTASA_SDK, "Shared")
+MTASA_SDK_CLIENT = path.join(MTASA_SDK, "Client")
+MTASA_SDK_SERVER = path.join(MTASA_SDK, "Server")
+
 -- Set CI Build global
 local ci = os.getenv("CI")
 if ci and ci:lower() == "true" then
@@ -144,7 +150,6 @@ workspace "MTASA"
 		include "Client/cefweb"
 		include "Client/core"
 		include "Client/game_sa"
-		include "Client/sdk"
 		include "Client/gui"
 		include "Client/launch"
 		include "Client/loader"
@@ -178,7 +183,6 @@ workspace "MTASA"
 		include "Server/dbconmy"
 		include "Server/launcher"
 		include "Server/mods/deathmatch"
-		include "Server/sdk"
 
 		group "Shared"
 		include "Shared"

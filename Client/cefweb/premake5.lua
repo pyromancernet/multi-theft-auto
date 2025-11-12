@@ -10,9 +10,9 @@ project "Client Webbrowser"
 
 	filter {}
 		includedirs {
-			"../../Shared/sdk",
+			MTASA_SDK_SHARED,
 			".",
-			"../sdk",
+			MTASA_SDK_CLIENT,
 			"../../vendor/cef3/cef",
 			"../../vendor/sparsehash/src/"
 		}

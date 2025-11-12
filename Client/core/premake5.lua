@@ -10,9 +10,9 @@ project "Client Core"
 
 	filter {}
 		includedirs {
-			"../../Shared/sdk",
+			MTASA_SDK_SHARED,
 			".",
-			"../sdk",
+			MTASA_SDK_CLIENT,
 			"../../vendor/cegui-0.4.0-custom/include",
 			"../../vendor/tinygettext",
 			"../../vendor/zlib",

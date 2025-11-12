@@ -5,7 +5,7 @@ project "XML"
 	targetdir(buildpath("server"))
 
 	includedirs {
-		"../sdk",
+		MTASA_SDK_SHARED,
 		"../../vendor/tinyxml"
 	}
 

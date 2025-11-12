@@ -9,8 +9,8 @@ project "Core"
 
 	filter {}
 		includedirs {
-			"../../Shared/sdk",
-			"../sdk",
+			MTASA_SDK_SHARED,
+			MTASA_SDK_SERVER,
 			"../../vendor/google-breakpad/src",
 			"../../vendor/sparsehash/current/src/",
 		}

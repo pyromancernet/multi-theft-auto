@@ -40,7 +40,7 @@ esac
 
 export GCC_PREFIX AR CC CXX
 
-if [ -f ./linux-build.sh ]; then
-    chmod +x ./linux-build.sh
-    ./linux-build.sh "$@"
+if [ -f ./Prompts/linux-build.sh ]; then
+    chmod +x ./Prompts/linux-build.sh
+    ./Prompts/linux-build.sh "$@"
 fi

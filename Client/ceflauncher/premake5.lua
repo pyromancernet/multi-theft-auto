@@ -3,7 +3,7 @@ project "CEFLauncher"
 	kind "WindowedApp"
 	targetname "CEFLauncher"
 	targetdir(buildpath("mta/cef"))
-	includedirs { "../sdk" }
+	includedirs { MTASA_SDK_CLIENT }
 	links { "CEFLauncher DLL"}
 
 	vpaths {
