@@ -5,14 +5,14 @@ project "GUI"
 	targetdir(buildpath("mta"))
 
 	filter "system:windows"
-		includedirs { "../../vendor/sparsehash/src/windows" }
+		includedirs { path.join(VENDORS_DIR, "sparsehash/src/windows") }
 
 	filter {}
 		includedirs {
 			MTASA_SDK_SHARED,
 			MTASA_SDK_CLIENT,
-			"../../vendor/cegui-0.4.0-custom/include",
-			"../../vendor/sparsehash/src/"
+			path.join(VENDORS_DIR, "cegui-0.4.0-custom/include"),
+			path.join(VENDORS_DIR, "sparsehash/src/")
 		}
 
 	pchheader "StdInc.h"

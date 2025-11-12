@@ -4,8 +4,8 @@ project "CEFLauncher DLL"
 	targetname "CEFLauncher_DLL"
 	targetdir(buildpath("mta/cef"))
 
-	includedirs { "../../vendor/cef3/cef", MTASA_SDK_SHARED }
-	libdirs { "../../vendor/cef3/cef/Release" }
+	includedirs { path.join(VENDORS_DIR, "cef3/cef"), MTASA_SDK_SHARED }
+	libdirs { path.join(VENDORS_DIR, "cef3/cef/Release") }
 
 	defines { "UNICODE", "PSAPI_VERSION=1" }
 

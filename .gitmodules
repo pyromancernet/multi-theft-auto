@@ -1,0 +1,6 @@
+[submodule "SDK"]
+	path = SDK
+	url = https://github.com/pyromancernet/multitheftauto-sdk.git
+[submodule "Vendors"]
+	path = Vendors
+	url = https://github.com/pyromancernet/multitheftauto-vendors.git

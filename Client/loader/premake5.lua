@@ -10,14 +10,14 @@ project "Loader"
 	includedirs {
 		MTASA_SDK_SHARED,
 		MTASA_SDK_CLIENT,
-		"../../vendor",
-		"../../vendor/detours/4.0.1/src",
+		VENDORS_DIR,
+		path.join(VENDORS_DIR, "detours/4.0.1/src"),
 	}
 
 	links {
 		"unrar", "d3d9",
 		"detours", "Imagehlp",
-		"../../vendor/nvapi/x86/nvapi.lib",
+		path.join(VENDORS_DIR, "nvapi/x86/nvapi.lib"),
 		"cryptopp",
 	}
 

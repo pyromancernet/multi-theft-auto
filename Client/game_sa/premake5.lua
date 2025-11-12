@@ -25,14 +25,14 @@ project "Game SA"
 	}
 
 	filter "system:windows"
-		includedirs { "../../vendor/sparsehash/src/windows" }
+		includedirs { path.join(VENDORS_DIR, "sparsehash/src/windows") }
 
 	filter {}
 
 	includedirs {
 		MTASA_SDK_SHARED,
 		MTASA_SDK_CLIENT .. "/",
-		"../../vendor/sparsehash/src/"
+		path.join(VENDORS_DIR, "sparsehash/src/")
 	}
 
 	files {

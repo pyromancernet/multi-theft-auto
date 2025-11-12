@@ -11,6 +11,9 @@ workspace "utility"
     targetdir "build/bin/%{cfg.buildcfg}"
     objdir "build/obj"
 
+    -- Vendors path (moved to separate repository)
+    VENDORS_DIR = path.getabsolute("../../../../multitheftauto-vendors")
+
     filter "configurations:Debug"
         defines { "MTA_DEBUG" }
         symbols "On"
@@ -22,7 +25,7 @@ workspace "utility"
         defines { "WIN32", "_WIN32", "_WIN32_WINNT=0x601", "TGT_STANDALONE" }
         buildoptions { "/Zc:__cplusplus" }
 
-    include "../../../vendor/tinygettext"
+    include(path.join(VENDORS_DIR, "tinygettext"))
 
 project "gen_language_list"
     kind "ConsoleApp"
@@ -34,4 +37,4 @@ project "gen_language_list"
     }
 
     links { "tinygettext" }
-    includedirs { "../../../vendor/tinygettext" }
+    includedirs { path.join(VENDORS_DIR, "tinygettext") }

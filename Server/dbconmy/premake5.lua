@@ -6,16 +6,16 @@ project "Dbconmy"
 
 	filter "system:windows"
 		includedirs {
-			"../../vendor/mysql/include",
-			"../../vendor/sparsehash/src/windows"
+			path.join(VENDORS_DIR, "mysql/include"),
+			path.join(VENDORS_DIR, "sparsehash/src/windows")
 		}
 
 	filter {}
 		includedirs {
 			MTASA_SDK_SHARED,
 			MTASA_SDK_SERVER,
-			"../../vendor/google-breakpad/src",
-			"../../vendor/sparsehash/src/"
+			path.join(VENDORS_DIR, "google-breakpad/src"),
+			path.join(VENDORS_DIR, "sparsehash/src/")
 		}
 
 	pchheader "StdInc.h"
@@ -65,11 +65,11 @@ project "Dbconmy"
 	end
 
 	filter { "system:windows", "platforms:x64" }
-		links { "../../vendor/mysql/lib/x64/libmysql.lib" }
+		links { path.join(VENDORS_DIR, "mysql/lib/x64/libmysql.lib") }
 	filter { "system:windows", "platforms:x86" }
-		links { "../../vendor/mysql/lib/x86/libmysql.lib" }
+		links { path.join(VENDORS_DIR, "mysql/lib/x86/libmysql.lib") }
 	filter { "system:windows", "platforms:arm64" }
-		links { "../../vendor/mysql/lib/arm64/libmysql.lib" }
+		links { path.join(VENDORS_DIR, "mysql/lib/arm64/libmysql.lib") }
 
 	filter "platforms:x64"
 		targetdir(buildpath("server/x64"))

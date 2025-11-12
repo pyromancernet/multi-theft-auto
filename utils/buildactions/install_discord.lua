@@ -1,15 +1,15 @@
 require 'utils'
-
 premake.modules.install_discord = {}
 
 -- Config variables
-local DISCORD_PATH = "vendor/discord-rpc/discord/"
-local DISCORD_TEMP = "vendor/discord-rpc/discord-rpc.zip"
+local VENDORS_DIR = path.getabsolute("../../multitheftauto-vendors")
+local DISCORD_PATH = path.join(VENDORS_DIR, "discord-rpc/discord/")
+local DISCORD_TEMP = path.join(VENDORS_DIR, "discord-rpc/discord-rpc.zip")
 local DISCORD_UPDATE = "https://api.github.com/repos/multitheftauto/discord-rpc/releases/latest"
 local DISCORD_URL = "https://github.com/multitheftauto/discord-rpc/archive/refs/tags/"
 local DISCORD_EXT = ".zip"
-local RAPID_PATH = "vendor/discord-rpc/discord/thirdparty/rapidjson/"
-local RAPID_TEMP = "vendor/discord-rpc/rapidjson.zip"
+local RAPID_PATH = path.join(VENDORS_DIR, "discord-rpc/discord/thirdparty/rapidjson/")
+local RAPID_TEMP = path.join(VENDORS_DIR, "discord-rpc/rapidjson.zip")
 local RAPID_UPDATE = "https://api.github.com/repos/multitheftauto/rapidjson/releases/latest"
 local RAPID_URL = "https://github.com/multitheftauto/rapidjson/archive/refs/tags/"
 local RAPID_EXT = ".zip"

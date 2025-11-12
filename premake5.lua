@@ -1,5 +1,6 @@
--- Add buildactions to path
-premake.path = premake.path..";utils/buildactions"
+-- Add buildactions to path (use absolute path)
+local buildactions_path = path.getabsolute("./utils/buildactions")
+premake.path = premake.path..";"..buildactions_path
 require "compose_files"
 require "install_data"
 require "install_resources"
@@ -8,10 +9,13 @@ require "install_unifont"
 require "install_discord"
 
 -- MTASA SDK paths. Submodules may use these variables.
-MTASA_SDK = path.getabsolute("../mtasa-sdk")
+MTASA_SDK = path.getabsolute("../multitheftauto-sdk")
 MTASA_SDK_SHARED = path.join(MTASA_SDK, "Shared")
 MTASA_SDK_CLIENT = path.join(MTASA_SDK, "Client")
 MTASA_SDK_SERVER = path.join(MTASA_SDK, "Server")
+
+-- Vendors path (moved to separate repository)
+VENDORS_DIR = path.getabsolute("../multitheftauto-vendors")
 
 -- Set CI Build global
 local ci = os.getenv("CI")
@@ -56,7 +60,7 @@ workspace "MTASA"
 
 	dxdir = os.getenv("DXSDK_DIR") or ""
 	includedirs {
-		"vendor",
+		path.join(VENDORS_DIR),
 	}
 
 	defines {
@@ -70,6 +74,7 @@ workspace "MTASA"
 	-- Helper function for output path
 	buildpath = function(p) return "%{wks.location}/../Bin/"..p.."/" end
 	copy = function(p) return "{COPY} %{cfg.buildtarget.abspath} \"%{wks.location}../Bin/"..p.."/\"" end
+	vendor_path = function(p) return path.join(VENDORS_DIR, p) end
 
 	if GLIBC_COMPAT then
 		filter { "system:linux", "platforms:x86 or x64" }
@@ -158,23 +163,23 @@ workspace "MTASA"
 		include "Client/mods/deathmatch"
 
 		group "Client/CEGUI"
-		include "vendor/cegui-0.4.0-custom/src/renderers/directx9GUIRenderer"
-		include "vendor/cegui-0.4.0-custom/WidgetSets/Falagard"
-		include "vendor/cegui-0.4.0-custom"
+		include(vendor_path("cegui-0.4.0-custom/src/renderers/directx9GUIRenderer"))
+		include(vendor_path("cegui-0.4.0-custom/WidgetSets/Falagard"))
+		include(vendor_path("cegui-0.4.0-custom"))
 
 		group "Vendor"
-		include "vendor/portaudio"
-		include "vendor/cef3"
-		include "vendor/discord-rpc"
-		include "vendor/freetype"
-		include "vendor/jpeg-9f"
-		include "vendor/ksignals"
-		include "vendor/libpng"
-		include "vendor/tinygettext"
-		include "vendor/pthreads"
-		include "vendor/libspeex"
-		include "vendor/detours"
-		include "vendor/lunasvg"
+		include(vendor_path("portaudio"))
+		include(vendor_path("cef3"))
+		include(vendor_path("discord-rpc"))
+		include(vendor_path("freetype"))
+		include(vendor_path("jpeg-9f"))
+		include(vendor_path("ksignals"))
+		include(vendor_path("libpng"))
+		include(vendor_path("tinygettext"))
+		include(vendor_path("pthreads"))
+		include(vendor_path("libspeex"))
+		include(vendor_path("detours"))
+		include(vendor_path("lunasvg"))
 	end
 
 	filter {}
@@ -189,19 +194,19 @@ workspace "MTASA"
 		include "Shared/XML"
 
 		group "Vendor"
-		include "vendor/bcrypt"
-		include "vendor/cryptopp"
-		include "vendor/curl"
-		include "vendor/ehs"
-		include "vendor/google-breakpad"
-		include "vendor/json-c"
-		include "vendor/lua"
-		include "vendor/mbedtls"
-		include "vendor/pcre"
-		include "vendor/pme"
-		include "vendor/sqlite"
-		include "vendor/tinyxml"
-		include "vendor/unrar"
-		include "vendor/zip"
-		include "vendor/zlib"
-		include "vendor/glob"
+		include(vendor_path("bcrypt"))
+		include(vendor_path("cryptopp"))
+		include(vendor_path("curl"))
+		include(vendor_path("ehs"))
+		include(vendor_path("google-breakpad"))
+		include(vendor_path("json-c"))
+		include(vendor_path("lua"))
+		include(vendor_path("mbedtls"))
+		include(vendor_path("pcre"))
+		include(vendor_path("pme"))
+		include(vendor_path("sqlite"))
+		include(vendor_path("tinyxml"))
+		include(vendor_path("unrar"))
+		include(vendor_path("zip"))
+		include(vendor_path("zlib"))
+		include(vendor_path("glob"))

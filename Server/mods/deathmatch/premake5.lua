@@ -8,25 +8,25 @@ project "Deathmatch"
 	pchsource "StdInc.cpp"
 
 	filter "system:windows"
-		includedirs { "../../../vendor/sparsehash/src/windows" }
+		includedirs { path.join(VENDORS_DIR, "sparsehash/src/windows") }
 
 	filter {}
 		includedirs {
 			MTASA_SDK_SHARED,
 			MTASA_SDK_SERVER,
-			"../../../vendor/bochs",
-			"../../../vendor/pme",
-			"../../../vendor/zip",
-			"../../../vendor/glob/include",
-			"../../../vendor/zlib",
-			"../../../vendor/pcre",
-			"../../../vendor/json-c",
-			"../../../vendor/lua/src",
+			path.join(VENDORS_DIR, "bochs"),
+			path.join(VENDORS_DIR, "pme"),
+			path.join(VENDORS_DIR, "zip"),
+			path.join(VENDORS_DIR, "glob/include"),
+			path.join(VENDORS_DIR, "zlib"),
+			path.join(VENDORS_DIR, "pcre"),
+			path.join(VENDORS_DIR, "json-c"),
+			path.join(VENDORS_DIR, "lua/src"),
 			"../../../Shared/gta",
 			"../../../Shared/mods/deathmatch/logic",
 			"../../../Shared/animation",
 			"../../../Shared/publicsdk/include",
-			"../../../vendor/sparsehash/src/",
+			path.join(VENDORS_DIR, "sparsehash/src/"),
 			"logic",
 			"utils",
 			"."
@@ -39,7 +39,7 @@ project "Deathmatch"
 
 	vpaths {
 		["Headers/*"] = {"**.h", "../../../Shared/mods/deathmatch/**.h", "../../**.h"},
-		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", "../../../vendor/**.cpp", "../../**.cpp"},
+		["Sources/*"] = {"**.cpp", "../../../Shared/mods/deathmatch/**.cpp", "../../../Shared/**.cpp", path.join(VENDORS_DIR, "**.cpp"), "../../**.cpp"},
 		["*"] = "premake5.lua"
 	}
 
@@ -52,11 +52,11 @@ project "Deathmatch"
 		"../../../Shared/animation/CEasingCurve.cpp",
 		"../../../Shared/animation/CPositionRotationAnimation.cpp",
 		-- Todo: Replace these two by using the CryptoPP functions instead
-		"../../../vendor/bochs/bochs_internal/bochs_crc32.cpp",
+		path.join(VENDORS_DIR, "bochs/bochs_internal/bochs_crc32.cpp"),
 	}
 
 	filter "system:windows"
-		includedirs { "../../../vendor/pthreads/include" }
+		includedirs { path.join(VENDORS_DIR, "pthreads/include") }
 		buildoptions { "-Zm130" }
 		links { "ws2_32", "pthread" }
 

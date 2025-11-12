@@ -5,7 +5,7 @@ project "Client Webbrowser"
 	targetdir(buildpath("mta"))
 
 	filter "system:windows"
-		includedirs { "../../vendor/sparsehash/src/windows" }
+		includedirs { path.join(VENDORS_DIR, "sparsehash/src/windows") }
 		buildoptions { "-Zm130" }
 
 	filter {}
@@ -13,12 +13,12 @@ project "Client Webbrowser"
 			MTASA_SDK_SHARED,
 			".",
 			MTASA_SDK_CLIENT,
-			"../../vendor/cef3/cef",
-			"../../vendor/sparsehash/src/"
+			path.join(VENDORS_DIR, "cef3/cef"),
+			path.join(VENDORS_DIR, "sparsehash/src/")
 		}
 
 	libdirs {
-		"../../vendor/cef3/cef/Release"
+		path.join(VENDORS_DIR, "cef3/cef/Release")
 	}
 
 

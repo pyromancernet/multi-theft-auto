@@ -6,7 +6,7 @@ project "XML"
 
 	includedirs {
 		MTASA_SDK_SHARED,
-		"../../vendor/tinyxml"
+		path.join(VENDORS_DIR, "tinyxml")
 	}
 
 	pchheader "StdInc.h"
